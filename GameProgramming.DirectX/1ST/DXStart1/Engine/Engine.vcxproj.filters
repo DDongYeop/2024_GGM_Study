@@ -8,30 +8,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Utills">
+    <Filter Include="Utils">
       <UniqueIdentifier>{c212b65c-525d-412b-aef6-21c32bec42e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
-      <Filter>Utills</Filter>
+      <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="EnginePch.h">
-      <Filter>Utills</Filter>
+      <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="d3dx12.h">
-      <Filter>Utills</Filter>
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Utills</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Utills</Filter>
+      <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="EnginePch.cpp">
-      <Filter>Utills</Filter>
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
