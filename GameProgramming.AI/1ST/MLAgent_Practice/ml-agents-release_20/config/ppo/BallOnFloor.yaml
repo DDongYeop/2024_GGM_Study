@@ -1,5 +1,5 @@
 behaviors:
-    BallOnFloor:
+  BallOnFloor:
     trainer_type: ppo
     hyperparameters:
       batch_size: 64
