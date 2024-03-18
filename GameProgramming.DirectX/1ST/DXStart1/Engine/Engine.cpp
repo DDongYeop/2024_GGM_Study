@@ -1,5 +1,10 @@
 #include "pch.h"
 #include "Engine.h"
+       #include "Device.h"
+#include "CommandQueue.h"
+#include "SwapChain.h"
+#include "DescriptorHeap.h"
+
 
 void Engine::Init(const WindowInfo& wInfo)
 {
@@ -15,6 +20,10 @@ void Engine::Init(const WindowInfo& wInfo)
     _cmdQueue = make_shared<CommandQueue>();
     _swapChain = make_shared<SwapChain>();
     _descHeap = make_shared<DescriptorHeap>();
+
+    // 초기화 함수 호출
+    _device->Init();
+    _cmdQueue->Init(_device->GetDevice(), _swapChain, _descHeap);
 }
 
 void Engine::Render()
