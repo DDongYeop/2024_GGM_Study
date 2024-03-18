@@ -17,3 +17,11 @@ AABCharacterPlayer::AABCharacterPlayer()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
 }
+
+void AABCharacterPlayer::Move(const FInputActionValue& Value)
+{
+}
+
+void AABCharacterPlayer::Look(const FInputActionValue& Value)
+{
+}
