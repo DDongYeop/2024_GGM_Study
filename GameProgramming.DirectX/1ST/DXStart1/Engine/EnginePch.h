@@ -43,4 +43,14 @@ using Vec3 = XMFLOAT3;
 using Vec4 = XMFLOAT4;
 using Matrix = XMMATRIX;
 
-void HelloEngine();
+struct WindowInfo
+{
+    HWND hwnd;          // 출력 윈도우
+    int32 width;        // 너비
+    int32 height;       // 높이
+    bool windowed;      // 창모드인지 전체화면인지
+};
+
+extern unique_ptr<class Engine> GEngine;
+
+//void HelloEngine();

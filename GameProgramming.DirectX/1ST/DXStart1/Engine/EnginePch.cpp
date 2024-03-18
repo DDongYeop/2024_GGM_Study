@@ -1,7 +1,11 @@
 #include "pch.h"
 #include "EnginePch.h"
+#include "Engine.h"
 
-void HelloEngine()
-{
-	// 이 함수를 client에서 호출하는게 1차 목표 
-}
+unique_ptr<Engine> GEngine = make_unique<Engine>();
+
+//void HelloEngine()
+//{
+//	// 이 함수를 client에서 호출하는게 1차 목표 
+//	// 성공!
+//}
