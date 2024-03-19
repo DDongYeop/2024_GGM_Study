@@ -21,6 +21,9 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void SetCharacterControl(ECharacterControlType NewCharacterControlType);
+
+	ECharacterControlType CurrentCharacterControlType;
 
 	//Camera Section
 protected:
