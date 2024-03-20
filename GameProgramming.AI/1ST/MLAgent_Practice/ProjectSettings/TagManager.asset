@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Wall
   - Target
+  - GoodItem
+  - BadItem
   layers:
   - Default
   - TransparentFX
