@@ -144,16 +144,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 5
+    VectorObservationSize: 8
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
-      BranchSizes: 01000000
-    VectorActionSize: 
+      BranchSizes: 
+    VectorActionSize: 02000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: ad09f5a0e49703c43b407ee65b9dbd3a, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: MummyGo
@@ -177,13 +177,10 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 5000
-  _floorMat: {fileID: 2100000, guid: 7ad7a23b865153e4d88f0c5595676999, type: 2}
-  _redMat: {fileID: 2100000, guid: 9ea32fa8e63d83849b6e7a8795cb8a51, type: 2}
-  _blueMat: {fileID: 2100000, guid: ebf0b7ba9e6db634280fbd797acd50c4, type: 2}
-  _targetTrm: {fileID: 0}
-  _floorMesh: {fileID: 0}
-  _speed: 2.5
+  MaxStep: 1000
+  FloorMaterials: {fileID: 2100000, guid: 7ad7a23b865153e4d88f0c5595676999, type: 2}
+  GoodMaterials: {fileID: 2100000, guid: ebf0b7ba9e6db634280fbd797acd50c4, type: 2}
+  BadMaterials: {fileID: 2100000, guid: 9ea32fa8e63d83849b6e7a8795cb8a51, type: 2}
 --- !u!114 &1527890960279006815
 MonoBehaviour:
   m_ObjectHideFlags: 0
