@@ -23,10 +23,17 @@ public:
 	// Sets default values for this character's properties
 	AABCharacterBase();
 
+	// Character Control Data Section
 protected:
 	virtual void SetCharacterControlData(const class UABCharacterControlData* CharacterControlData);
 
 	UPROPERTY(EditAnywhere, Category = CharacterControl, Meta = (AllowPrivateAccess = "true"))
 	TMap<ECharacterControlType, class UABCharacterControlData*> CharacterControlManager;
 
+	//Combo Action Section
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation)
+	TObjectPtr<class UAnimMontage> ComboActionMontage;
+
+	void ProcessComboCommand();
 };

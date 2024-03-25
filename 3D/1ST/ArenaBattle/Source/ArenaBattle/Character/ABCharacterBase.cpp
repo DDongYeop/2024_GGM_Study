@@ -69,3 +69,10 @@ void AABCharacterBase::SetCharacterControlData(const UABCharacterControlData* Ch
 	GetCharacterMovement()->RotationRate = CharacterControlData->RotationRate;
 
 }
+
+void AABCharacterBase::ProcessComboCommand()
+{
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance)
+		AnimInstance->Montage_Play(ComboActionMontage);
+}
