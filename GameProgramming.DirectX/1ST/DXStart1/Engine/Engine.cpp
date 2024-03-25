@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Engine.h"
-       #include "Device.h"
+#include "Device.h"
 #include "CommandQueue.h"
 #include "SwapChain.h"
 #include "DescriptorHeap.h"
@@ -25,10 +25,26 @@ void Engine::Init(const WindowInfo& wInfo)
     _device->Init();
     _cmdQueue->Init(_device->GetDevice(), _swapChain, _descHeap);
     _swapChain->Init(wInfo, _device->GetDXGI(), _cmdQueue->GetCmdQueue());
+    _descHeap->Init(_device->GetDevice(), _swapChain);
 }
 
 void Engine::Render()
 {
+    RenderBegin();
+
+    //나머지 물체 그리기
+    
+    RenderEnd();
+}
+
+void Engine::RenderBegin()
+{
+    _cmdQueue->RenderBegin(&_viewport, &_scissorRect);
+}
+
+void Engine::RenderEnd()
+{
+    _cmdQueue->RenderEnd();
 }
 
 void Engine::ResizeWindow(int32 width, int32 height)

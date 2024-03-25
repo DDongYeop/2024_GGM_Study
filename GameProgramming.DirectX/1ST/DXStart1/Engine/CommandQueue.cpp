@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "CommandQueue.h"
+#include "SwapChain.h"
+#include "DescriptorHeap.h"
 
 CommandQueue::~CommandQueue()
 {
@@ -58,3 +60,47 @@ void CommandQueue::WaitSync()
     }
 }
 
+void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
+{
+    _cmdAlloc->Reset();
+    _cmdList->Reset(_cmdAlloc.Get(), nullptr);
+
+    D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(
+        _swapChain->GetCurrentBackBufferResource().Get(),
+        D3D12_RESOURCE_STATE_PRESENT, // 화면 출력
+        D3D12_RESOURCE_STATE_RENDER_TARGET); // 외주 결과물
+
+    _cmdList->ResourceBarrier(1, &barrier);
+
+    //뷰포트와 가위 사각형을 설정한다 
+    //이는 명령 목록이 재설정 될 때마다 호출 되어야만 한다
+    _cmdList->RSSetViewports(1, vp);
+    _cmdList->RSSetScissorRects(1, rect);
+
+    //렌더링 할 버퍼를 지정한다
+    D3D12_CPU_DESCRIPTOR_HANDLE backBufferView = _descHeap->GetBackBufferView();
+    _cmdList->ClearRenderTargetView(backBufferView, Colors::LightSteelBlue, 0, nullptr);
+    _cmdList->OMSetRenderTargets(1, &backBufferView, FALSE, nullptr);
+}
+
+void CommandQueue::RenderEnd()
+{
+    D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(
+        _swapChain->GetCurrentBackBufferResource().Get(),
+        D3D12_RESOURCE_STATE_RENDER_TARGET, //외주 결과물
+        D3D12_RESOURCE_STATE_PRESENT);  //화면 출력 
+
+    _cmdList->ResourceBarrier(1, &barrier);
+    _cmdList->Close();
+
+    //커맨드 리스트 수행
+    ID3D12CommandList* cmdListArr[] = { _cmdList.Get() };
+    _cmdQueue->ExecuteCommandLists(_countof(cmdListArr), cmdListArr);
+
+    //현재 화면 보여줌
+    _swapChain->Present();
+
+    WaitSync();
+
+    _swapChain->SwapIndex();
+}
