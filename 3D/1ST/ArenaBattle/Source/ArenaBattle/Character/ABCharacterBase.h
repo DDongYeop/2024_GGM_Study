@@ -35,5 +35,18 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation)
 	TObjectPtr<class UAnimMontage> ComboActionMontage;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Attack)
+	TObjectPtr<class UABComboActionData> ComboAction;
+
+	int32 CurrentCombo = 0;
+	FTimerHandle ComboTimerHandle;
+	bool HasNextComboCommand = false;
+
 	void ProcessComboCommand();
+
+	void ComboActionBegin();
+	void ComboActionEnd(class UAnimMontage* TargetMontage, bool IsPropertyEnded);
+
+	void SetComboCheckTimer();
+	void ComboCheck();
 };
