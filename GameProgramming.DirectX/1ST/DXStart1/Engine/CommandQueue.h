@@ -11,6 +11,8 @@ public:
     void Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swapChain, shared_ptr<DescriptorHeap> descHeap);
     void WaitSync();
 
+    ComPtr<ID3D12CommandQueue> GetCmdQueue() { return _cmdQueue; }
+
 private:
     // DX12 이전까진 없던 개념 (DX12에서 처음 등장!)
     // 외주를 요청할때 하나씩 요청하면 비효율적

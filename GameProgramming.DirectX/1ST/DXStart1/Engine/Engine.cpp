@@ -24,6 +24,7 @@ void Engine::Init(const WindowInfo& wInfo)
     // 초기화 함수 호출
     _device->Init();
     _cmdQueue->Init(_device->GetDevice(), _swapChain, _descHeap);
+    _swapChain->Init(wInfo, _device->GetDXGI(), _cmdQueue->GetCmdQueue());
 }
 
 void Engine::Render()

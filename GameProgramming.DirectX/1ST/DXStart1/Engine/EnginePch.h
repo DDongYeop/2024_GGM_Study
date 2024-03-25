@@ -43,6 +43,11 @@ using Vec3 = XMFLOAT3;
 using Vec4 = XMFLOAT4;
 using Matrix = XMMATRIX;
 
+enum
+{
+    SWAP_CHAIN_BUFFER_COUNT = 2
+};
+
 struct WindowInfo
 {
     HWND hwnd;          // 출력 윈도우
