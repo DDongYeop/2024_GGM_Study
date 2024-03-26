@@ -59,6 +59,10 @@ AABCharacterBase::AABCharacterBase()
 	}
 }
 
+void AABCharacterBase::AttackHitCheck()
+{
+}
+
 void AABCharacterBase::SetCharacterControlData(const UABCharacterControlData* CharacterControlData)
 {
 	// Pawn
@@ -139,7 +143,6 @@ void AABCharacterBase::ComboCheck()
 	{
 		UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 		CurrentCombo = FMath::Clamp(CurrentCombo + 1, 1, ComboAction->MaxComboCount);
-
 
 		FName NextSection = *FString::Printf(TEXT("%s%d"), *ComboAction->MontageSectionNamePrefix, CurrentCombo);
 		

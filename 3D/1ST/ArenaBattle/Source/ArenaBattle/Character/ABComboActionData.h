@@ -22,7 +22,7 @@ public:
 	FString MontageSectionNamePrefix;
 
 	UPROPERTY(EditAnywhere, Category = Name)
-	FString MaxComboCount;
+	uint8 MaxComboCount;
 
 	UPROPERTY(EditAnywhere, Category = Name)
 	float FrameRate;
