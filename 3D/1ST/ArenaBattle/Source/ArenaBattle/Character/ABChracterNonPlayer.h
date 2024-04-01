@@ -14,4 +14,9 @@ class ARENABATTLE_API AABChracterNonPlayer : public AABCharacterBase
 {
 	GENERATED_BODY()
 	
+protected:
+	AABChracterNonPlayer();
+
+protected:
+	virtual void SetDead() override;
 };

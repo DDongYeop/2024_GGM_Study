@@ -28,6 +28,18 @@ public:
 protected:
 	virtual void AttackHitCheck() override;
 
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
+
+	//Dead Section
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = "true"));
+	TObjectPtr<class UAnimMontage> DeadMontage;
+
+	float DeadEventDelayTime = 5.0f;
+
+	virtual void SetDead();
+	void PlayDeadAnimation();
+
 	// Character Control Data Section
 protected:
 	virtual void SetCharacterControlData(const class UABCharacterControlData* CharacterControlData);

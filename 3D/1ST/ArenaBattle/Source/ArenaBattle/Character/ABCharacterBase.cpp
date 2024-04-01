@@ -7,6 +7,8 @@
 #include "ABCharacterControlData.h"
 #include "ABComboActionData.h"
 #include "Physics/ABCollision.h" 
+#include "Engine/DamageEvents.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 AABCharacterBase::AABCharacterBase()
@@ -58,6 +60,20 @@ AABCharacterBase::AABCharacterBase()
 	{
 		CharacterControlManager.Add(ECharacterControlType::Quater, QuaterDataRef.Object);
 	}
+
+	//Montage 
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> ComboActionMontageRef(TEXT("/Game/ArenaBattle/Animation/AM_ComboAttack.AM_ComboAttack"));
+	if (ComboActionMontageRef.Object)
+		ComboActionMontage = ComboActionMontageRef.Object;
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> DeadActionMontageRef(TEXT("/Game/ArenaBattle/Animation/AM_Dead.AM_Dead"));
+	if (DeadActionMontageRef.Object)
+		DeadMontage = DeadActionMontageRef.Object;
+
+	//ComboAction
+	static ConstructorHelpers::FObjectFinder<UABComboActionData> ComboActionDataRef(TEXT("/Game/ArenaBattle/CharacterAction/ABA_ComboAttack.ABA_ComboAttack"));
+	if (ComboActionDataRef.Object)
+		ComboAction = ComboActionDataRef.Object;
 }
 
 void AABCharacterBase::AttackHitCheck()
@@ -76,6 +92,9 @@ void AABCharacterBase::AttackHitCheck()
 	if (HitDetected)
 	{
 		// 충돌 검출 
+		FDamageEvent DamageEvent;
+		OutHitResult.GetActor()->TakeDamage(AttackDamage, DamageEvent, GetController(), this);
+		//UGameplayStatics::ApplyDamage(OutHitResult.GetActor(), AttackDamage, GetController(), nullptr, nullptr);
 	}
 
 #if ENABLE_DRAW_DEBUG
@@ -85,6 +104,27 @@ void AABCharacterBase::AttackHitCheck()
 
 	DrawDebugCapsule(GetWorld(), CapsuleOrigin, CapsuleHalfHeight, AttackRadius, FRotationMatrix::MakeFromZ(GetActorForwardVector()).ToQuat(), DrawColor, false, 5.0f);
 #endif
+}
+
+float AABCharacterBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	SetDead();
+	return DamageAmount;
+}
+
+void AABCharacterBase::SetDead()
+{
+	GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_None);
+	PlayDeadAnimation();
+	SetActorEnableCollision(false);
+}
+
+void AABCharacterBase::PlayDeadAnimation()
+{
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	AnimInstance->StopAllMontages(0.0f);
+	AnimInstance->Montage_Play(DeadMontage, 1.0f);
 }
 
 void AABCharacterBase::SetCharacterControlData(const UABCharacterControlData* CharacterControlData)
