@@ -4,20 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "ABUserWIdget.generated.h"
+#include "ABUserWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ARENABATTLE_API UABUserWIdget : public UUserWidget
+class ARENABATTLE_API UABUserWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
 public:
 	FORCEINLINE void SetOwningActor(AActor* NewOwner) { OwningActor = NewOwner; }
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Actor")
 	TObjectPtr<AActor> OwningActor;
+	
 };

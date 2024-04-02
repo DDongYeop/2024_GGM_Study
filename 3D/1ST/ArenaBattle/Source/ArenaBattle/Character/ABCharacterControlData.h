@@ -13,13 +13,13 @@ UCLASS()
 class ARENABATTLE_API UABCharacterControlData : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
-
+	
 public:
 	UABCharacterControlData();
 
 public:
 	UPROPERTY(EditAnywhere, Category = Pawn)
-	uint32 bUseControllerRotationYaw = 1;
+	uint32 bUseControllerRotationYaw : 1;
 
 	UPROPERTY(EditAnywhere, Category = CharacterMovement)
 	uint32 bOrientRotationToMovement : 1;
@@ -34,7 +34,7 @@ public:
 	TObjectPtr<class UInputMappingContext> InputMappingContext;
 
 	UPROPERTY(EditAnywhere, Category = SpringArm)
-	float TargetArmLeghth;
+	float TargetArmLength;
 
 	UPROPERTY(EditAnywhere, Category = SpringArm)
 	FRotator RelativeRotation;

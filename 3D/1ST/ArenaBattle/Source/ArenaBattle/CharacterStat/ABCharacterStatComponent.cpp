@@ -10,6 +10,7 @@ UABCharacterStatComponent::UABCharacterStatComponent()
 	CurrentHp = MaxHp;
 }
 
+
 // Called when the game starts
 void UABCharacterStatComponent::BeginPlay()
 {
@@ -22,7 +23,7 @@ float UABCharacterStatComponent::ApplyDamage(float InDamage)
 {
 	const float PrevHp = CurrentHp;
 	const float ActualDamage = FMath::Clamp<float>(InDamage, 0, InDamage);
-	
+
 	SetHp(PrevHp - ActualDamage);
 
 	if (CurrentHp <= KINDA_SMALL_NUMBER)
@@ -40,3 +41,5 @@ void UABCharacterStatComponent::SetHp(float NewHp)
 
 	OnHpChanged.Broadcast(CurrentHp);
 }
+
+

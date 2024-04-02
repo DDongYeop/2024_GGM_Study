@@ -6,13 +6,14 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "ABCharacterControlData.h"
 #include "ABComboActionData.h"
-#include "Physics/ABCollision.h" 
+#include "Physics/ABCollision.h"
 #include "Engine/DamageEvents.h"
 #include <Kismet/GameplayStatics.h>
 #include "CharacterStat/ABCharacterStatComponent.h"
+#include "Components/WidgetComponent.h"
 #include "UI/ABWidgetComponent.h"
-#include "UI/ABUserWIdget.h"
-#include "UI/ABHpBarWidjet.h"
+#include "UI/ABUserWidget.h"
+#include "UI/ABHpBarWidget.h"
 
 // Sets default values
 AABCharacterBase::AABCharacterBase()
@@ -29,7 +30,7 @@ AABCharacterBase::AABCharacterBase()
 	// Movement
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
-	GetCharacterMovement()->JumpZVelocity = 900.0f;
+	GetCharacterMovement()->JumpZVelocity = 700.0f;
 	GetCharacterMovement()->AirControl = 0.35f;
 	GetCharacterMovement()->MaxWalkSpeed = 500.0f;
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.0f;
@@ -52,7 +53,7 @@ AABCharacterBase::AABCharacterBase()
 		GetMesh()->SetAnimInstanceClass(AnimInstanceClassRef.Class);
 	}
 
-	//Character Cohntrol Data Asset
+	// Character Control Data Asset 
 	static ConstructorHelpers::FObjectFinder<UABCharacterControlData> ShoulderDataRef(TEXT("/Game/ArenaBattle/CharacterControl/ABC_Shoulder.ABC_Shoulder"));
 	if (ShoulderDataRef.Object)
 	{
@@ -65,24 +66,30 @@ AABCharacterBase::AABCharacterBase()
 		CharacterControlManager.Add(ECharacterControlType::Quater, QuaterDataRef.Object);
 	}
 
-	//Montage 
+	// Montage
 	static ConstructorHelpers::FObjectFinder<UAnimMontage> ComboActionMontageRef(TEXT("/Game/ArenaBattle/Animation/AM_ComboAttack.AM_ComboAttack"));
 	if (ComboActionMontageRef.Object)
+	{
 		ComboActionMontage = ComboActionMontageRef.Object;
+	}
 
 	static ConstructorHelpers::FObjectFinder<UAnimMontage> DeadActionMontageRef(TEXT("/Game/ArenaBattle/Animation/AM_Dead.AM_Dead"));
 	if (DeadActionMontageRef.Object)
+	{
 		DeadMontage = DeadActionMontageRef.Object;
+	}
 
-	//ComboAction
+	// ComboAction Data
 	static ConstructorHelpers::FObjectFinder<UABComboActionData> ComboActionDataRef(TEXT("/Game/ArenaBattle/CharacterAction/ABA_ComboAttack.ABA_ComboAttack"));
 	if (ComboActionDataRef.Object)
+	{
 		ComboAction = ComboActionDataRef.Object;
+	}
 
-	//Stat Component
+	// stat Component
 	Stat = CreateDefaultSubobject<UABCharacterStatComponent>(TEXT("Stat"));
 
-	//Widget Component
+	// Widget Component
 	HpBar = CreateDefaultSubobject<UABWidgetComponent>(TEXT("Widget"));
 	HpBar->SetupAttachment(GetMesh());
 	HpBar->SetRelativeLocation(FVector(0.0f, 0.0f, 180.0f));
@@ -106,21 +113,21 @@ void AABCharacterBase::PostInitializeComponents()
 
 void AABCharacterBase::SetupCharacterWidget(UABUserWidget* InUserWidget)
 {
-	UABHpBarWidjet* HpBarWidget = Cast<UABHpBarWidjet>(InUserWidget);
+	UABHpBarWidget* HpBarWidget = Cast<UABHpBarWidget>(InUserWidget);
 
 	if (HpBarWidget)
 	{
 		HpBarWidget->SetMaxHp(Stat->GetMaxHp());
-		HpBarWidget->SetMaxHp(Stat->GetCurrentHp());
+		HpBarWidget->UpdateHpBar(Stat->GetCurrentHp());
 
-		Stat->OnHpChanged.AddUObject(HpBarWidget, &UABHpBarWidjet::UpdateHpBar);
+		Stat->OnHpChanged.AddUObject(HpBarWidget, &UABHpBarWidget::UpdateHpBar);
 	}
 }
 
 void AABCharacterBase::AttackHitCheck()
 {
 	FHitResult OutHitResult;
-	FCollisionQueryParams Params(SCENE_QUERY_STAT(Attack), false, this);
+	FCollisionQueryParams Params(SCENE_QUERY_STAT(Attak), false, this);
 
 	const float AttackRange = 40.0f;
 	const float AttackRadius = 50.0f;
@@ -132,15 +139,16 @@ void AABCharacterBase::AttackHitCheck()
 
 	if (HitDetected)
 	{
-		// 충돌 검출 
+		// 충돌 검출
 		FDamageEvent DamageEvent;
 		OutHitResult.GetActor()->TakeDamage(AttackDamage, DamageEvent, GetController(), this);
+		
 		//UGameplayStatics::ApplyDamage(OutHitResult.GetActor(), AttackDamage, GetController(), nullptr, nullptr);
 	}
 
 #if ENABLE_DRAW_DEBUG
 	FVector CapsuleOrigin = Start + (End - Start) * 0.5f;
-	float CapsuleHalfHeight = AttackRange * .5f;
+	float CapsuleHalfHeight = AttackRange * 0.5f;
 	FColor DrawColor = HitDetected ? FColor::Green : FColor::Red;
 
 	DrawDebugCapsule(GetWorld(), CapsuleOrigin, CapsuleHalfHeight, AttackRadius, FRotationMatrix::MakeFromZ(GetActorForwardVector()).ToQuat(), DrawColor, false, 5.0f);
@@ -150,7 +158,7 @@ void AABCharacterBase::AttackHitCheck()
 float AABCharacterBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-	
+
 	Stat->ApplyDamage(DamageAmount);
 
 	return DamageAmount;
@@ -175,20 +183,15 @@ void AABCharacterBase::SetCharacterControlData(const UABCharacterControlData* Ch
 {
 	// Pawn
 	bUseControllerRotationYaw = CharacterControlData->bUseControllerRotationYaw;
-	
-	// CharacterMovement
+
+	// Character Movement
 	GetCharacterMovement()->bOrientRotationToMovement = CharacterControlData->bOrientRotationToMovement;
 	GetCharacterMovement()->bUseControllerDesiredRotation = CharacterControlData->bUseControllerDesiredRotation;
 	GetCharacterMovement()->RotationRate = CharacterControlData->RotationRate;
-
 }
 
 void AABCharacterBase::ProcessComboCommand()
 {
-	/*UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance)
-		AnimInstance->Montage_Play(ComboActionMontage);*/
-
 	if (CurrentCombo == 0)
 	{
 		ComboActionBegin();
@@ -196,10 +199,13 @@ void AABCharacterBase::ProcessComboCommand()
 	}
 
 	if (ComboTimerHandle.IsValid())
+	{
 		HasNextComboCommand = true;
+	}
 	else
+	{
 		HasNextComboCommand = false;
-
+	}
 }
 
 void AABCharacterBase::ComboActionBegin()
@@ -215,7 +221,7 @@ void AABCharacterBase::ComboActionBegin()
 		AnimInstance->Montage_Play(ComboActionMontage, AttackSpeedRate);
 	}
 
-	//Montage Endded Elegate
+	// Montage Ended Delegate
 	FOnMontageEnded EndDelegate;
 	EndDelegate.BindUObject(this, &AABCharacterBase::ComboActionEnd);
 	AnimInstance->Montage_SetEndDelegate(EndDelegate, ComboActionMontage);
@@ -240,7 +246,9 @@ void AABCharacterBase::SetComboCheckTimer()
 	float ComboEffectiveTime = (ComboAction->EffectiveFrameCount[ComboIndex] / ComboAction->FrameRate) / AttackSpeedRate;
 
 	if (ComboEffectiveTime > 0.0f)
-		GetWorld()->GetTimerManager().SetTimer(ComboTimerHandle, this, &AABCharacterBase::ComboCheck, ComboEffectiveTime, false);
+	{
+		GetWorld()->GetTimerManager().SetTimer(ComboTimerHandle, this,  &AABCharacterBase::ComboCheck, ComboEffectiveTime, false);
+	}
 }
 
 void AABCharacterBase::ComboCheck()
@@ -250,12 +258,15 @@ void AABCharacterBase::ComboCheck()
 	if (HasNextComboCommand)
 	{
 		UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+
 		CurrentCombo = FMath::Clamp(CurrentCombo + 1, 1, ComboAction->MaxComboCount);
 
 		FName NextSection = *FString::Printf(TEXT("%s%d"), *ComboAction->MontageSectionNamePrefix, CurrentCombo);
-		
+
 		AnimInstance->Montage_JumpToSection(NextSection, ComboActionMontage);
 		SetComboCheckTimer();
 		HasNextComboCommand = false;
 	}
 }
+
+

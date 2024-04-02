@@ -3,23 +3,22 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
-#include "ABUserWIdget.h"
-#include "ABHpBarWidjet.generated.h"
+#include "ABUserWidget.h"
+#include "ABHpBarWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ARENABATTLE_API UABHpBarWidjet : public UABUserWIdget
+class ARENABATTLE_API UABHpBarWidget : public UABUserWidget
 {
 	GENERATED_BODY()
 	
 public:
-	UABHpBarWidjet(const FObjectInitializer& ObjectInitializer);
+	UABHpBarWidget(const FObjectInitializer& ObjectInitializer);
 
 protected:
-	virtual void NativeConstruct();
+	virtual void NativeConstruct() override;
 
 public:
 	FORCEINLINE void SetMaxHp(float NewMaxHp) { MaxHp = NewMaxHp; }
@@ -28,7 +27,7 @@ public:
 protected:
 	UPROPERTY()
 	TObjectPtr<class UProgressBar> HpProgressBar;
-	
+
 	UPROPERTY()
 	float MaxHp;
 };

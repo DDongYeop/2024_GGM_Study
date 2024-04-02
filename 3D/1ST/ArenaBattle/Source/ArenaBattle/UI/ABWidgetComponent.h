@@ -13,7 +13,7 @@ UCLASS()
 class ARENABATTLE_API UABWidgetComponent : public UWidgetComponent
 {
 	GENERATED_BODY()
-	
+
 protected:
 	virtual void InitWidget() override;
 };

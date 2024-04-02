@@ -16,7 +16,7 @@ class ARENABATTLE_API UABAnimInstance : public UAnimInstance
 
 public:
 	UABAnimInstance();
-	
+
 protected:
 	virtual void NativeInitializeAnimation() override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;

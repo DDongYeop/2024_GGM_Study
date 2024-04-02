@@ -1,16 +1,16 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/ABHpBarWidjet.h"
+#include "UI/ABHpBarWidget.h"
 #include "Components/ProgressBar.h"
-#include "UI//ABCharacterWidgetInterface.h"
+#include "Interface/ABCharacterWidgetInterface.h"
 
-UABHpBarWidjet::UABHpBarWidjet(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+UABHpBarWidget::UABHpBarWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	MaxHp = -1.0f;
 }
 
-void UABHpBarWidjet::NativeConstruct()
+void UABHpBarWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
@@ -25,7 +25,7 @@ void UABHpBarWidjet::NativeConstruct()
 	}
 }
 
-void UABHpBarWidjet::UpdateHpBar(float NewCurrentHp)
+void UABHpBarWidget::UpdateHpBar(float NewCurrentHp)
 {
 	ensure(MaxHp > 0.0f);
 

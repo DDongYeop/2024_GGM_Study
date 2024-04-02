@@ -1,24 +1,26 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Character/ABChracterNonPlayer.h"
-#include "Components//CapsuleComponent.h"
-#include "Physics//ABCollision.h"
+#include "Character/ABCharacterNonPlayer.h"
+#include "Components/CapsuleComponent.h"
+#include "Physics/ABCollision.h"
 
-AABChracterNonPlayer::AABChracterNonPlayer()
+AABCharacterNonPlayer::AABCharacterNonPlayer()
 {
-	//Capsule
+	// Capsule
 	GetCapsuleComponent()->SetCollisionProfileName(CPROFILE_ABCAPSULE);
 
-	//Mesh
+	// Mesh
 	GetMesh()->SetCollisionProfileName(TEXT("NoCollision"));
 
-	static ConstructorHelpers::FObjectFinder <USkeletalMesh> CharacterMeshRef(TEXT("/Game/InfinityBladeWarriors/Character/CompleteCharacters/SK_CharM_Ram.SK_CharM_Ram"));
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> CharacterMeshRef(TEXT("/Game/InfinityBladeWarriors/Character/CompleteCharacters/SK_CharM_Tusk.SK_CharM_Tusk"));
 	if (CharacterMeshRef.Object)
+	{
 		GetMesh()->SetSkeletalMesh(CharacterMeshRef.Object);
+	}
 }
 
-void AABChracterNonPlayer::SetDead()
+void AABCharacterNonPlayer::SetDead()
 {
 	Super::SetDead();
 
@@ -27,5 +29,6 @@ void AABChracterNonPlayer::SetDead()
 		[&]()
 		{
 			Destroy();
-		}), DeadEventDelayTime, false);
+		}), 
+		DeadEventDelayTime, false);
 }

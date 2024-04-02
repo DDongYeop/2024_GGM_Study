@@ -34,11 +34,11 @@ public:
 	FOnHpChangedDelegate OnHpChanged;
 
 protected:
-	// VisibleInstanceOnly : 생성시마다 별도로 실행하기 위한 옵션 
+	// VisibleInstanceOnly : 생성시 마다 별도로 실행하기 위한 옵션
 	UPROPERTY(VisibleInstanceOnly, Category = Stat)
 	float MaxHp;
 
-	// Transient : 디스크에 저장할 필요가 없는 경우 설정하는 옵션 
+	// Transient : 디스크에 저장할 필요가 없는 경우 설정하는 옵션
 	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat)
 	float CurrentHp;
 };

@@ -21,14 +21,16 @@ AABFountain::AABFountain()
 
 	Water = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Water"));
 	Water->SetupAttachment(Body);
-	Water->AddRelativeLocation(FVector(0.0f, 0.0f, 132.0f));
+	Water->SetRelativeLocation(FVector(0.0f, 0.0f, 132.0f));
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> WaterMeshRef(TEXT("/Game/ArenaBattle/Environment/Props/SM_Plains_Fountain_02.SM_Plains_Fountain_02"));
 
-	if (BodyMeshRef.Object)
+	if (WaterMeshRef.Object)
 	{
 		Water->SetStaticMesh(WaterMeshRef.Object);
 	}
+
+
 }
 
 // Called when the game starts or when spawned

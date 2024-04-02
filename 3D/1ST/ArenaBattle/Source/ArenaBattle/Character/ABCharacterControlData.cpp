@@ -5,5 +5,5 @@
 
 UABCharacterControlData::UABCharacterControlData()
 {
-	TargetArmLeghth = 400.0f;
+	TargetArmLength = 400.0f;
 }

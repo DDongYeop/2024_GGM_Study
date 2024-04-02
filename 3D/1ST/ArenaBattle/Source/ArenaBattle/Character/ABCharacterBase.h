@@ -5,9 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Interface/ABAnimationAttackInterface.h"
-#include "UI/ABCharacterWidgetInterface.h"
+#include "Interface/ABCharacterWidgetInterface.h"
 #include "ABCharacterBase.generated.h"
-
 
 UENUM()
 enum class ECharacterControlType : uint8
@@ -27,26 +26,27 @@ public:
 
 	virtual void PostInitializeComponents() override;
 
-	//Stat Section
+// Stat Section
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = "True"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, Meta=(AllowPrivateAccess = "true"))
 	TObjectPtr<class UABCharacterStatComponent> Stat;
 
-	//Widget(UI) Section
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Widjet, Meta = (AllowPrivateAccess = "True"))
+// Widget(UI) Section
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Widget, Meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UABWidgetComponent> HpBar;
 
 	virtual void SetupCharacterWidget(class UABUserWidget* InUserWidget) override;
 
-	//Attack Hit Section
+// Attack Hit Section
 protected:
 	virtual void AttackHitCheck() override;
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
-	//Dead Section
+// Dead Section
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess = "true"));
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Stat, Meta = (AllowPrivateAccess="true"))
 	TObjectPtr<class UAnimMontage> DeadMontage;
 
 	float DeadEventDelayTime = 5.0f;
@@ -54,14 +54,14 @@ protected:
 	virtual void SetDead();
 	void PlayDeadAnimation();
 
-	// Character Control Data Section
+// Character Control Data Section
 protected:
 	virtual void SetCharacterControlData(const class UABCharacterControlData* CharacterControlData);
 
 	UPROPERTY(EditAnywhere, Category = CharacterControl, Meta = (AllowPrivateAccess = "true"))
 	TMap<ECharacterControlType, class UABCharacterControlData*> CharacterControlManager;
 
-	//Combo Action Section
+// Combo Action Section
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation)
 	TObjectPtr<class UAnimMontage> ComboActionMontage;

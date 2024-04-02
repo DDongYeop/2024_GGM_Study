@@ -2,13 +2,13 @@
 
 
 #include "UI/ABWidgetComponent.h"
-#include "ABUserWIdget.h"
+#include "ABUserWidget.h"
 
 void UABWidgetComponent::InitWidget()
 {
 	Super::InitWidget();
 
-	UABUserWIdget* ABUserWidget = Cast<UABUserWIdget>(GetWidget());
+	UABUserWidget* ABUserWidget = Cast<UABUserWidget>(GetWidget());
 
 	if (ABUserWidget)
 	{

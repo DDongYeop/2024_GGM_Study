@@ -4,18 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "Character/ABCharacterBase.h"
-#include "ABChracterNonPlayer.generated.h"
+#include "ABCharacterNonPlayer.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ARENABATTLE_API AABChracterNonPlayer : public AABCharacterBase
+class ARENABATTLE_API AABCharacterNonPlayer : public AABCharacterBase
 {
 	GENERATED_BODY()
 	
-protected:
-	AABChracterNonPlayer();
+public:
+	AABCharacterNonPlayer();
 
 protected:
 	virtual void SetDead() override;

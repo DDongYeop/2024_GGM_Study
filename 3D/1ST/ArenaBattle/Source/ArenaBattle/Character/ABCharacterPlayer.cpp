@@ -14,7 +14,7 @@ AABCharacterPlayer::AABCharacterPlayer()
 	// Camera
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 400.0f; // 4m 
+	CameraBoom->TargetArmLength = 400.0f; // 4미터 
 	CameraBoom->bUsePawnControlRotation = true;
 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
@@ -24,27 +24,39 @@ AABCharacterPlayer::AABCharacterPlayer()
 	// Input
 	static ConstructorHelpers::FObjectFinder<UInputAction> JumpActionRef(TEXT("/Game/ArenaBattle/Input/Actions/IA_Jump.IA_Jump"));
 	if (JumpActionRef.Object)
+	{
 		JumpAction = JumpActionRef.Object;
+	}
 
-	static ConstructorHelpers::FObjectFinder<UInputAction> ShoulderMoveActionRef(TEXT("/Game/ArenaBattle/Input/Actions/IA_ShoulderMove.IA_ShoulderMove"));
-	if (ShoulderMoveActionRef.Object)
-		ShoulderMoveAction = ShoulderMoveActionRef.Object;
+	static ConstructorHelpers::FObjectFinder<UInputAction> MoveActionRef(TEXT("/Game/ArenaBattle/Input/Actions/IA_ShoulderMove.IA_ShoulderMove"));
+	if (MoveActionRef.Object)
+	{
+		ShoulderMoveAction = MoveActionRef.Object;
+	}
 
-	static ConstructorHelpers::FObjectFinder<UInputAction> ShoulderLookActionRef(TEXT("/Game/ArenaBattle/Input/Actions/IA_ShoulderLook.IA_ShoulderLook"));
-	if (ShoulderLookActionRef.Object)
-		ShoulderLookAction = ShoulderLookActionRef.Object;
+	static ConstructorHelpers::FObjectFinder<UInputAction> LookActionRef(TEXT("/Game/ArenaBattle/Input/Actions/IA_ShoulderLook.IA_ShoulderLook"));
+	if (LookActionRef.Object)
+	{
+		ShoulderLookAction = LookActionRef.Object;
+	}
 
 	static ConstructorHelpers::FObjectFinder<UInputAction> QuaterMoveActionRef(TEXT("/Game/ArenaBattle/Input/Actions/IA_QuaterMove.IA_QuaterMove"));
 	if (QuaterMoveActionRef.Object)
+	{
 		QuaterMoveAction = QuaterMoveActionRef.Object;
+	}
 
 	static ConstructorHelpers::FObjectFinder<UInputAction> ChangeControlActionRef(TEXT("/Game/ArenaBattle/Input/Actions/IA_ChangeControl.IA_ChangeControl"));
 	if (ChangeControlActionRef.Object)
+	{
 		ChangeControlAction = ChangeControlActionRef.Object;
+	}
 
 	static ConstructorHelpers::FObjectFinder<UInputAction> AttackActionRef(TEXT("/Game/ArenaBattle/Input/Actions/IA_Attack.IA_Attack"));
 	if (AttackActionRef.Object)
+	{
 		AttackAction = AttackActionRef.Object;
+	}
 
 	// 현재 컨트롤 타입 설정
 	CurrentCharacterControlType = ECharacterControlType::Quater;
@@ -62,6 +74,7 @@ void AABCharacterPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent);
+
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 	EnhancedInputComponent->BindAction(ShoulderMoveAction, ETriggerEvent::Triggered, this, &AABCharacterPlayer::ShoulderMove);
@@ -69,6 +82,19 @@ void AABCharacterPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	EnhancedInputComponent->BindAction(QuaterMoveAction, ETriggerEvent::Triggered, this, &AABCharacterPlayer::QuaterMove);
 	EnhancedInputComponent->BindAction(ChangeControlAction, ETriggerEvent::Triggered, this, &AABCharacterPlayer::ChangeCharacterControl);
 	EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &AABCharacterPlayer::Attack);
+}
+
+void AABCharacterPlayer::SetCharacterControlData(const UABCharacterControlData* CharacterControlData)
+{
+	Super::SetCharacterControlData(CharacterControlData);
+
+	CameraBoom->TargetArmLength = CharacterControlData->TargetArmLength;
+	CameraBoom->SetRelativeRotation(CharacterControlData->RelativeRotation);
+	CameraBoom->bUsePawnControlRotation = CharacterControlData->bUsePawnControlRotation;
+	CameraBoom->bInheritPitch = CharacterControlData->bInheritPitch;
+	CameraBoom->bInheritYaw = CharacterControlData->bInheritYaw;
+	CameraBoom->bInheritRoll = CharacterControlData->bInheritRoll;
+	CameraBoom->bDoCollisionTest = CharacterControlData->bDoCollisionTest;
 }
 
 void AABCharacterPlayer::SetCharacterControl(ECharacterControlType NewCharacterControlType)
@@ -94,40 +120,6 @@ void AABCharacterPlayer::SetCharacterControl(ECharacterControlType NewCharacterC
 	CurrentCharacterControlType = NewCharacterControlType;
 }
 
-void AABCharacterPlayer::SetCharacterControlData(const UABCharacterControlData* CharacterControlData)
-{
-	Super::SetCharacterControlData(CharacterControlData);
-
-	CameraBoom->TargetArmLength = CharacterControlData->TargetArmLeghth;
-	CameraBoom->SetRelativeRotation(CharacterControlData->RelativeRotation);
-	CameraBoom->bUsePawnControlRotation = CharacterControlData->bUsePawnControlRotation;
-	CameraBoom->bInheritPitch = CharacterControlData->bInheritPitch;
-	CameraBoom->bInheritYaw = CharacterControlData->bInheritYaw;
-	CameraBoom->bInheritRoll = CharacterControlData->bInheritRoll;
-	CameraBoom->bDoCollisionTest = CharacterControlData->bDoCollisionTest;
-}
-
-void AABCharacterPlayer::ShoulderMove(const FInputActionValue& Value)
-{
-	FVector2D MovementVector = Value.Get<FVector2D>();
-
-	const FRotator Rotation = Controller->GetControlRotation();
-	const FRotator YawRotation(0, Rotation.Yaw, 0);
-
-	const FVector ForwardDirction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-
-	AddMovementInput(ForwardDirction, MovementVector.X);
-	AddMovementInput(RightDirection, MovementVector.Y);
-}
-
-void AABCharacterPlayer::ShoulderLook(const FInputActionValue& Value)
-{
-	FVector2D LookAxisVector = Value.Get<FVector2D>();
-	AddControllerYawInput(LookAxisVector.X);
-	AddControllerPitchInput(LookAxisVector.Y);
-}
-
 void AABCharacterPlayer::QuaterMove(const FInputActionValue& Value)
 {
 	FVector2D MovementVector = Value.Get<FVector2D>();
@@ -135,7 +127,6 @@ void AABCharacterPlayer::QuaterMove(const FInputActionValue& Value)
 	float InputSizeSquared = MovementVector.SquaredLength();
 	float MovementVectorSize = 1.0f;
 	float MovementVectorSizeSquared = MovementVector.SquaredLength();
-
 	if (MovementVectorSizeSquared > 1.0f)
 	{
 		MovementVector.Normalize();
@@ -167,4 +158,26 @@ void AABCharacterPlayer::ChangeCharacterControl()
 void AABCharacterPlayer::Attack()
 {
 	ProcessComboCommand();
+}
+
+void AABCharacterPlayer::ShoulderMove(const FInputActionValue& Value)
+{
+	FVector2D MovementVector = Value.Get<FVector2D>();
+
+	const FRotator Rotation = Controller->GetControlRotation();
+	const FRotator YawRoation(0, Rotation.Yaw, 0);
+
+	const FVector ForwardDirction = FRotationMatrix(YawRoation).GetUnitAxis(EAxis::X);
+	const FVector RightDirection = FRotationMatrix(YawRoation).GetUnitAxis(EAxis::Y);
+
+	AddMovementInput(ForwardDirction, MovementVector.X);
+	AddMovementInput(RightDirection, MovementVector.Y);
+}
+
+void AABCharacterPlayer::ShoulderLook(const FInputActionValue& Value)
+{
+	FVector2D LookAxisVector = Value.Get<FVector2D>();
+
+	AddControllerYawInput(LookAxisVector.X);
+	AddControllerPitchInput(LookAxisVector.Y);
 }

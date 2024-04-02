@@ -29,4 +29,5 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Name)
 	TArray<float> EffectiveFrameCount;
+
 };

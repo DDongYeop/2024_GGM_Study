@@ -14,6 +14,6 @@ AABGameMode::AABGameMode()
 		DefaultPawnClass = ThirdPersonClassRef.Class;
 	}
 
-	// Player COntroller Class 
+	// Player Controller Class
 	PlayerControllerClass = AABPlayerController::StaticClass();
 }

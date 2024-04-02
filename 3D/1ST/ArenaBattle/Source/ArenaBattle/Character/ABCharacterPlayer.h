@@ -20,24 +20,25 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+// Character Control Section
+protected:
+	virtual void SetCharacterControlData(const class UABCharacterControlData* CharacterControlData) override;
 	void SetCharacterControl(ECharacterControlType NewCharacterControlType);
 
 	ECharacterControlType CurrentCharacterControlType;
 
-	//Camera Section
+// Camera Section
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, Meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, Meta = (AllowPrivateAccess="true"))
 	TObjectPtr<class USpringArmComponent> CameraBoom;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, Meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UCameraComponent> FollowCamera;
 
-	// Character Control Section
-protected:
-	virtual void SetCharacterControlData(const class UABCharacterControlData* CharacterControlData) override;
-
-	//Input Section
+// Input Section
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	TObjectPtr<class UInputAction> JumpAction;

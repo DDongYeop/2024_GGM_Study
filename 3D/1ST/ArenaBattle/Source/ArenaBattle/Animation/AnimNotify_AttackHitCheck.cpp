@@ -2,7 +2,7 @@
 
 
 #include "Animation/AnimNotify_AttackHitCheck.h"
-#include "Interface//ABAnimationAttackInterface.h"
+#include "Interface/ABAnimationAttackInterface.h"
 
 void UAnimNotify_AttackHitCheck::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
 {
