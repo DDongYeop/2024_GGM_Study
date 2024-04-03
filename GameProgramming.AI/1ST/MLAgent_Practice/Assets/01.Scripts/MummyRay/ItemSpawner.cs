@@ -18,12 +18,6 @@ public class ItemSpawner : MonoBehaviour
         Init();
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-            ItemPositionSet();
-    }
-
     private void Init()
     {
         GameObject obj = new GameObject("ItemLists");
