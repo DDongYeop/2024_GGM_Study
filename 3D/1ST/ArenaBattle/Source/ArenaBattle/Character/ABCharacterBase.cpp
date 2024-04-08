@@ -9,6 +9,7 @@
 #include "Physics/ABCollision.h"
 #include "Engine/DamageEvents.h"
 #include <Kismet/GameplayStatics.h>
+#include "CharacterStat/ABCharacterStatComponent.h"
 
 
 // Sets default values
@@ -82,7 +83,8 @@ AABCharacterBase::AABCharacterBase()
 		ComboAction = ComboActionDataRef.Object;
 	}
 
-	
+	//CharacterStat
+	Stat = CreateDefaultSubobject<UABCharacterStatComponent>(TEXT("Stat"));
 }
 
 void AABCharacterBase::PostInitializeComponents()
