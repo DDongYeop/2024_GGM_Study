@@ -11,7 +11,9 @@
 #include <Kismet/GameplayStatics.h>
 #include "CharacterStat/ABCharacterStatComponent.h"
 #include "Components/WidgetComponent.h"
-
+#include "UI/ABWidgetComponent.h"
+#include "UI/ABUserWidget.h"
+#include "UI/ABHpBarWidget.h"
 
 // Sets default values
 AABCharacterBase::AABCharacterBase()
@@ -84,11 +86,11 @@ AABCharacterBase::AABCharacterBase()
 		ComboAction = ComboActionDataRef.Object;
 	}
 
-	//CharacterStat
+	// stat Component
 	Stat = CreateDefaultSubobject<UABCharacterStatComponent>(TEXT("Stat"));
 
-	//Widget Component
-	HpBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Hpbar"));
+	// Widget Component
+	HpBar = CreateDefaultSubobject<UABWidgetComponent>(TEXT("Widget"));
 	HpBar->SetupAttachment(GetMesh());
 	HpBar->SetRelativeLocation(FVector(0.0f, 0.0f, 180.0f));
 
@@ -97,7 +99,7 @@ AABCharacterBase::AABCharacterBase()
 	{
 		HpBar->SetWidgetClass(HpBarWidgetRef.Class);
 		HpBar->SetWidgetSpace(EWidgetSpace::Screen);
-		HpBar->SetDrawSize(FVector2D(150.f, 15.f));
+		HpBar->SetDrawSize(FVector2D(150.0f, 15.0f));
 		HpBar->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
 }
@@ -105,6 +107,21 @@ AABCharacterBase::AABCharacterBase()
 void AABCharacterBase::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
+
+	Stat->OnHpZero.AddUObject(this, &AABCharacterBase::SetDead);
+}
+
+void AABCharacterBase::SetupCharacterWidget(UABUserWidget* InUserWidget)
+{
+	UABHpBarWidget* HpBarWidget = Cast<UABHpBarWidget>(InUserWidget);
+
+	if (HpBarWidget)
+	{
+		HpBarWidget->SetMaxHp(Stat->GetMaxHp());
+		HpBarWidget->UpdateHpBar(Stat->GetCurrentHp());
+
+		Stat->OnHpChanged.AddUObject(HpBarWidget, &UABHpBarWidget::UpdateHpBar);
+	}
 }
 
 void AABCharacterBase::AttackHitCheck()
@@ -142,7 +159,7 @@ float AABCharacterBase::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 {
 	Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 
-	SetDead();
+	Stat->ApplyDamage(DamageAmount);
 
 	return DamageAmount;
 }
@@ -152,6 +169,7 @@ void AABCharacterBase::SetDead()
 	GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_None);
 	PlayDeadAnimation();
 	SetActorEnableCollision(false);
+	HpBar->SetHiddenInGame(true);
 }
 
 void AABCharacterBase::PlayDeadAnimation()

@@ -3,20 +3,21 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
+#include "ABUserWidget.h"
 #include "ABHpBarWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ARENABATTLE_API UABHpBarWidget : public UUserWidget
+class ARENABATTLE_API UABHpBarWidget : public UABUserWidget
 {
 	GENERATED_BODY()
 	
 public:
 	UABHpBarWidget(const FObjectInitializer& ObjectInitializer);
 
+protected:
 	virtual void NativeConstruct() override;
 
 public:
@@ -24,9 +25,9 @@ public:
 	void UpdateHpBar(float NewCurrentHp);
 
 protected:
-	UPROPERTY();
+	UPROPERTY()
 	TObjectPtr<class UProgressBar> HpProgressBar;
 
-	UPROPERTY();
+	UPROPERTY()
 	float MaxHp;
 };

@@ -6,7 +6,7 @@
 // Sets default values for this component's properties
 UABCharacterStatComponent::UABCharacterStatComponent()
 {
-	MaxHp = 200.0f;
+	MaxHp = 200;
 	CurrentHp = MaxHp;
 }
 
@@ -19,23 +19,27 @@ void UABCharacterStatComponent::BeginPlay()
 	SetHp(MaxHp);
 }
 
-void UABCharacterStatComponent::SetHp(float NewHp)
-{
-	CurrentHp = FMath::Clamp<float>(NewHp, 0.0f, MaxHp);
-}
-
 float UABCharacterStatComponent::ApplyDamage(float InDamage)
 {
 	const float PrevHp = CurrentHp;
 	const float ActualDamage = FMath::Clamp<float>(InDamage, 0, InDamage);
-	
+
 	SetHp(PrevHp - ActualDamage);
 
-	//허용하는 작은 값보다 작은 경우, 죽음처리
 	if (CurrentHp <= KINDA_SMALL_NUMBER)
 	{
-
+		// 죽음처리
+		OnHpZero.Broadcast();
 	}
 
 	return ActualDamage;
 }
+
+void UABCharacterStatComponent::SetHp(float NewHp)
+{
+	CurrentHp = FMath::Clamp<float>(NewHp, 0.0f, MaxHp);
+
+	OnHpChanged.Broadcast(CurrentHp);
+}
+
+
