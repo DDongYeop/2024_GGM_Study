@@ -56,6 +56,16 @@ struct WindowInfo
     bool windowed;      // 창모드인지 전체화면인지
 };
 
+struct Vertex
+{
+    Vec3 pos;   //위치
+    Vec4 color; //색
+};
+
+#define DEVICE          GEngine->GetDevice()->GetDevice()
+#define CMD_LIST        GEngine->GetCmdQueue()->GetCmdList()
+#define ROOT_SIGNATURE  GEngine->GetRootSignature()->GetSignature()
+
 extern unique_ptr<class Engine> GEngine;
 
 //void HelloEngine();

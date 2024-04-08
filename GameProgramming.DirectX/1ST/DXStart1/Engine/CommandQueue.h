@@ -15,6 +15,7 @@ public:
     void RenderEnd();
 
     ComPtr<ID3D12CommandQueue> GetCmdQueue() { return _cmdQueue; }
+    ComPtr<ID3D12GraphicsCommandList> GetCmdList() { return    _cmdList; }
 
 private:
     // DX12 이전까진 없던 개념 (DX12에서 처음 등장!)
