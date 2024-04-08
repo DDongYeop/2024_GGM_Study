@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Interface/ABAnimationAttackInterface.h"
-#include "Interface/ABCharacterWidgetInterface.h"
 #include "ABCharacterBase.generated.h"
 
 UENUM()
@@ -16,7 +15,7 @@ enum class ECharacterControlType : uint8
 };
 
 UCLASS()
-class ARENABATTLE_API AABCharacterBase : public ACharacter, public IABAnimationAttackInterface, public IABCharacterWidgetInterface
+class ARENABATTLE_API AABCharacterBase : public ACharacter, public IABAnimationAttackInterface
 {
 	GENERATED_BODY()
 
@@ -25,18 +24,6 @@ public:
 	AABCharacterBase();
 
 	virtual void PostInitializeComponents() override;
-
-// Stat Section
-protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, Meta=(AllowPrivateAccess = "true"))
-	TObjectPtr<class UABCharacterStatComponent> Stat;
-
-// Widget(UI) Section
-protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Widget, Meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<class UABWidgetComponent> HpBar;
-
-	virtual void SetupCharacterWidget(class UABUserWidget* InUserWidget) override;
 
 // Attack Hit Section
 protected:
