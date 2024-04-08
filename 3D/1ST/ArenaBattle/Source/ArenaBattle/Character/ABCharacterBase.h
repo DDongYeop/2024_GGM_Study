@@ -30,6 +30,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat)
 	TObjectPtr<class UABCharacterStatComponent> Stat;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat)
+	TObjectPtr<class UWidgetComponent> HpBar;
+
 // Attack Hit Section
 protected:
 	virtual void AttackHitCheck() override;

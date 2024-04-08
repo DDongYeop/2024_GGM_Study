@@ -10,6 +10,7 @@
 #include "Engine/DamageEvents.h"
 #include <Kismet/GameplayStatics.h>
 #include "CharacterStat/ABCharacterStatComponent.h"
+#include "Components/WidgetComponent.h"
 
 
 // Sets default values
@@ -85,6 +86,20 @@ AABCharacterBase::AABCharacterBase()
 
 	//CharacterStat
 	Stat = CreateDefaultSubobject<UABCharacterStatComponent>(TEXT("Stat"));
+
+	//Widget Component
+	HpBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Hpbar"));
+	HpBar->SetupAttachment(GetMesh());
+	HpBar->SetRelativeLocation(FVector(0.0f, 0.0f, 180.0f));
+
+	static ConstructorHelpers::FClassFinder<UUserWidget> HpBarWidgetRef(TEXT("/Game/ArenaBattle/UI/WBP_HpBar.WBP_HpBar_C"));
+	if (HpBarWidgetRef.Class)
+	{
+		HpBar->SetWidgetClass(HpBarWidgetRef.Class);
+		HpBar->SetWidgetSpace(EWidgetSpace::Screen);
+		HpBar->SetDrawSize(FVector2D(150.f, 15.f));
+		HpBar->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
 }
 
 void AABCharacterBase::PostInitializeComponents()
