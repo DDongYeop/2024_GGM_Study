@@ -83,7 +83,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="default.hlsli">
+    <None Include="..\Resources\Shader\default.hlsli">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

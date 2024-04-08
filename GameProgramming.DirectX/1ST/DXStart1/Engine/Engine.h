@@ -5,6 +5,8 @@
 #include "SwapChain.h"
 #include "DescriptorHeap.h"
 #include "RootSignature.h"
+#include "Mesh.h"
+#include "Shader.h"
 
 class Engine
 {

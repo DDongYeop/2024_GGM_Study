@@ -1,6 +1,7 @@
 #pragma once
 class Shader
 {
+public:
     void Init(const wstring& path);
     void Update();
 
