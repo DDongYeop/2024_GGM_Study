@@ -14,6 +14,8 @@
 #include "UI/ABWidgetComponent.h"
 #include "UI/ABUserWidget.h"
 #include "UI/ABHpBarWidget.h"
+#include "Item/ABItemData.h"
+#include "Item/ABWeaponItemData.h"
 
 // Sets default values
 AABCharacterBase::AABCharacterBase()
@@ -102,6 +104,15 @@ AABCharacterBase::AABCharacterBase()
 		HpBar->SetDrawSize(FVector2D(150.0f, 15.0f));
 		HpBar->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
+
+	// Item Weapon SkeletalMesh
+	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Weapon"));
+	Weapon->SetupAttachment(GetMesh(), TEXT("hand_rSocekt"));
+
+	// Item Actions
+	TakeItemActions.Insert(FTakeItemDelegateWrapper(FOnTakeItemDelegate::CreateUObject(this, &AABCharacterBase::EquipWeapon)), (uint8)EItemType::Weapon);
+	TakeItemActions.Insert(FTakeItemDelegateWrapper(FOnTakeItemDelegate::CreateUObject(this, &AABCharacterBase::DrinkPotion)), (uint8)EItemType::Potion);
+	TakeItemActions.Insert(FTakeItemDelegateWrapper(FOnTakeItemDelegate::CreateUObject(this, &AABCharacterBase::ReadScroll)), (uint8)EItemType::Scroll);
 }
 
 void AABCharacterBase::PostInitializeComponents()
@@ -109,6 +120,35 @@ void AABCharacterBase::PostInitializeComponents()
 	Super::PostInitializeComponents();
 
 	Stat->OnHpZero.AddUObject(this, &AABCharacterBase::SetDead);
+}
+
+void AABCharacterBase::TakeItem(UABItemData* InItemData)
+{
+	if (InItemData)
+	{
+		TakeItemActions[(uint8)InItemData->Type].ItemDelegate.ExecuteIfBound(InItemData);
+	}
+}
+
+void AABCharacterBase::EquipWeapon(UABItemData* InItemData)
+{
+	UE_LOG(LogTemp, Log, TEXT("Equip Weapon"));
+
+	UABWeaponItemData* WeaponItemData = Cast<UABWeaponItemData>(InItemData);
+	if (WeaponItemData)
+	{
+		Weapon->SetSkeletalMesh(WeaponItemData->WeaponMesh);
+	}
+}
+
+void AABCharacterBase::DrinkPotion(UABItemData* InItemData)
+{
+	UE_LOG(LogTemp, Log, TEXT("Drink Potion"));
+}
+
+void AABCharacterBase::ReadScroll(UABItemData* InItemData)
+{
+	UE_LOG(LogTemp, Log, TEXT("Read Scroll"));
 }
 
 void AABCharacterBase::SetupCharacterWidget(UABUserWidget* InUserWidget)
