@@ -107,7 +107,7 @@ AABCharacterBase::AABCharacterBase()
 
 	// Item Weapon SkeletalMesh
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Weapon"));
-	Weapon->SetupAttachment(GetMesh(), TEXT("hand_rSocekt"));
+	Weapon->SetupAttachment(GetMesh(), TEXT("hand_rSoceket"));
 
 	// Item Actions
 	TakeItemActions.Insert(FTakeItemDelegateWrapper(FOnTakeItemDelegate::CreateUObject(this, &AABCharacterBase::EquipWeapon)), (uint8)EItemType::Weapon);
@@ -137,7 +137,11 @@ void AABCharacterBase::EquipWeapon(UABItemData* InItemData)
 	UABWeaponItemData* WeaponItemData = Cast<UABWeaponItemData>(InItemData);
 	if (WeaponItemData)
 	{
-		Weapon->SetSkeletalMesh(WeaponItemData->WeaponMesh);
+		if (WeaponItemData->WeaponMesh.IsPending())
+		{
+			WeaponItemData->WeaponMesh.LoadSynchronous();
+		}
+		Weapon->SetSkeletalMesh(WeaponItemData->WeaponMesh.Get());
 	}
 }
 
