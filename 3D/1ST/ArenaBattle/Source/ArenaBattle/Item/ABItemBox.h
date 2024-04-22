@@ -15,12 +15,17 @@ public:
 	// Sets default values for this actor's properties
 	AABItemBox();
 
+protected:
+	virtual void PostInitializeComponents() override;
+
 public:
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UFUNCTION()
 	void OnEffectFinished(class UParticleSystemComponent* ParticleSystem);
+
+	TObjectPtr<class UBoxComponent> GetTrigger() { return Trigger; }
 
 protected:
 	UPROPERTY(VisibleAnywhere, Category = Box)

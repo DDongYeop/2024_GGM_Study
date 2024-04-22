@@ -91,4 +91,19 @@ protected:
 
 	UFUNCTION()
 	void OnOpponentDestroyed(AActor* DestroyedActor);
+
+// Reward Section
+protected:
+	UPROPERTY(EditAnywhere, Category = Reward, Meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<class AABItemBox> RewardBoxClass;
+
+	UPROPERTY(EditAnywhere, Category = Reward, Meta = (AllowPrivateAccess = "true"))
+	TArray<TWeakObjectPtr<class AABItemBox>> RewardBoxes;
+
+	TMap<FName, FVector> RewardBoxLocations;
+
+	void SpawnRewardBoxes();
+
+	UFUNCTION()
+	void OnRewardTriggerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };

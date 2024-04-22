@@ -48,6 +48,12 @@ AABItemBox::AABItemBox()
     }
 }
 
+void AABItemBox::PostInitializeComponents()
+{
+    Super::PostInitializeComponents();
+
+}
+
 void AABItemBox::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
     if (Item == nullptr)

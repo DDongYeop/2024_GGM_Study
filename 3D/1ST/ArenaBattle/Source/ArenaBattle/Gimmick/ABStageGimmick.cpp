@@ -6,6 +6,7 @@
 #include <Components/BoxComponent.h>
 #include "Physics/ABCollision.h"
 #include "Character/ABCharacterNonPlayer.h"
+#include "Item/ABItemBox.h"
 
 // Sets default values
 AABStageGimmick::AABStageGimmick()
@@ -65,6 +66,14 @@ AABStageGimmick::AABStageGimmick()
 	// Fight Section
 	OpponentClass = AABCharacterNonPlayer::StaticClass();
 	OpponentSpawnTime = 2.0f;
+
+	// Reward Section
+	RewardBoxClass = AABItemBox::StaticClass();
+	for (FName GateSocket : GateSockets)
+	{
+		FVector BoxLocation = Stage->GetSocketLocation(GateSocket) / 2;
+		RewardBoxLocations.Add(GateSocket, BoxLocation);
+	}
 }
 
 void AABStageGimmick::OnConstruction(const FTransform& Transform)
@@ -152,6 +161,8 @@ void AABStageGimmick::SetChooseReward()
 		GateTrigger->SetCollisionProfileName(TEXT("NoCollision"));
 	}
 	CloseAllGates();
+
+	SpawnRewardBoxes();
 }
 
 void AABStageGimmick::SetChooseNext()
@@ -179,4 +190,38 @@ void AABStageGimmick::OnOpponnetSpawn()
 void AABStageGimmick::OnOpponentDestroyed(AActor* DestroyedActor)
 {
 	SetState(EStageState::REWARD);
+}
+
+void AABStageGimmick::SpawnRewardBoxes()
+{
+	for (const auto& RewardBoxLocation : RewardBoxLocations)
+	{
+		FVector WorldSpawnLoaction = GetActorLocation() + RewardBoxLocation.Value + FVector(0.0f, 0.0f, 30.0f);
+		AActor* ItemActor = GetWorld()->SpawnActor(RewardBoxClass, &WorldSpawnLoaction, &FRotator::ZeroRotator);
+		AABItemBox* RewardBoxActor = Cast<AABItemBox>(ItemActor);
+		if (RewardBoxActor)
+		{
+			RewardBoxActor->Tags.Add(RewardBoxLocation.Key);
+			RewardBoxActor->GetTrigger()->OnComponentBeginOverlap.AddDynamic(this, &AABStageGimmick::OnRewardTriggerBeginOverlap);
+			RewardBoxes.Add(RewardBoxActor);
+		}
+	}
+}
+
+void AABStageGimmick::OnRewardTriggerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	for (const auto& RewardBox : RewardBoxes)
+	{
+		if (RewardBox.IsValid())
+		{
+			AABItemBox* ValidItemBox = RewardBox.Get();
+			AActor* OverlappedBox = OverlappedComponent->GetOwner();
+			if (OverlappedBox != ValidItemBox)
+			{
+				ValidItemBox->Destroy();
+			}
+		}
+	}
+
+	SetState(EStageState::NEXT);
 }
