@@ -17,7 +17,6 @@ class ARENABATTLE_API UABHpBarWidget : public UABUserWidget
 public:
 	UABHpBarWidget(const FObjectInitializer& ObjectInitializer);
 
-protected:
 	virtual void NativeConstruct() override;
 
 public:

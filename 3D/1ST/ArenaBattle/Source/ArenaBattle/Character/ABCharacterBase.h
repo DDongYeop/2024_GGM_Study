@@ -15,7 +15,8 @@ enum class ECharacterControlType : uint8
 	Shoulder,
 	Quater
 };
-DECLARE_DELEGATE_OneParam(FOnTakeItemDelegate, class UABItemData* /*InItemdata*/);
+
+DECLARE_DELEGATE_OneParam(FOnTakeItemDelegate, class UABItemData* /*InItemData*/);
 
 USTRUCT(BlueprintType)
 struct FTakeItemDelegateWrapper
@@ -29,7 +30,7 @@ struct FTakeItemDelegateWrapper
 };
 
 UCLASS()
-class ARENABATTLE_API AABCharacterBase : public ACharacter, public IABAnimationAttackInterface, public IABCharacterWidgetInterface, public IABCharacterItemInterface
+class ARENABATTLE_API AABCharacterBase : public ACharacter, public IABAnimationAttackInterface,  public IABCharacterWidgetInterface, public IABCharacterItemInterface
 {
 	GENERATED_BODY()
 
@@ -39,8 +40,9 @@ public:
 
 	virtual void PostInitializeComponents() override;
 
-//Item Section
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Equipent, Meta = (AllowPrivateAccess="true"))
+// Item Section
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Equipment, Meta = (AllowPrivateAccess="true"))
 	TObjectPtr<class USkeletalMeshComponent> Weapon;
 
 	UPROPERTY()
@@ -53,12 +55,10 @@ public:
 
 // Stat Section
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, Meta=(AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat)
 	TObjectPtr<class UABCharacterStatComponent> Stat;
 
-// Widget(UI) Section
-protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Widget, Meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat)
 	TObjectPtr<class UABWidgetComponent> HpBar;
 
 	virtual void SetupCharacterWidget(class UABUserWidget* InUserWidget) override;

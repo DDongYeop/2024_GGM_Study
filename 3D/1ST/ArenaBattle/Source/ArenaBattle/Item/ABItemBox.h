@@ -20,7 +20,7 @@ public:
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UFUNCTION()
-	void EffectFinished(class UParticleSystemComponent* ParticleSystem);
+	void OnEffectFinished(class UParticleSystemComponent* ParticleSystem);
 
 protected:
 	UPROPERTY(VisibleAnywhere, Category = Box)

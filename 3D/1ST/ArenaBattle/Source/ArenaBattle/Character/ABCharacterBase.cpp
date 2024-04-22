@@ -12,7 +12,6 @@
 #include "CharacterStat/ABCharacterStatComponent.h"
 #include "Components/WidgetComponent.h"
 #include "UI/ABWidgetComponent.h"
-#include "UI/ABUserWidget.h"
 #include "UI/ABHpBarWidget.h"
 #include "Item/ABItemData.h"
 #include "Item/ABWeaponItemData.h"
@@ -88,11 +87,11 @@ AABCharacterBase::AABCharacterBase()
 		ComboAction = ComboActionDataRef.Object;
 	}
 
-	// stat Component
+	// CharacterStat
 	Stat = CreateDefaultSubobject<UABCharacterStatComponent>(TEXT("Stat"));
 
 	// Widget Component
-	HpBar = CreateDefaultSubobject<UABWidgetComponent>(TEXT("Widget"));
+	HpBar = CreateDefaultSubobject<UABWidgetComponent>(TEXT("HpBar"));
 	HpBar->SetupAttachment(GetMesh());
 	HpBar->SetRelativeLocation(FVector(0.0f, 0.0f, 180.0f));
 
@@ -103,11 +102,11 @@ AABCharacterBase::AABCharacterBase()
 		HpBar->SetWidgetSpace(EWidgetSpace::Screen);
 		HpBar->SetDrawSize(FVector2D(150.0f, 15.0f));
 		HpBar->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	}
+	}	
 
 	// Item Weapon SkeletalMesh
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Weapon"));
-	Weapon->SetupAttachment(GetMesh(), TEXT("hand_rSoceket"));
+	Weapon->SetupAttachment(GetMesh(), TEXT("hand_rSocket"));
 
 	// Item Actions
 	TakeItemActions.Insert(FTakeItemDelegateWrapper(FOnTakeItemDelegate::CreateUObject(this, &AABCharacterBase::EquipWeapon)), (uint8)EItemType::Weapon);
@@ -141,6 +140,7 @@ void AABCharacterBase::EquipWeapon(UABItemData* InItemData)
 		{
 			WeaponItemData->WeaponMesh.LoadSynchronous();
 		}
+
 		Weapon->SetSkeletalMesh(WeaponItemData->WeaponMesh.Get());
 	}
 }

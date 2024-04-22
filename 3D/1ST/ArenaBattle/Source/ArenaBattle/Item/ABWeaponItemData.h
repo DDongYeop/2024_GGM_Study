@@ -13,7 +13,7 @@ UCLASS()
 class ARENABATTLE_API UABWeaponItemData : public UABItemData
 {
 	GENERATED_BODY()
-	
+
 public:
 	UPROPERTY(EditAnywhere, Category = Weapon)
 	TSoftObjectPtr<USkeletalMesh> WeaponMesh;
