@@ -8,6 +8,7 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "ConstantBuffer.h"
+#include "TableDescriptorHeap.h"
 
 class Engine
 {
@@ -27,6 +28,7 @@ public:
 	shared_ptr<DescriptorHeap> GetDescHeap(){ return _descHeap; }
 	shared_ptr<RootSignature>  GetRootSignature() { return _rootSignature; }
 	shared_ptr<ConstantBuffer> GetCB() { return _cb; }
+	shared_ptr<TableDescriptorHeap> GetTableDescHeap() { return _tableDescHeap; }
 
 private:
 	// 그려질 화면 크기 관련
@@ -40,4 +42,5 @@ private:
 	shared_ptr<DescriptorHeap>	_descHeap;
 	shared_ptr<RootSignature> _rootSignature;
 	shared_ptr<ConstantBuffer> _cb;
+	shared_ptr<TableDescriptorHeap> _tableDescHeap;
 };

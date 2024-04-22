@@ -17,6 +17,7 @@ void Engine::Init(const WindowInfo& wInfo)
     _descHeap   = make_shared<DescriptorHeap>();
     _rootSignature = make_shared<RootSignature>();
     _cb = make_shared<ConstantBuffer>();
+    _tableDescHeap = make_shared<TableDescriptorHeap>();
 
     _device->Init();
     _cmdQueue->Init(_device->GetDevice(),_swapChain,_descHeap);
@@ -24,6 +25,7 @@ void Engine::Init(const WindowInfo& wInfo)
     _descHeap->Init(_device->GetDevice(), _swapChain);
     _rootSignature->Init(_device->GetDevice());
     _cb->Init(sizeof(Transform), 256);
+    _tableDescHeap->Init(256);
 }
 
 void Engine::Render()
