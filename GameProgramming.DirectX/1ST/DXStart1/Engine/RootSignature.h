@@ -1,16 +1,17 @@
 #pragma once
 
-/// <summary>
-/// ¼­¸íÇÏ´Â ³ğ. GPUÀÇ °¡»ó ¸Ş¸ğ¸®¿¡ ¾î¶² ¹öÆÛ¸¦ »ç¿ëÇÏ°Ú´Ù¸¦ ¸í½ÃÇÏ´Â ±â´ÉÀ» ´ã´çÇÑ´Ù. 
-/// </summary>
-
+/// <RootSignature>
+/// ì„œëª…ì„ í•˜ëŠ”ë†ˆ. GPUì˜ ê°€ì¥ ë©”ëª¨ë¦¬ì— ì–´ë–¤ ë²„í¼ë¥¼ ì‚¬ìš©í•˜ê² ë‹¤ë¥¼ ëª…ì‹œí•˜ëŠ” ê¸°ëŠ¥ì„ ë‹´ë‹¹
+/// </RootSignature>
 class RootSignature
 {
 public:
-    void Init(ComPtr<ID3D12Device> device);
+	void Init(ComPtr<ID3D12Device> device);
 
-    ComPtr<ID3D12RootSignature>    GetSignature() { return _signature; }
+	ComPtr<ID3D12RootSignature>    GetSignature() { return _signature; }
 
 private:
-    ComPtr<ID3D12RootSignature>    _signature;
+	ComPtr<ID3D12RootSignature>    _signature;
+
 };
+

@@ -1,26 +1,24 @@
 #include "pch.h"
 #include "Engine.h"
 
-
 void Engine::Init(const WindowInfo& wInfo)
 {
     _window = wInfo;
     ResizeWindow(wInfo.width, wInfo.height);
 
-    // ±×·ÁÁú È­¸é Å©±â¸¦ ¼³Á¤
+    // ê·¸ë ¤ì§ˆ í™”ë©´ í¬ê¸°ë¥¼ ì„¤ì •
     _viewport = { 0, 0, static_cast<FLOAT>(wInfo.width), static_cast<FLOAT>(wInfo.height), 0.0f, 1.0f };
     _scissorRect = CD3DX12_RECT(0, 0, wInfo.width, wInfo.height);
 
-    // °¢Á¾ ÀåÄ¡ ÃÊ±âÈ­ º¯¼öµéÀÇ ¸Ş¸ğ¸®¸¦ ÇÒ´çÇÑ´Ù. 
-    _device = make_shared<Device>();
-    _cmdQueue = make_shared<CommandQueue>();
-    _swapChain = make_shared<SwapChain>();
-    _descHeap = make_shared<DescriptorHeap>();
+    //ê°ì¢… ì¥ì¹˜ì´ˆê¸°í™” ë³€ìˆ˜ë“¤ì˜ ë©”ëª¨ë¦¬ë¥¼ í• ë‹¹í•œë‹¤.
+    _device     = make_shared<Device>();
+    _cmdQueue   = make_shared<CommandQueue>();
+    _swapChain  = make_shared<SwapChain>();
+    _descHeap   = make_shared<DescriptorHeap>();
     _rootSignature = make_shared<RootSignature>();
 
-    // ÃÊ±âÈ­ ÇÔ¼ö È£Ãâ
     _device->Init();
-    _cmdQueue->Init(_device->GetDevice(), _swapChain, _descHeap);
+    _cmdQueue->Init(_device->GetDevice(),_swapChain,_descHeap);
     _swapChain->Init(wInfo, _device->GetDXGI(), _cmdQueue->GetCmdQueue());
     _descHeap->Init(_device->GetDevice(), _swapChain);
     _rootSignature->Init(_device->GetDevice());
@@ -29,9 +27,6 @@ void Engine::Init(const WindowInfo& wInfo)
 void Engine::Render()
 {
     RenderBegin();
-
-    //³ª¸ÓÁö ¹°Ã¼ ±×¸®±â
-    
     RenderEnd();
 }
 

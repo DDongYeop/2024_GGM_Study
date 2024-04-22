@@ -1,17 +1,12 @@
-﻿// Client.cpp : 애플리케이션에 대한 진입점을 정의합니다.
+﻿// WindowsProject1.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 
-#include "pch.h"
 #include "framework.h"
-#include "Client.h"
-
-#include "Game.h"
+#include "WindowsProject1.h"
 
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
-WindowInfo GWindowInfo; // 실행시 화면 해상도 크기를 위한 테스트 변수
-
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
@@ -34,7 +29,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    LoadStringW(hInstance, IDC_CLIENT, szWindowClass, MAX_LOADSTRING);
+    LoadStringW(hInstance, IDC_WINDOWSPROJECT1, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
 
     // 애플리케이션 초기화를 수행합니다:
@@ -43,44 +38,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
 
-    HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
+    HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WINDOWSPROJECT1));
 
     MSG msg;
 
-    GWindowInfo.width = 800;
-    GWindowInfo.height = 600;
-    GWindowInfo.windowed = true;
-
-    // 스마트 포인터로 Game클래스의 메모리를 할당
-    unique_ptr<Game> game = make_unique<Game>();
-    game->Init(GWindowInfo);
-
-    //게임 메세지 루프
-    while (true)
-    {
-        if(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
-        {
-            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-            {
-                TranslateMessage(&msg);
-                DispatchMessage(&msg);
-            }
-        }
-
-        //엔진쪽 업데이트
-        game->Update();
-    }
-
-
     // 기본 메시지 루프입니다:
-    /*while (GetMessage(&msg, nullptr, 0, 0))
+    while (GetMessage(&msg, nullptr, 0, 0))
     {
         if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
         {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
-    }*/
+    }
 
     return (int) msg.wParam;
 }
@@ -103,10 +73,10 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.cbClsExtra     = 0;
     wcex.cbWndExtra     = 0;
     wcex.hInstance      = hInstance;
-    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CLIENT));
+    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_WINDOWSPROJECT1));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = nullptr;
+    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_WINDOWSPROJECT1);
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -137,8 +107,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
-
-   GWindowInfo.hwnd = hWnd;
 
    return TRUE;
 }

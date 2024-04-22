@@ -1,39 +1,45 @@
 #include "pch.h"
 #include "Game.h"
 #include "Engine.h"
+    
 
-shared_ptr<Mesh> mesh = make_shared<Mesh>();
 shared_ptr<Shader> shader = make_shared<Shader>();
+shared_ptr<Mesh> mesh = make_shared<Mesh>();
 
 void Game::Init(const WindowInfo& wInfo)
 {
-	GEngine->Init(wInfo);
+    GEngine->Init(wInfo);
 
-	//»ï°¢Çü ¶ç¿ì±â Å×½ºÆ®
+    //ì‚¼ê°í˜• ë„ìš°ê¸° í…ŒìŠ¤íŠ¸ ì½”ë“œ
 
-	//Á¤Á¡ 3°³ ¸¸µé±â
-	vector<Vertex> vec(3);
-	vec[0].pos = Vec3(0, .5f, .5f);		vec[0].color = Vec4(1, 0, 0, 1);
-	vec[1].pos = Vec3(.5f, -.5f, .5f);	vec[1].color = Vec4(0, 1, 0, 1);
-	vec[2].pos = Vec3(-.5f, -.5f, .5f);	vec[2].color = Vec4(0, 0, 1, 1);
-	mesh->Init(vec);
+    // íŒíŠ¸ ì •ì  3ê°œë¥¼ ë§Œë“œì‹œì˜¤
+    Vertex triangle[] = {
+        { {0.0f,0.3f,0.0f},{1.f,0.f,0.f,1.f}},
+        { {0.3f,-0.3f,0.0f},{1.f,1.f,0.f,1.f}},
+        { {-0.3f,-0.3f,0.0f},{1.f,0.f,1.f,1.f}},
+    };
 
-	//¹°¸®ÀûÀÎ ÆÄÀÏ À§Ä¡¿¡¼­ ½¦ÀÌ´õ ÀĞ±â
-	wstring str = L"..\\Resources\\Shader\\default.hlsli";
-	shader->Init(str);
+    vector<Vertex> v;
+    for (int i = 0; i < 3; i++)
+        v.push_back(triangle[i]);
 
-	GEngine->GetCmdQueue()->WaitSync();
+    // ë¬¼ë¦¬ì ì¸ íŒŒì¼ì˜ ìœ„ì¹˜ì—ì„œ ì‰ì´ë” íŒŒì¼ì„ ì½ì–´ì˜¤ì‹œì˜¤
+    wstring path = L"..\\Resources\\Shader\\default.hlsli";
+    shader->Init(path);
+    mesh->Init(v);
+    
+    GEngine->GetCmdQueue()->WaitSync();
 }
 
 void Game::Update()
 {
-	// GEngine->Render();
+    //GEngine->Render();
 
-	GEngine->RenderBegin();
+    GEngine->RenderBegin();
 
-	//¸Ş½¬ ½¦ÀÌ´õ ·»´õ¸µ ¾÷µ¥ÀÌÆ® 
-	shader->Update();
-	mesh->Render();
+    // ë©”ì‰¬ì™€ ì‰ì´ë” ë Œë”ë§ ì—…ë°ì´íŠ¸
+    shader->Update();
+    mesh->Render();
 
-	GEngine->RenderEnd();
+    GEngine->RenderEnd();
 }

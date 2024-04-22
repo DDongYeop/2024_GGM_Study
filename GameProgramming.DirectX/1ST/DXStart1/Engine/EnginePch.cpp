@@ -6,6 +6,5 @@ unique_ptr<Engine> GEngine = make_unique<Engine>();
 
 //void HelloEngine()
 //{
-//	// ÀÌ ÇÔ¼ö¸¦ client¿¡¼­ È£ÃâÇÏ´Â°Ô 1Â÷ ¸ñÇ¥ 
-//	// ¼º°ø!
+//	//ì´ í•¨ìˆ˜ë¥¼ Clientì—ì„œ í˜¸ì¶œí•˜ëŠ”ê²Œ 1ì°¨ ëª©í‘œ
 //}

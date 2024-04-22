@@ -10,17 +10,17 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="소스 파일\Game">
-      <UniqueIdentifier>{7bb3b808-2dd9-45cd-85af-fe1f1f3b6ce8}</UniqueIdentifier>
+      <UniqueIdentifier>{7a727cb3-5c07-492e-8268-e190a974350d}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Utils">
-      <UniqueIdentifier>{fc0c90ae-b8f4-4b7b-a03e-f8b1d876c759}</UniqueIdentifier>
+      <UniqueIdentifier>{a80e2609-2f14-4f45-b1a2-89e5cbc81e74}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Client.h">
+    <ClInclude Include="framework.h">
       <Filter>소스 파일\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="framework.h">
+    <ClInclude Include="Client.h">
       <Filter>소스 파일\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">

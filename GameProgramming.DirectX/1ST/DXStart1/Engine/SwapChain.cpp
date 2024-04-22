@@ -3,24 +3,23 @@
 
 void SwapChain::Init(const WindowInfo& info, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue)
 {
-    // ÀÌÀü¿¡ ¸¸µç Á¤º¸´Â ³¯¸°´Ù 
     _swapChain.Reset();
 
     DXGI_SWAP_CHAIN_DESC sd;
-    sd.BufferDesc.Width = static_cast<uint32>(info.width);      //¹öÆÛ ÇØ»óµµ ³Êºñ
-    sd.BufferDesc.Height = static_cast<uint32>(info.height);    //¹öÆÛ ÇØ»óµµ ³ôÀÌ
-    sd.BufferDesc.RefreshRate.Numerator = 60;   //È­¸é °»½Å ºñÀ²
+    sd.BufferDesc.Width = static_cast<uint32>(info.width); // ë²„í¼ í•´ìƒë„ ë„ˆë¹„
+    sd.BufferDesc.Height = static_cast<uint32>(info.height); // ë²„í¼ í•´ìƒë„ ë†’ì´
+    sd.BufferDesc.RefreshRate.Numerator = 60; //í™”ë©´ ê°±ì‹  ë¹„ìœ¨
     sd.BufferDesc.RefreshRate.Denominator = 1;
-    sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;  //¹öÆÛÀÇ µğ½ºÇÃ·¹ÀÌ ¹æ½Ä 
+    sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // ë²„í¼ì˜ ë””ìŠ¤í”Œë ˆì´ ë°©ì‹
     sd.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
     sd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
-    sd.SampleDesc.Count = 1;    //¸ÖÆ¼»ùÇÃ¸µ 
+    sd.SampleDesc.Count = 1; // ë©€í‹° ìƒ˜í”Œë§ OFF
     sd.SampleDesc.Quality = 0;
-    sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;   //ÈÄ¸é ¹öÆÛ¿¡ ·£´õ¸µ ÇÏ°Ú´Ù 
-    sd.BufferCount = SWAP_CHAIN_BUFFER_COUNT;   //Àü¸é + ÈÄ¸é ¹öÆÛ
+    sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; //í›„ë©´ ë²„í¼ì— ë Œë”ë§
+    sd.BufferCount = SWAP_CHAIN_BUFFER_COUNT; // ì „ë©´ + í›„ë©´ ë²„í¼
     sd.OutputWindow = info.hwnd;
     sd.Windowed = info.windowed;
-    sd.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+    sd.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; // ì „ë©´ í›„ë©´ ë²„í¼ êµì²´ ì‹œ ì´ì „ í”„ë ˆì„ ì •ë³´ë¥¼ ë²„ë¦¼
     sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
     dxgi->CreateSwapChain(cmdQueue.Get(), &sd, &_swapChain);
@@ -31,9 +30,9 @@ void SwapChain::Init(const WindowInfo& info, ComPtr<IDXGIFactory> dxgi, ComPtr<I
 
 void SwapChain::Present()
 {
-    //ÇöÀç ÇÃ·¹ÀÓ
-    //ÇöÀç È­¸éÀ» ±×·ÁÁà
-    //·»´õ¸µµÈ ÀÌ¹ÌÁö¸¦ »ç¿ëÀÚ¿¡°Ô Ç¥½ÃÇÕ´Ï´Ù
+    // í˜„ì¬ í”„ë ˆì„
+    // í˜„ì¬ í™”ë©´ì„ ê·¸ë ¤ì¤˜
+    // ë Œë”ë§ ëœ ì´ë¯¸ì§€ë¥¼ ì‚¬ìš©ìì—ê²Œ í‘œì‹œí•©ë‹ˆë‹¤.
     _swapChain->Present(0, 0);
 }
 

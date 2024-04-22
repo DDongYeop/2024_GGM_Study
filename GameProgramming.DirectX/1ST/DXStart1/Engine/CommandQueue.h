@@ -6,33 +6,31 @@ class DescriptorHeap;
 class CommandQueue
 {
 public:
-    ~CommandQueue();
+	~CommandQueue();
 
-    void Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swapChain, shared_ptr<DescriptorHeap> descHeap);
-    void WaitSync();
+	void Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swapChain, shared_ptr<DescriptorHeap> descHeap);
+	void WaitSync();
 
-    void RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect);
-    void RenderEnd();
+	void RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect);
+	void RenderEnd();
 
-    ComPtr<ID3D12CommandQueue> GetCmdQueue() { return _cmdQueue; }
-    ComPtr<ID3D12GraphicsCommandList> GetCmdList() { return    _cmdList; }
-
+	ComPtr<ID3D12CommandQueue> GetCmdQueue() { return _cmdQueue; }
+	ComPtr<ID3D12GraphicsCommandList> GetCmdList() { return    _cmdList; }
 private:
-    // DX12 ÀÌÀü±îÁø ¾ø´ø °³³ä (DX12¿¡¼­ Ã³À½ µîÀå!)
-    // ¿ÜÁÖ¸¦ ¿äÃ»ÇÒ¶§ ÇÏ³ª¾¿ ¿äÃ»ÇÏ¸é ºñÈ¿À²Àû
-    // "¿ÜÁÖ ¸ñ·Ï"¿¡ ÀÏ°¨À» ÇÏ³ªÇÏ³ª ±â·ÏÇß´Ù°¡ ÇÑ¹ø¿¡ ¿äÃ»ÇÑ´Ù
+	// DX12 ì´ì „ê¹Œì§„ ì—†ë˜ ê°œë…(DX12ì—ì„œ ì²˜ìŒ ë“±ì¥)
+	// ì™¸ì£¼ë¥¼ ìš”ì²­í•  ë•Œ í•˜ë‚˜ì”© ìš”ì²­í•˜ë©´ ë¹„íš¨ìœ¨ì 
+	// "ì™¸ì£¼ ëª©ë¡"ì— ì¼ê°ì„ í•˜ë‚˜í•˜ë‚˜ ê¸°ë¡í–ˆë‹¤ê°€ í•œë°©ì— ìš”ì²­í•œë‹¤.
 
-    ComPtr<ID3D12CommandQueue>          _cmdQueue;
-    ComPtr<ID3D12CommandAllocator>      _cmdAlloc;
-    ComPtr<ID3D12GraphicsCommandList>   _cmdList;
-    
-    // Fence : ¿ïÅ¸¸® 
-    // CPU / GPU »çÀÌ¿¡ µ¿±âÈ­¸¦ À§ÇÑ °£´ÜÇÑ µµ±¸ 
-    ComPtr<ID3D12Fence> _fence;
-    uint32              _fenceValue = 0;
-    HANDLE              _fenceEvent = INVALID_HANDLE_VALUE;
+	ComPtr<ID3D12CommandQueue>            _cmdQueue;
+	ComPtr<ID3D12CommandAllocator>        _cmdAlloc;
+	ComPtr<ID3D12GraphicsCommandList>     _cmdList;
 
-    shared_ptr<SwapChain>       _swapChain;
-    shared_ptr<DescriptorHeap>  _descHeap;
+	// Fence : ìš¸íƒ€ë¦¬
+	// CPU / GPU ì‚¬ì´ì— ë™ê¸°í™”ë¥¼ ìœ„í•œ ê°„ë‹¨í•œ ë„êµ¬
+	ComPtr<ID3D12Fence>                   _fence;
+	uint32                                _fenceValue = 0;
+	HANDLE                                _fenceEvent = INVALID_HANDLE_VALUE;
+
+	shared_ptr<SwapChain>        _swapChain;
+	shared_ptr<DescriptorHeap>    _descHeap;
 };
-

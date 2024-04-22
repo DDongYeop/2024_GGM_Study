@@ -1,6 +1,6 @@
 #pragma once
 
-// °¢Á¾ include
+// ê°ì¢… include
 #include <windows.h>
 #include <tchar.h>
 #include <memory>
@@ -11,7 +11,7 @@
 #include <map>
 using namespace std;
 
-#include "d3dx12.h"        // ¸¶¼Ò °ø½Ä ±êÇé¿¡¼­ ´Ù¿î¹Ş¾Æ¾ß ÇÔ(or ÁØºñµÈ ÆÄÀÏÀ» Àü´Ş)
+#include "d3dx12.h"        // ë§ˆì†Œ ê³µì‹ ê¹ƒí—™ì—ì„œ ë‹¤ìš´ë°›ì•„ì•¼ í•¨(or ì¤€ë¹„ëœ íŒŒì¼ì„ ì „ë‹¬)
 #include <d3d12.h>
 #include <wrl.h>
 #include <d3dcompiler.h>
@@ -23,13 +23,13 @@ using namespace DirectX;
 using namespace DirectX::PackedVector;
 using namespace Microsoft::WRL;
 
-// °¢Á¾ lib
+// ê°ì¢… lib
 #pragma comment(lib, "d3d12")
 #pragma comment(lib, "dxgi")
 #pragma comment(lib, "dxguid")
 #pragma comment(lib, "d3dcompiler")
 
-// °¢Á¾ typedef
+// ê°ì¢… typedef
 using int8 = __int8;
 using int16 = __int16;
 using int32 = __int32;
@@ -50,21 +50,21 @@ enum
 
 struct WindowInfo
 {
-    HWND hwnd;          // Ãâ·Â À©µµ¿ì
-    int32 width;        // ³Êºñ
-    int32 height;       // ³ôÀÌ
-    bool windowed;      // Ã¢¸ğµåÀÎÁö ÀüÃ¼È­¸éÀÎÁö
+    HWND hwnd;          // ì¶œë ¥ ìœˆë„ìš°
+    int32 width;        // ë„ˆë¹„
+    int32 height;       // ë†’ì´
+    bool windowed;      // ì°½ëª¨ë“œì¸ì§€ ì „ì²´í™”ë©´ì¸ì§€
 };
 
 struct Vertex
 {
-    Vec3 pos;   //À§Ä¡
-    Vec4 color; //»ö
+    Vec3 pos;           //ìœ„ì¹˜
+    Vec4 color;         //ìƒ‰ìƒ
 };
 
 #define DEVICE          GEngine->GetDevice()->GetDevice()
 #define CMD_LIST        GEngine->GetCmdQueue()->GetCmdList()
-#define ROOT_SIGNATURE  GEngine->GetRootSignature()->GetSignature()
+#define ROOT_SIGNATURE    GEngine->GetRootSignature()->GetSignature()
 
 extern unique_ptr<class Engine> GEngine;
 

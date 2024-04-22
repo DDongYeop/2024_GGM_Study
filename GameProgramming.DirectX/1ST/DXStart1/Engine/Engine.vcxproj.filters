@@ -2,17 +2,17 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Engine">
-      <UniqueIdentifier>{49c2b424-fb0f-45b2-95f6-66a0cc4145ca}</UniqueIdentifier>
+      <UniqueIdentifier>{2268171f-afac-494e-aaf3-4f009a5cda6d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Utils">
-      <UniqueIdentifier>{c212b65c-525d-412b-aef6-21c32bec42e5}</UniqueIdentifier>
+      <UniqueIdentifier>{aad27f0d-1e0b-4a97-9df2-71b821e3f23f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Shader">
-      <UniqueIdentifier>{5f236d03-ba04-4730-b428-5856b271fc4b}</UniqueIdentifier>
+      <UniqueIdentifier>{685855fb-5ec9-4272-8777-87cf81e8f59b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -25,19 +25,19 @@
     <ClInclude Include="d3dx12.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="SwapChain.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Device.h">
+    <ClInclude Include="CommandQueue.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="DescriptorHeap.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="CommandQueue.h">
+    <ClInclude Include="Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapChain.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Device.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="RootSignature.h">
@@ -49,6 +49,9 @@
     <ClInclude Include="Shader.h">
       <Filter>Resource</Filter>
     </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -57,19 +60,19 @@
     <ClCompile Include="EnginePch.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="SwapChain.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Device.cpp">
+    <ClCompile Include="CommandQueue.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="DescriptorHeap.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="CommandQueue.cpp">
+    <ClCompile Include="Engine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapChain.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Device.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="RootSignature.cpp">
@@ -80,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

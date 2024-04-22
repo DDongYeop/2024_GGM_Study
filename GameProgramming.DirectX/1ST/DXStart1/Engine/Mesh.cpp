@@ -2,7 +2,7 @@
 #include "Mesh.h"
 #include "Engine.h"
 
-// º¤ÅÍ¿¡ ¹öÅØ½º 3°³¸¦ ¹Ş¾Æ¼­ Àü´Ş (= Á¤Á¡¸ñ·ÏÀ» ¹Ş´Â´Ù)
+// ë²¡í„°ì— ë²„í…ìŠ¤ 3ê°œë¥¼ ë°›ì•„ì„œ ì „ë‹¬í•´ì¤„ê²ƒì´ë‹¤(=ì •ì  ëª©ë¡ì„ ë°›ëŠ”ë‹¤.)
 
 void Mesh::Init(vector<Vertex>& vec)
 {
@@ -12,10 +12,7 @@ void Mesh::Init(vector<Vertex>& vec)
     D3D12_HEAP_PROPERTIES heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
     D3D12_RESOURCE_DESC desc = CD3DX12_RESOURCE_DESC::Buffer(bufferSize);
 
-    //_vertextBuffersms GPUÀÇ °ø°£À» °¡¸®Å°°í ÀÖ´Ù
-    //GPUÀÇ ¸Ş¸ğ¸®¿¡ Á¤Á¡ µ¥ÀÌÅÍ¸¦ º¹»çÇØÁÖ´Â °úÁ¤
-
-    //GPUÂÊÀ¸·Î ¹Ğ¾î³Ö±â À§ÇÑ ¸®¼Ò½º
+    //GPUìª½ìœ¼ë¡œ ë°€ì–´ë„£ê¸° ìœ„í•œ ë¦¬ì†ŒìŠ¤
     DEVICE->CreateCommittedResource(
         &heapProperty,
         D3D12_HEAP_FLAG_NONE,
@@ -24,7 +21,8 @@ void Mesh::Init(vector<Vertex>& vec)
         nullptr,
         IID_PPV_ARGS(&_vertexBuffer));
 
-
+    // _vertexBufferëŠ” GPUì˜ ê³µê°„ì„ ê°€ë¦¬í‚¤ê³  ìˆë‹¤
+    // GPUì˜ ë©”ëª¨ë¦¬ì— ì •ì  ë°ì´í„°ë¥¼ ë³µì‚¬í•´ì£¼ëŠ” ê³¼ì •
 
     // Copy the triangle data to the vertex buffer.
     void* vertexDataBuffer = nullptr;
@@ -35,8 +33,8 @@ void Mesh::Init(vector<Vertex>& vec)
 
     // Initialize the vertex buffer view.
     _vertexBufferView.BufferLocation = _vertexBuffer->GetGPUVirtualAddress();
-    _vertexBufferView.StrideInBytes = sizeof(Vertex);   //Á¤Á¡ 1°³ÀÇ Å©±â
-    _vertexBufferView.SizeInBytes = bufferSize;         //¹öÆÛÀÇ Å©±â
+    _vertexBufferView.StrideInBytes = sizeof(Vertex); //ì •ì  1ê°œì˜ í¬ê¸°
+    _vertexBufferView.SizeInBytes = bufferSize; //ë²„í¼ì˜ í¬ê¸°
 }
 
 void Mesh::Render()
@@ -44,7 +42,10 @@ void Mesh::Render()
     CMD_LIST->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     CMD_LIST->IASetVertexBuffers(0, 1, &_vertexBufferView); // Slot: (0~15)
 
-    //·çÆ® Ä¿½ºÅÍ ¸¶ÀÌÂ¡ ¼­¸í 
+    // ë£¨íŠ¸ ì»¤ìŠ¤í„°ë§ˆì´ì§• ì„œëª…
+    // CMD_:LIST-?SetGraphicsRootConstantBufferView(0,?,?);
+    // 1.ë²„í¼ì—ë‹¤ê°€ ë°ì´í„° ì„¸íŒ…
+    // 2.ë²„í¼ì˜ ì£¼ì†Œë¥¼ ë ˆì§€ìŠ¤í„°ì— ì „ì†¡
 
     CMD_LIST->DrawInstanced(_vertexCount, 1, 0, 0);
 }

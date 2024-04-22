@@ -1,6 +1,6 @@
 #pragma once
 
-//ÀåÄ¡(ÇÏµå¿þ¾î)¿Í Á÷Á¢ ¼ÒÅëÇÏ±â À§ÇÑ ÇÔ¼öµéÀÇ ¸ðÀ½
+// ìž¥ì¹˜(í•˜ë“œì›¨ì–´)ì™€ ì§ì ‘ ì†Œí†µí•˜ê¸° ìœ„í•œ í•¨ìˆ˜ë“¤ì˜ ëª¨ìŒ
 
 class Device
 {
@@ -11,14 +11,12 @@ public:
     ComPtr<ID3D12Device> GetDevice() { return _device; }
 
 private:
-
-    // COMÀÌ¶õ ¹«¾ùÀÎ°¡? ÄÄÆ÷³ÍÆ® ¿ÀºêÁ§Æ® ¸ðµ¨ 
-    // DX ÇÁ·Î±×·¡¹Ö ¾ð¾îÀÇ µ¶¸³¼º°ú ÇÏÀ§ È£È¯¼ºÀ» °¡´ÉÇÏ°Ô ÇÏ´Â ±â¼ú 
-    // COM°´Ã¼(=COMÀÎÅÍÆäÀÌ½º)¸¦ »ç¿ëÇÏ¿© ¼¼ºÎ»çÇ×µéÀ» ¿ì¸®¿¡°Ô ¼û°ÜÁü
-    // COMPtr = ÀÏÁ¾ÀÇ ½º¸¶Æ® Æ÷ÀÎÅÍ·Î Á¢±ÙÇÏ¿© »ç¿ë °¡´ÉÇÏ´Ù.
+    // COMì´ëž€ ë¬´ì—‡ì¸ê°€? ì»´í¬ë„ŒíŠ¸ ì˜¤ë¸Œì íŠ¸ ëª¨ë¸
+    // DX í”„ë¡œê·¸ëž˜ë° ì–¸ì–´ì˜ ë…ë¦½ì„±ê³¼ í•˜ìœ„ í˜¸í™˜ì„±ì„ ê°€ëŠ¥í•˜ê²Œ í•˜ëŠ” ê¸°ìˆ 
+    // COMê°ì²´ (=COMì¸í„°íŽ˜ì´ìŠ¤)ë¥¼ ì‚¬ìš©í•˜ì—¬ ì„¸ë¶€ì‚¬í•­ë“¤ì„ ìš°ë¦¬ì—ê²Œ ìˆ¨ê²¨ì§
+    // ComPtr = ì¼ì¢…ì˜ ìŠ¤ë§ˆíŠ¸ í¬ì¸í„°ë¡œ ì ‘ê·¼í•˜ì—¬ ì‚¬ìš© ê°€ëŠ¥í•˜ë‹¤.
 
     ComPtr<ID3D12Debug>         _debugController;
-    ComPtr<IDXGIFactory>        _dxgi; // È­¸é °ü·Ã ±â´Éµé
-    ComPtr<ID3D12Device>        _device; // °¢Á¾ °´Ã¼ »ý¼º
+    ComPtr<IDXGIFactory>        _dxgi; // í™”ë©´ ê´€ë ¨ ê¸°ëŠ¥ë“¤
+    ComPtr<ID3D12Device>        _device; // ê°ì¢… ê°ì²´ ìƒì„±
 };
-

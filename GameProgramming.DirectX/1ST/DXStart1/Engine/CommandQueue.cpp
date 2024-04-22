@@ -1,106 +1,109 @@
 #include "pch.h"
 #include "CommandQueue.h"
-#include "SwapChain.h"
+#include"SwapChain.h"
 #include "DescriptorHeap.h"
+#include "Engine.h"
 
 CommandQueue::~CommandQueue()
 {
-    ::CloseHandle(_fenceEvent);
+	::CloseHandle(_fenceEvent);
 }
 
 void CommandQueue::Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swapChain, shared_ptr<DescriptorHeap> descHeap)
 {
-    _swapChain = swapChain;
-    _descHeap = descHeap;
+	_swapChain = swapChain;
+	_descHeap = descHeap;
 
-    D3D12_COMMAND_QUEUE_DESC queueDesc = {};
-    queueDesc.Type = D3D12_COMMAND_LIST_TYPE_DIRECT;
-    queueDesc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
+	D3D12_COMMAND_QUEUE_DESC queueDesc = {};
+	queueDesc.Type = D3D12_COMMAND_LIST_TYPE_DIRECT;
+	queueDesc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
 
-    // Ä¿¸ÇµåÅ¥¸¦ ÇÔ¼ö¸¦ ÅëÇØ »ý¼ºÇÑ´Ù
-    device->CreateCommandQueue(&queueDesc, IID_PPV_ARGS(&_cmdQueue));
-    // GPU°¡ Á÷Á¢ ½ÇÇàÇÏ´Â ¸í·É ¸ñ·Ï
-    device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&_cmdAlloc));
+	// ì»¤ë§¨ë“œ íë¥¼ í•¨ìˆ˜ë¥¼ í†µí•´ ìƒì„±í•œë‹¤.
+	device->CreateCommandQueue(&queueDesc, IID_PPV_ARGS(&_cmdQueue));
+	// - D3D12_COMMAND_LIST_TYPE_DIRECT: GPUê°€ ì§ì ‘ ì‹¤í–‰í•˜ëŠ” ëª…ë ¹ ëª©ë¡
+	device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&_cmdAlloc));
 
-    // Ä¿¸Çµå ¸®½ºÆ®´Â »óÅÂ°ªÀÌ CLOSE / OPEN (¿­¾ú´Ù°¡ ´ÝÇû´Ù°¡ ¹ÝÈ¤)
-    // OPEN»óÅÂ¿¡¼­ COMAND¸¦ ³Ö¾ú´Ù°¡ CloseÇÑ ´ÙÀ½¿¡ Á¦ÃâÇÑ´Ù´Â °³³ä 
-    device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, _cmdAlloc.Get(), nullptr, IID_PPV_ARGS(&_cmdList));
+	// ì»¤ë§¨ë“œ ë¦¬ìŠ¤íŠ¸ëŠ” ìƒíƒœê°’ì´ CLOSE / OPEN(ì—´ì—ˆë‹¤ê°€ ë‹«í˜”ë‹¤ê°€ ë°˜ë³µ)
+	// OPENìƒíƒœì—ì„œ COMMANDë¥¼ ë„£ì—ˆë‹¤ê°€ closeí•œ ë‹¤ìŒì— ì œì¶œí•œë‹¤ëŠ” ê°œë…
+	device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, _cmdAlloc.Get(), nullptr, IID_PPV_ARGS(&_cmdList));
 
-    _cmdList->Close();
+	_cmdList->Close();
 
-    // CPU¿Í GPUÀÇ µ¿±âÈ­ ¼ö´ÜÀ¸·Î ¾²ÀÓ 
-    device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&_fence));
+	// CPUì™€ GPUì˜ ë™ê¸°í™” ìˆ˜ë‹¨ìœ¼ë¡œ ì“°ìž„
+	device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&_fence));
 
-    // ¸ÖÆ¼½º·¹µå¿¡¼­ µ¿±âÈ­ ÇÒ ¶§ ÁÖ·Î »ç¿ëÇÏ´Â ¹æ¹ý
-    // ÀÌº¥Æ®´Â ½ÅÈ£µî°ú °°Àº Á¸Àç
-    // »¡°£ºÒÀÏ¶© ¸ØÃç ÀÖ´Ù°¡ ÆÄ¶õºÒÀÏ¶§ ÄÑÁú¶§±îÁö ´ë±â -> µ¿±âÈ­ ½ÃÅ°´Â ¿ëµµ 
-    _fenceEvent = ::CreateEvent(nullptr, FALSE, FALSE, nullptr);
+	// ë©€í‹°ìŠ¤ë ˆë“œì—ì„œ ë™ê¸°í™” í•  ë•Œ ì£¼ë¡œ ì‚¬ìš©í•˜ëŠ” ë°©ë²•
+	// ì´ë²¤íŠ¸ëŠ” ì‹ í˜¸ë“±ê³¼ ê°™ì€ ì¡´ìž¬
+	// ë¹¨ê°„ë¶ˆì¼ë• ë©ˆì¶°ìžˆë‹¤ê°€ íŒŒëž€ë¶ˆì¼ë•Œ ì¼œì§ˆë•Œê¹Œì§€ ëŒ€ê¸°!(ê¸°ë‹¤ë¦°ë‹¤)-> ë™ê¸°í™” ì‹œí‚¤ëŠ” ìš©ë„
+	_fenceEvent = ::CreateEvent(nullptr, FALSE, FALSE, nullptr);
 }
-
 
 void CommandQueue::WaitSync()
 {
-    // GPU¿¡°Ô ¿ÜÁÖ¸¦ ÁÙ ¶§¸¶´Ù ÀÎµ¦½º Áõ°¡
-    _fenceValue++;
+	//GPUì—ê²Œ ì™¸ì£¼ë¥¼ ì¤„ ë•Œë§ˆë‹¤ ì¸ë±ìŠ¤ ì¦ê°€
+	_fenceValue++;
 
-    // ¸í·É ´ë±â¿­¿¡ »õ·Î¿î Ææ½ºÆ÷ÀÎÆ®¸¦ ¼³Á¤ÇÏ´Â ¸í·ÉÀ» Ãß°¡
-    // GPU Å¸ÀÓ¶óÀÎ¿¡ ÀÖÀ¸¹Ç·Î CPU°¡ ÇÏ´Â ÀÏÀÌ ¿Ï·áµÉ¶§±îÁö »õ ¿ïÅ¸¸® ÁöÁ¡ÀÌ ¼³Á¤µÇÁö ¾Ê´Â´Ù 
-    _cmdQueue->Signal(_fence.Get(), _fenceValue);
+	// ëª…ë ¹ ëŒ€ê¸°ì—´ì— ìƒˆë¡œìš´ íŽœìŠ¤í¬ì¸íŠ¸ë¥¼ ì„¤ì •í•˜ëŠ” ëª…ë ¹ì„ ì¶”ê°€
+	//GPU íƒ€ìž„ë¼ì¸ì— ìžˆìœ¼ë¯€ë¡œ GPUê°€ í•˜ëŠ” ì¼ì´ ì™„ë£Œë ë•Œê¹Œì§€ ìƒˆ ìš¸íƒ€ë¦¬ ì§€ì ì´ ì„¤ì •ë˜ì§€ ì•ŠëŠ”ë‹¤.
+	_cmdQueue->Signal(_fence.Get(), _fenceValue);
 
-    // GPU°¡ ÀÌ Ææ½ºÁöÁ¡±îÁö ¸í·ÉÀ» ¿Ï·áÇÒ ¶§±îÁö ±â´Ù¸°´Ù
-    if (_fence->GetCompletedValue() < _fenceValue)
-    {
-        // ÇöÀç Ææ½º¿¡ µµ´ÞÇÏ¸é ÀÌº¥Æ®¸¦ ¹ß»ý½ÃÅ´
-        // _fenceValue¸¸Å­ÀÇ ÀÏÀÌ ´Ù ³¡³Â´Ù¸é ÀÌº¥Æ®¸¦ ¹ß»ý (ÆÄ¶õºÒ)
-        _fence->SetEventOnCompletion(_fenceValue, _fenceEvent);
+	//GPUê°€ ì´ íŽœìŠ¤ì§€ì ê¹Œì§€ ëª…ë ¹ì„ ì™„ë£Œí•  ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
+	if (_fence->GetCompletedValue() < _fenceValue)
+	{
+		// í˜„ìž¬ íŽœìŠ¤ì— ë„ë‹¬í•˜ë©´ ì´ë²¤íŠ¸ë¥¼ ë°œìƒì‹œí‚´
+		// _fenceValueê°’ ë§Œí¼ì˜ ì¼ì„ ë‹¤ ëëƒˆë‹¤ë©´ ì´ë²¤íŠ¸ë¥¼ ë°œìƒ(íŒŒëž€ë¶ˆ ì¼œì§)
+		_fence->SetEventOnCompletion(_fenceValue, _fenceEvent);
 
-        // GPU°¡ ÇöÀç ÆÒ½º¿¡ µµ´ÞÇÒ¶§±îÁö ±â´Ù¸®¼¼¿ä. °ð ÀÌº¥Æ®°¡ ½ÃÀÛµÊ
-        // Áï CPU°¡ ±â´Ù¸®°í ÀÖ´ÂÁß 
-        ::WaitForSingleObject(_fenceEvent, INFINITE);
-    }
+		// GPUê°€ í˜„ìž¬ íŽœìŠ¤ì— ë„ë‹¬í• ë•Œê¹Œì§€ ê¸°ë‹¤ë¦¬ì„¸ìš”. ê³§ ì´ë²¤íŠ¸ê°€ ì‹œìž‘ë¨
+		// ì¦‰ GPUê°€ ê¸°ë‹¤ë¦¬ê³  ìžˆëŠ”ì¤‘...
+		::WaitForSingleObject(_fenceEvent, INFINITE);
+	}
 }
 
 void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 {
-    _cmdAlloc->Reset();
-    _cmdList->Reset(_cmdAlloc.Get(), nullptr);
+	_cmdAlloc->Reset();
+	_cmdList->Reset(_cmdAlloc.Get(), nullptr);
 
-    D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(
-        _swapChain->GetCurrentBackBufferResource().Get(),
-        D3D12_RESOURCE_STATE_PRESENT, // È­¸é Ãâ·Â
-        D3D12_RESOURCE_STATE_RENDER_TARGET); // ¿ÜÁÖ °á°ú¹°
+	//ìŠ¤ì™‘ì œì•ˆê³¼ ë§žë¬¼ë ¤ì„œ ìž‘ë™í•˜ëŠ” ë†ˆì´ë‹¤.
+	D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(
+		_swapChain->GetCurrentBackBufferResource().Get(),
+		D3D12_RESOURCE_STATE_PRESENT, // í™”ë©´ ì¶œë ¥
+		D3D12_RESOURCE_STATE_RENDER_TARGET); // ì™¸ì£¼ ê²°ê³¼ë¬¼
 
-    _cmdList->ResourceBarrier(1, &barrier);
+	_cmdList->SetGraphicsRootSignature(ROOT_SIGNATURE.Get());
 
-    //ºäÆ÷Æ®¿Í °¡À§ »ç°¢ÇüÀ» ¼³Á¤ÇÑ´Ù 
-    //ÀÌ´Â ¸í·É ¸ñ·ÏÀÌ Àç¼³Á¤ µÉ ¶§¸¶´Ù È£Ãâ µÇ¾î¾ß¸¸ ÇÑ´Ù
-    _cmdList->RSSetViewports(1, vp);
-    _cmdList->RSSetScissorRects(1, rect);
+	_cmdList->ResourceBarrier(1, &barrier);
 
-    //·»´õ¸µ ÇÒ ¹öÆÛ¸¦ ÁöÁ¤ÇÑ´Ù
-    D3D12_CPU_DESCRIPTOR_HANDLE backBufferView = _descHeap->GetBackBufferView();
-    _cmdList->ClearRenderTargetView(backBufferView, Colors::LightSteelBlue, 0, nullptr);
-    _cmdList->OMSetRenderTargets(1, &backBufferView, FALSE, nullptr);
+	//ë·°í¬íŠ¸ì™€ ê°€ìœ„ ì‚¬ê°í˜•ì„ ì„¤ì •í•œë‹¤.
+	//ì•„ëŠ” ëª…ë ¹ ëª©ë¡ì´ ìž¬ì„¤ì • ë  ë•Œë§ˆë‹¤ í˜¸ì¶œ ë˜ì–´ì•¼ í•œë‹¤.
+	_cmdList->RSSetViewports(1, vp);
+	_cmdList->RSSetScissorRects(1, rect);
+
+	//ë Œë”ë§í•  ë²„í¼ë¥¼ ì§€ì •í•œë‹¤.
+	D3D12_CPU_DESCRIPTOR_HANDLE backBufferView = _descHeap->GetBackBufferView();
+	_cmdList->ClearRenderTargetView(backBufferView, Colors::LightSteelBlue, 0, nullptr);
+	_cmdList->OMSetRenderTargets(1, &backBufferView, FALSE, nullptr);
 }
 
 void CommandQueue::RenderEnd()
 {
-    D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(
-        _swapChain->GetCurrentBackBufferResource().Get(),
-        D3D12_RESOURCE_STATE_RENDER_TARGET, //¿ÜÁÖ °á°ú¹°
-        D3D12_RESOURCE_STATE_PRESENT);  //È­¸é Ãâ·Â 
+	D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(
+		_swapChain->GetCurrentBackBufferResource().Get(),
+		D3D12_RESOURCE_STATE_RENDER_TARGET,
+		D3D12_RESOURCE_STATE_PRESENT);
 
-    _cmdList->ResourceBarrier(1, &barrier);
-    _cmdList->Close();
+	_cmdList->ResourceBarrier(1, &barrier);
+	_cmdList->Close();
 
-    //Ä¿¸Çµå ¸®½ºÆ® ¼öÇà
-    ID3D12CommandList* cmdListArr[] = { _cmdList.Get() };
-    _cmdQueue->ExecuteCommandLists(_countof(cmdListArr), cmdListArr);
+	//ì»¤ë§¨ë“œ ë¦¬ìŠ¤íŠ¸ ìˆ˜í–‰
+	ID3D12CommandList* cmdListArr[] = { _cmdList.Get() };
+	_cmdQueue->ExecuteCommandLists(_countof(cmdListArr), cmdListArr);
 
-    //ÇöÀç È­¸é º¸¿©ÁÜ
-    _swapChain->Present();
+	//í˜„ìž¬ í™”ë©´ì„ ë³´ì—¬ì¤Œ
+	_swapChain->Present();
 
-    WaitSync();
+	WaitSync();
 
-    _swapChain->SwapIndex();
+	_swapChain->SwapIndex();
 }
