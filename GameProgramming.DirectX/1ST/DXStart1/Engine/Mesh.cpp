@@ -46,6 +46,8 @@ void Mesh::Render()
     // CMD_:LIST-?SetGraphicsRootConstantBufferView(0,?,?);
     // 1.버퍼에다가 데이터 세팅
     // 2.버퍼의 주소를 레지스터에 전송
+    GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
+    GEngine->GetCB()->PushData(1, &_transform, sizeof(_transform));
 
     CMD_LIST->DrawInstanced(_vertexCount, 1, 0, 0);
 }
