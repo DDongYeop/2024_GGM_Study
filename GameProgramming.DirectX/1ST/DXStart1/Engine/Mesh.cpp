@@ -46,8 +46,22 @@ void Mesh::Render()
     // CMD_:LIST-?SetGraphicsRootConstantBufferView(0,?,?);
     // 1.버퍼에다가 데이터 세팅
     // 2.버퍼의 주소를 레지스터에 전송
-    GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
-    GEngine->GetCB()->PushData(1, &_transform, sizeof(_transform));
+    // CBV 방식
+    //GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
+    //GEngine->GetCB()->PushData(1, &_transform, sizeof(_transform));
+
+    // 루트 테이블 방식   
+    // 위치이동 레지스터  
+    {
+        D3D12_CPU_DESCRIPTOR_HANDLE handle = GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
+        GEngine->GetTableDescHeap()->SetCBV(handle, CBV_REGISTER::b0);
+    }
+    // 색상변환 레지스터
+    {
+        D3D12_CPU_DESCRIPTOR_HANDLE handle = GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
+        GEngine->GetTableDescHeap()->SetCBV(handle, CBV_REGISTER::b1);
+    }
+    GEngine->GetTableDescHeap()->CommitTable();
 
     CMD_LIST->DrawInstanced(_vertexCount, 1, 0, 0);
 }
