@@ -5,6 +5,7 @@
 #include <Components/StaticMeshComponent.h>
 #include <Components/BoxComponent.h>
 #include "Physics/ABCollision.h"
+#include "Character/ABCharacterNonPlayer.h"
 
 // Sets default values
 AABStageGimmick::AABStageGimmick()
@@ -60,6 +61,10 @@ AABStageGimmick::AABStageGimmick()
 	StateChangeActions.Add(EStageState::FIGHT, FStageChangedDelegateWrapper(FOnStageChangedDelegate::CreateUObject(this, &AABStageGimmick::SetFight)));
 	StateChangeActions.Add(EStageState::REWARD, FStageChangedDelegateWrapper(FOnStageChangedDelegate::CreateUObject(this, &AABStageGimmick::SetChooseReward)));
 	StateChangeActions.Add(EStageState::NEXT, FStageChangedDelegateWrapper(FOnStageChangedDelegate::CreateUObject(this, &AABStageGimmick::SetChooseNext)));
+
+	// Fight Section
+	OpponentClass = AABCharacterNonPlayer::StaticClass();
+	OpponentSpawnTime = 2.0f;
 }
 
 void AABStageGimmick::OnConstruction(const FTransform& Transform)
@@ -71,10 +76,25 @@ void AABStageGimmick::OnConstruction(const FTransform& Transform)
 
 void AABStageGimmick::OnStageTriggerOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	SetState(EStageState::FIGHT);
 }
 
 void AABStageGimmick::OnGateTriggerOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	check(OverlappedComponent->ComponentTags.Num() == 1);
+	FName ComponentTag = OverlappedComponent->ComponentTags[0];
+	FName SocketName = FName(*ComponentTag.ToString().Left(2));
+	check(Stage->DoesSocketExist(SocketName));
+
+	FVector NewLocation = Stage->GetSocketLocation(SocketName);
+	TArray<FOverlapResult> OverlapResults;
+	FCollisionQueryParams CollisionQueryParam(SCENE_QUERY_STAT(GateTriggers), false, this);
+	bool bResult = GetWorld()->OverlapMultiByObjectType(OverlapResults, NewLocation, FQuat::Identity, FCollisionObjectQueryParams::InitType::AllObjects, FCollisionShape::MakeSphere(755.0f), CollisionQueryParam);
+
+	if (!bResult)
+	{
+		GetWorld()->SpawnActor<AABStageGimmick>(NewLocation, FRotator::ZeroRotator);
+	}
 }
 
 void AABStageGimmick::OpenAllGates()
@@ -120,6 +140,8 @@ void AABStageGimmick::SetFight()
 		GateTrigger->SetCollisionProfileName(TEXT("NoCollision"));
 	}
 	CloseAllGates();
+
+	GetWorld()->GetTimerManager().SetTimer(OpponentTimerhandle, this, &AABStageGimmick::OnOpponnetSpawn, OpponentSpawnTime, false);
 }
 
 void AABStageGimmick::SetChooseReward()
@@ -140,4 +162,21 @@ void AABStageGimmick::SetChooseNext()
 		GateTrigger->SetCollisionProfileName(CPROFILE_ABTRIGGER);
 	}
 	OpenAllGates();
+}
+
+void AABStageGimmick::OnOpponnetSpawn()
+{
+	const FVector SpawnLocation = GetActorLocation() + FVector::UpVector * 88.0f;
+	AActor* OpponentActor = GetWorld()->SpawnActor(OpponentClass, &SpawnLocation, &FRotator::ZeroRotator);
+
+	AABCharacterNonPlayer* ABOpponentCharacter = Cast<AABCharacterNonPlayer>(OpponentActor);
+	if (ABOpponentCharacter)
+	{
+		ABOpponentCharacter->OnDestroyed.AddDynamic(this, &AABStageGimmick::OnOpponentDestroyed);
+	}
+}
+
+void AABStageGimmick::OnOpponentDestroyed(AActor* DestroyedActor)
+{
+	SetState(EStageState::REWARD);
 }

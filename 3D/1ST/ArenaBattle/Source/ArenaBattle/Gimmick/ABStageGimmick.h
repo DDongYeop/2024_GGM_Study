@@ -76,4 +76,19 @@ protected:
 	void SetFight();
 	void SetChooseReward();
 	void SetChooseNext();
+
+// Fight Section
+protected:
+	UPROPERTY(EditAnywhere, Category=Fight, Meta=(AllowPrivateAccess="true"))
+	TSubclassOf<class AABCharacterNonPlayer> OpponentClass;
+
+	UPROPERTY(EditAnywhere, Category=Fight, Meta=(AllowPrivateAccess="true"))
+	float OpponentSpawnTime;
+
+	FTimerHandle OpponentTimerhandle;
+
+	void OnOpponnetSpawn();
+
+	UFUNCTION()
+	void OnOpponentDestroyed(AActor* DestroyedActor);
 };
