@@ -161,7 +161,7 @@ void AABCharacterBase::SetupCharacterWidget(UABUserWidget* InUserWidget)
 
 	if (HpBarWidget)
 	{
-		HpBarWidget->SetMaxHp(Stat->GetMaxHp());
+		HpBarWidget->SetMaxHp(Stat->GetTotalStat().MaxHp);
 		HpBarWidget->UpdateHpBar(Stat->GetCurrentHp());
 
 		Stat->OnHpChanged.AddUObject(HpBarWidget, &UABHpBarWidget::UpdateHpBar);
@@ -173,9 +173,9 @@ void AABCharacterBase::AttackHitCheck()
 	FHitResult OutHitResult;
 	FCollisionQueryParams Params(SCENE_QUERY_STAT(Attak), false, this);
 
-	const float AttackRange = 40.0f;
+	const float AttackRange = Stat->GetTotalStat().AttackRange;
 	const float AttackRadius = 50.0f;
-	const float AttackDamage = 30.0f;
+	const float AttackDamage = Stat->GetTotalStat().Attack;
 	const FVector Start = GetActorLocation() + GetActorForwardVector() * GetCapsuleComponent()->GetScaledCapsuleRadius();
 	const FVector End = Start + GetActorForwardVector() * AttackRange;
 
@@ -258,7 +258,7 @@ void AABCharacterBase::ComboActionBegin()
 
 	GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_None);
 
-	const float AttackSpeedRate = 1.0f;
+	const float AttackSpeedRate = Stat->GetTotalStat().AttackSpeed;
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance)
 	{
@@ -286,7 +286,7 @@ void AABCharacterBase::SetComboCheckTimer()
 	int32 ComboIndex = CurrentCombo - 1;
 	ensure(ComboAction->EffectiveFrameCount.IsValidIndex(ComboIndex));
 
-	const float AttackSpeedRate = 1.0f;
+	const float AttackSpeedRate = Stat->GetTotalStat().AttackSpeed;
 	float ComboEffectiveTime = (ComboAction->EffectiveFrameCount[ComboIndex] / ComboAction->FrameRate) / AttackSpeedRate;
 
 	if (ComboEffectiveTime > 0.0f)

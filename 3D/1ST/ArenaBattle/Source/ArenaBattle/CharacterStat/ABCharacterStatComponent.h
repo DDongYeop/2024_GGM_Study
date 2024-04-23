@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include <GameData/ABCharacterStat.h>
 #include "ABCharacterStatComponent.generated.h"
 
 DECLARE_MULTICAST_DELEGATE(FOnHpZeroDelegate)
@@ -23,8 +24,12 @@ protected:
 	virtual void BeginPlay() override;
 		
 public:
-	FORCEINLINE float GetMaxHp() { return MaxHp; }
 	FORCEINLINE float GetCurrentHp() { return CurrentHp; }
+	FORCEINLINE float GetCurrentLevel() { return CurrentLevel; }
+	FORCEINLINE void SetModifierStat(const FABCharacterStat& InModifierStat) { ModifierStat = InModifierStat; }
+	FORCEINLINE FABCharacterStat GetTotalStat() const { return BaseStat + ModifierStat; }
+
+	void SetLevelStat(int32 InNewLevel);
 
 	void SetHp(float NewHp);
 	float ApplyDamage(float InDamage);
@@ -34,9 +39,15 @@ public:
 	FOnHpChangedDelegate OnHpChanged;
 
 protected:
-	UPROPERTY(VisibleInstanceOnly, Category = Stat)
-	float MaxHp;
-
 	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat)
 	float CurrentHp;
+
+	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat)
+	float CurrentLevel;
+
+	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat , Meta = (AllowPrivateAccess="true"))
+	FABCharacterStat BaseStat;
+
+	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat, Meta = (AllowPrivateAccess = "true"))
+	FABCharacterStat ModifierStat;
 };
