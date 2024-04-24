@@ -1,21 +1,25 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 // 각 오브젝트의 위치를 스폰해주는 작업 진행
 
 public class PenguinArea : MonoBehaviour
 {
+    public GameObject BabyPenguin;
     [SerializeField] private PenguinAgent _penguinAgent;
-    [SerializeField] private GameObject _babyPenguin;
     [SerializeField] private Fish _fishPrefabs;
+    [SerializeField] private TextMeshPro _cumulactiveRewardText;
     private List<GameObject> _fishList = new List<GameObject>();
 
-    private void Update()
+    public int RemainingFish => _fishList.Count;
+
+    private void FixedUpdate()
     {
-        if(Input.GetMouseButtonDown(0))
-            ResetArea();
+        _cumulactiveRewardText.text = _penguinAgent.GetCumulativeReward().ToString("0.00");
     }
 
     //각도와 거리를 이용해서 랜덤으로 스폰 
@@ -43,12 +47,12 @@ public class PenguinArea : MonoBehaviour
 
     private void PlaceBabyPenguin()
     {
-        Rigidbody rb = _babyPenguin.GetComponent<Rigidbody>();
+        Rigidbody rb = BabyPenguin.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         
-        _babyPenguin.transform.position = ChooseRandomPosition(transform.parent.position, -45, 45, 4, 9f) + Vector3.up * .5f;
-        _babyPenguin.transform.rotation = Quaternion.Euler(0, Random.Range(0, 180), 0);
+        BabyPenguin.transform.position = ChooseRandomPosition(transform.parent.position, -45, 45, 4, 9f) + Vector3.up * .5f;
+        BabyPenguin.transform.rotation = Quaternion.Euler(0, Random.Range(0, 180), 0);
     }
 
     private void SpawnFish(int cnt)
@@ -73,6 +77,12 @@ public class PenguinArea : MonoBehaviour
         }
         
         _fishList = new List<GameObject>();
+    }
+
+    public void RemoveFishList(GameObject fishObject)
+    {
+        _fishList.Remove(fishObject);
+        Destroy(fishObject);
     }
 
     public void ResetArea()

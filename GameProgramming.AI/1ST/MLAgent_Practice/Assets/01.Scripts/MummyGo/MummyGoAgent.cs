@@ -176,7 +176,7 @@ public class MummyGoAgent : Agent
 
 /*
 
-mlagents-learn "D:\Dev\GitHub\2024_GGM_Study\GameProgramming.AI\1ST\MLAgent_Practice\ml-agents-release_20\config\ppo\BallOnFloor.yaml" --run-id=ballonfloor01 --results-dir="D:\Dev\GitHub\2024_GGM_Study\GameProgramming.AI\1ST\MLAgent_Practice\ml-agents-release_20\rsults"
+mlagents-learn "D:\Dev\GitHub\2024_GGM_Study\GameProgramming.AI\1ST\MLAgent_Practice\ml-agents-release_20\config\ppo\BallOnFloor.yaml" --run-id=ballonfloor01 --results-dir="D:\Dev\GitHub\2024_GGM_Study\GameProgramming.AI\1ST\MLAgent_Practice\ml-agents-release_20\results"
 
 mlagents-learn "yaml파일 경로" --run-id=모델이름 --results-dir="모델 저장 경로"
 */
