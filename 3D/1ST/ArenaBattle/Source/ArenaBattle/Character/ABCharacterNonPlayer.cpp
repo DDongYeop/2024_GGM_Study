@@ -5,6 +5,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Physics/ABCollision.h"
 #include <Engine/AssetManager.h>
+#include "AI/ABAIController.h"
 
 AABCharacterNonPlayer::AABCharacterNonPlayer()
 {
@@ -14,6 +15,10 @@ AABCharacterNonPlayer::AABCharacterNonPlayer()
 	// Mesh
 	GetMesh()->SetCollisionProfileName(TEXT("NoCollision"));
 	GetMesh()->SetHiddenInGame(true);
+
+	// AI
+	AIControllerClass = AABAIController::StaticClass();
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> CharacterMeshRef(TEXT("/Game/InfinityBladeWarriors/Character/CompleteCharacters/SK_CharM_Tusk.SK_CharM_Tusk"));
 	if (CharacterMeshRef.Object)
