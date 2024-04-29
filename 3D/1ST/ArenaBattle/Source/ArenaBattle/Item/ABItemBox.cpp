@@ -19,7 +19,6 @@ AABItemBox::AABItemBox()
         RootComponent = Trigger;
         Trigger->SetCollisionProfileName(CPROFILE_ABTRIGGER);
         Trigger->SetBoxExtent(FVector(40.0f, 42.0f, 30.0f));
-        Trigger->OnComponentBeginOverlap.AddDynamic(this, &AABItemBox::OnOverlapBegin);
     }
 
     Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
@@ -68,6 +67,8 @@ void AABItemBox::PostInitializeComponents()
     }
     Item = Cast<UABItemData>(AssetPtr.Get());
     ensure(Item);
+
+    Trigger->OnComponentBeginOverlap.AddDynamic(this, &AABItemBox::OnOverlapBegin);
 }
 
 void AABItemBox::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
