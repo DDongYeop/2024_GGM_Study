@@ -168,6 +168,16 @@ void AABCharacterBase::SetupCharacterWidget(UABUserWidget* InUserWidget)
 	}
 }
 
+int32 AABCharacterBase::GetLevel()
+{
+	return Stat->GetCurrentLevel();
+}
+
+void AABCharacterBase::SetLevel(int32 InNewLevel)
+{
+	Stat->SetLevelStat(InNewLevel);
+}
+
 void AABCharacterBase::AttackHitCheck()
 {
 	FHitResult OutHitResult;

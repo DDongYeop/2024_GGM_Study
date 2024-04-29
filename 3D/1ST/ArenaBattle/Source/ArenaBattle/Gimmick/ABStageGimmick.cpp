@@ -63,6 +63,8 @@ AABStageGimmick::AABStageGimmick()
 	StateChangeActions.Add(EStageState::REWARD, FStageChangedDelegateWrapper(FOnStageChangedDelegate::CreateUObject(this, &AABStageGimmick::SetChooseReward)));
 	StateChangeActions.Add(EStageState::NEXT, FStageChangedDelegateWrapper(FOnStageChangedDelegate::CreateUObject(this, &AABStageGimmick::SetChooseNext)));
 
+	CurrentStageNum = 0;
+
 	// Fight Section
 	OpponentClass = AABCharacterNonPlayer::StaticClass();
 	OpponentSpawnTime = 2.0f;
@@ -102,7 +104,13 @@ void AABStageGimmick::OnGateTriggerOverlap(UPrimitiveComponent* OverlappedCompon
 
 	if (!bResult)
 	{
-		GetWorld()->SpawnActor<AABStageGimmick>(NewLocation, FRotator::ZeroRotator);
+		const FTransform SpawnTransform(NewLocation);
+		AABStageGimmick* NewGimmick = GetWorld()->SpawnActorDeferred<AABStageGimmick>(AABStageGimmick::StaticClass(), SpawnTransform);
+		if (NewGimmick)
+		{
+			NewGimmick->SetStageNum(CurrentStageNum + 1);
+			NewGimmick->FinishSpawning(SpawnTransform);
+		}
 	}
 }
 
@@ -180,10 +188,16 @@ void AABStageGimmick::OnOpponnetSpawn()
 	const FVector SpawnLocation = GetActorLocation() + FVector::UpVector * 88.0f;
 	AActor* OpponentActor = GetWorld()->SpawnActor(OpponentClass, &SpawnLocation, &FRotator::ZeroRotator);
 
-	AABCharacterNonPlayer* ABOpponentCharacter = Cast<AABCharacterNonPlayer>(OpponentActor);
+	const FTransform SpawnTransform(GetActorLocation() + FVector::UpVector * 88.0f);
+	AABCharacterNonPlayer* ABOpponentCharacter = GetWorld()->SpawnActorDeferred<AABCharacterNonPlayer>(OpponentClass, SpawnTransform);
+
 	if (ABOpponentCharacter)
 	{
 		ABOpponentCharacter->OnDestroyed.AddDynamic(this, &AABStageGimmick::OnOpponentDestroyed);
+		ABOpponentCharacter->SetLevel(CurrentStageNum);
+
+		//초기화 끝나고 소환 완료 
+		ABOpponentCharacter->FinishSpawning(SpawnTransform);
 	}
 }
 

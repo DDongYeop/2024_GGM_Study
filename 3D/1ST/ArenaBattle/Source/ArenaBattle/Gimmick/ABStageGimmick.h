@@ -65,17 +65,23 @@ protected:
 
 // State Section
 protected:
-	UPROPERTY(EditAnywhere, Category=Stage, Meta=(AllowPrivateAccess="true"))
+	UPROPERTY(EditAnywhere, Category= State, Meta=(AllowPrivateAccess="true"))
 	EStageState CurrentState;
 	
 	UPROPERTY()
 	TMap<EStageState, FStageChangedDelegateWrapper> StateChangeActions;
+
+	UPROPERTY(VisibleInstanceOnly, Category = State, Meta = (AllowPrivateAccess = "true"))
+	int32 CurrentStageNum;
 
 	void SetState(EStageState InNewState);
 	void SetReady();
 	void SetFight();
 	void SetChooseReward();
 	void SetChooseNext();
+
+	FORCEINLINE int32 GetStaageNum() const { return CurrentStageNum; }
+	FORCEINLINE void SetStageNum(int32 NewStageNum) { CurrentStageNum = NewStageNum; }
 
 // Fight Section
 protected:

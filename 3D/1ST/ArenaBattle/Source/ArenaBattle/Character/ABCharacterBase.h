@@ -63,6 +63,10 @@ protected:
 
 	virtual void SetupCharacterWidget(class UABUserWidget* InUserWidget) override;
 
+public:
+	int32 GetLevel();
+	void SetLevel(int32 InNewLevel);
+
 // Attack Hit Section
 protected:
 	virtual void AttackHitCheck() override;
