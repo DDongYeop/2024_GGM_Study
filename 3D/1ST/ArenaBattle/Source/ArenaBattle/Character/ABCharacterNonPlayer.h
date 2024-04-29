@@ -5,13 +5,14 @@
 #include "CoreMinimal.h"
 #include "Character/ABCharacterBase.h"
 #include "Engine/StreamableManager.h"
+#include "Interface/IABCharacterItemInterface"
 #include "ABCharacterNonPlayer.generated.h"
 
 /**
  * 
  */
 UCLASS(config = ArenaBattle)
-class ARENABATTLE_API AABCharacterNonPlayer : public AABCharacterBase
+class ARENABATTLE_API AABCharacterNonPlayer : public AABCharacterBase, public IABCharacterItemInterface
 {
 	GENERATED_BODY()
 	
