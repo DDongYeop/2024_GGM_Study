@@ -11,9 +11,10 @@ struct FABCharacterStat : public FTableRowBase
 
 public:
 	FABCharacterStat() : MaxHp(0.0f), Attack(0.0f), AttackRange(0.0f), AttackSpeed(0.0f) {}
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stat)
 	float MaxHp;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stat)
 	float Attack;
 
@@ -34,7 +35,7 @@ public:
 		FABCharacterStat Result;
 		float* ResultPtr = reinterpret_cast<float*>(&Result);
 		int32 StatNum = sizeof(FABCharacterStat) / sizeof(float);
-		for (int32 i = 0; i < StatNum; ++i)
+		for (int32 i = 0; i < StatNum; i++)
 		{
 			ResultPtr[i] = ThisPtr[i] + OtherPtr[i];
 		}

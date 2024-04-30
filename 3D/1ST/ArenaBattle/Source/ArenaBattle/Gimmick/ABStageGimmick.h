@@ -80,7 +80,7 @@ protected:
 	void SetChooseReward();
 	void SetChooseNext();
 
-	FORCEINLINE int32 GetStaageNum() const { return CurrentStageNum; }
+	FORCEINLINE int32 GetStageNum() const { return CurrentStageNum; }
 	FORCEINLINE void SetStageNum(int32 NewStageNum) { CurrentStageNum = NewStageNum; }
 
 // Fight Section
@@ -88,12 +88,12 @@ protected:
 	UPROPERTY(EditAnywhere, Category=Fight, Meta=(AllowPrivateAccess="true"))
 	TSubclassOf<class AABCharacterNonPlayer> OpponentClass;
 
-	UPROPERTY(EditAnywhere, Category=Fight, Meta=(AllowPrivateAccess="true"))
+	UPROPERTY(EditAnywhere, Category = Fight, Meta = (AllowPrivateAccess = "true"))
 	float OpponentSpawnTime;
 
 	FTimerHandle OpponentTimerhandle;
 
-	void OnOpponnetSpawn();
+	void OnOpponentSpawn();
 
 	UFUNCTION()
 	void OnOpponentDestroyed(AActor* DestroyedActor);

@@ -22,7 +22,7 @@ public:
 	void StopAI();
 
 protected:
-	//AI Controller가 Pawn에 빙의 됐을 때 호출되는 함수 
+	// AIController가 Pawn에 빙의됐을 때 호출되는 함수
 	virtual void OnPossess(APawn* InPawn) override;
 
 private:

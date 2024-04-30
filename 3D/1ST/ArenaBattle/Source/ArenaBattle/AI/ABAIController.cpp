@@ -11,12 +11,15 @@ AABAIController::AABAIController()
 {
 	static ConstructorHelpers::FObjectFinder<UBlackboardData> BBAssetRef(TEXT("/Game/ArenaBattle/AI/BB_ABCharacter.BB_ABCharacter"));
 	if (BBAssetRef.Object)
+	{
 		BBAsset = BBAssetRef.Object;
+	}
 
 	static ConstructorHelpers::FObjectFinder<UBehaviorTree> BTAssetRef(TEXT("/Game/ArenaBattle/AI/BT_ABCharacter.BT_ABCharacter"));
 	if (BTAssetRef.Object)
+	{
 		BTAsset = BTAssetRef.Object;
-
+	}
 }
 
 void AABAIController::RunAI()

@@ -19,12 +19,6 @@ AABCharacterNonPlayer::AABCharacterNonPlayer()
 	// AI
 	AIControllerClass = AABAIController::StaticClass();
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
-
-	static ConstructorHelpers::FObjectFinder<USkeletalMesh> CharacterMeshRef(TEXT("/Game/InfinityBladeWarriors/Character/CompleteCharacters/SK_CharM_Tusk.SK_CharM_Tusk"));
-	if (CharacterMeshRef.Object)
-	{
-		GetMesh()->SetSkeletalMesh(CharacterMeshRef.Object);
-	}
 }
 
 void AABCharacterNonPlayer::PostInitializeComponents()
@@ -34,6 +28,26 @@ void AABCharacterNonPlayer::PostInitializeComponents()
 	ensure(NPCMeshes.Num() > 0);
 	int32 RandIndex = FMath::RandRange(0, NPCMeshes.Num() - 1);
 	NPCMeshHandle = UAssetManager::Get().GetStreamableManager().RequestAsyncLoad(NPCMeshes[RandIndex], FStreamableDelegate::CreateUObject(this, &AABCharacterNonPlayer::NPCMeshLoadCompleted));
+}
+
+float AABCharacterNonPlayer::GetAIPatrolRadius()
+{
+	return 800.0f;
+}
+
+float AABCharacterNonPlayer::GetAIDetectRange()
+{
+	return 0.0f;
+}
+
+float AABCharacterNonPlayer::GetAIAttackRange()
+{
+	return 0.0f;
+}
+
+float AABCharacterNonPlayer::GetAITurnSpeed()
+{
+	return 0.0f;
 }
 
 void AABCharacterNonPlayer::SetDead()
@@ -59,6 +73,6 @@ void AABCharacterNonPlayer::NPCMeshLoadCompleted()
 			GetMesh()->SetSkeletalMesh(NPCMesh);
 			GetMesh()->SetHiddenInGame(false);
 		}
-		NPCMeshHandle->ReleaseHandle();
 	}
+	NPCMeshHandle->ReleaseHandle();
 }

@@ -1,4 +1,4 @@
-Name,MaxHP,Attack,AttackRange,AttackSpeed,MovementSpeed
+﻿Name,MaxHP,Attack,AttackRange,AttackSpeed,MovementSpeed
 CLVL1,100,100,40,1,400
 CLVL2,150,120,40,1.05,400
 CLVL3,200,140,40,1.1,400

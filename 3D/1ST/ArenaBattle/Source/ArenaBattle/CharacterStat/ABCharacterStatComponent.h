@@ -26,10 +26,11 @@ protected:
 public:
 	FORCEINLINE float GetCurrentHp() { return CurrentHp; }
 	FORCEINLINE float GetCurrentLevel() { return CurrentLevel; }
-	FORCEINLINE void SetModifierStat(const FABCharacterStat& InModifierStat) { ModifierStat = InModifierStat; }
+	FORCEINLINE void SetMoidifierStat(const FABCharacterStat& InModifierStat) { ModifierStat = InModifierStat; }
 	FORCEINLINE FABCharacterStat GetTotalStat() const { return BaseStat + ModifierStat; }
 
 	void SetLevelStat(int32 InNewLevel);
+
 
 	void SetHp(float NewHp);
 	float ApplyDamage(float InDamage);
@@ -45,7 +46,7 @@ protected:
 	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat)
 	float CurrentLevel;
 
-	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat , Meta = (AllowPrivateAccess="true"))
+	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat, Meta=(AllowPrivateAccess="true"))
 	FABCharacterStat BaseStat;
 
 	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat, Meta = (AllowPrivateAccess = "true"))

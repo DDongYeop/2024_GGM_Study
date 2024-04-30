@@ -142,7 +142,7 @@ void AABCharacterBase::EquipWeapon(UABItemData* InItemData)
 		}
 
 		Weapon->SetSkeletalMesh(WeaponItemData->WeaponMesh.Get());
-		Stat->SetModifierStat(WeaponItemData->ModifierStat);
+		Stat->SetMoidifierStat(WeaponItemData->ModifierStat);
 	}
 }
 

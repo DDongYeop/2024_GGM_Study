@@ -19,7 +19,7 @@ public:
 	UABGameSingleton();
 	static UABGameSingleton& Get();
 
-	// Character StatSection
+// Character Stat Section
 public:
 	FORCEINLINE FABCharacterStat GetCharacterStat(int32 InLevel) const
 	{

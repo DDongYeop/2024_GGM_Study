@@ -99,8 +99,15 @@ void AABStageGimmick::OnGateTriggerOverlap(UPrimitiveComponent* OverlappedCompon
 
 	FVector NewLocation = Stage->GetSocketLocation(SocketName);
 	TArray<FOverlapResult> OverlapResults;
-	FCollisionQueryParams CollisionQueryParam(SCENE_QUERY_STAT(GateTriggers), false, this);
-	bool bResult = GetWorld()->OverlapMultiByObjectType(OverlapResults, NewLocation, FQuat::Identity, FCollisionObjectQueryParams::InitType::AllObjects, FCollisionShape::MakeSphere(755.0f), CollisionQueryParam);
+	FCollisionQueryParams CollisionQueryParam(SCENE_QUERY_STAT(GateTrigger), false, this);
+	bool bResult = GetWorld()->OverlapMultiByObjectType(
+		OverlapResults,
+		NewLocation,
+		FQuat::Identity,
+		FCollisionObjectQueryParams::InitType::AllObjects,
+		FCollisionShape::MakeSphere(775.0f),
+		CollisionQueryParam
+	);
 
 	if (!bResult)
 	{
@@ -158,7 +165,7 @@ void AABStageGimmick::SetFight()
 	}
 	CloseAllGates();
 
-	GetWorld()->GetTimerManager().SetTimer(OpponentTimerhandle, this, &AABStageGimmick::OnOpponnetSpawn, OpponentSpawnTime, false);
+	GetWorld()->GetTimerManager().SetTimer(OpponentTimerhandle, this, &AABStageGimmick::OnOpponentSpawn, OpponentSpawnTime, false);
 }
 
 void AABStageGimmick::SetChooseReward()
@@ -183,11 +190,8 @@ void AABStageGimmick::SetChooseNext()
 	OpenAllGates();
 }
 
-void AABStageGimmick::OnOpponnetSpawn()
+void AABStageGimmick::OnOpponentSpawn()
 {
-	const FVector SpawnLocation = GetActorLocation() + FVector::UpVector * 88.0f;
-	AActor* OpponentActor = GetWorld()->SpawnActor(OpponentClass, &SpawnLocation, &FRotator::ZeroRotator);
-
 	const FTransform SpawnTransform(GetActorLocation() + FVector::UpVector * 88.0f);
 	AABCharacterNonPlayer* ABOpponentCharacter = GetWorld()->SpawnActorDeferred<AABCharacterNonPlayer>(OpponentClass, SpawnTransform);
 
@@ -196,7 +200,7 @@ void AABStageGimmick::OnOpponnetSpawn()
 		ABOpponentCharacter->OnDestroyed.AddDynamic(this, &AABStageGimmick::OnOpponentDestroyed);
 		ABOpponentCharacter->SetLevel(CurrentStageNum);
 
-		//초기화 끝나고 소환 완료 
+		// 초기화 끝나고 소환 완료
 		ABOpponentCharacter->FinishSpawning(SpawnTransform);
 	}
 }
@@ -210,9 +214,6 @@ void AABStageGimmick::SpawnRewardBoxes()
 {
 	for (const auto& RewardBoxLocation : RewardBoxLocations)
 	{
-		FVector WorldSpawnLoaction = GetActorLocation() + RewardBoxLocation.Value + FVector(0.0f, 0.0f, 30.0f);
-		AActor* ItemActor = GetWorld()->SpawnActor(RewardBoxClass, &WorldSpawnLoaction, &FRotator::ZeroRotator);
-
 		FTransform SpawnTransform(GetActorLocation() + RewardBoxLocation.Value + FVector(0.0f, 0.0f, 30.0f));
 		AABItemBox* RewardBoxActor = GetWorld()->SpawnActorDeferred<AABItemBox>(RewardBoxClass, SpawnTransform);
 
