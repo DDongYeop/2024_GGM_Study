@@ -26,7 +26,7 @@ AABCharacterBase::AABCharacterBase()
 
 	// Capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
-	GetCapsuleComponent()->SetCollisionProfileName(TEXT("Pawn"));
+	GetCapsuleComponent()->SetCollisionProfileName(CPROFILE_ABPLAYER);
 
 	// Movement
 	GetCharacterMovement()->bOrientRotationToMovement = true;
@@ -40,7 +40,7 @@ AABCharacterBase::AABCharacterBase()
 	// Mesh
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, -100.0f), FRotator(0.0f, -90.0f, 0.0f));
 	GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
-	GetMesh()->SetCollisionProfileName(TEXT("CharacterMesh"));
+	GetMesh()->SetCollisionProfileName(TEXT("NoCollision"));
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> CharacterMeshRef(TEXT("/Game/InfinityBladeWarriors/Character/CompleteCharacters/SK_CharM_Cardboard.SK_CharM_Cardboard"));
 	if (CharacterMeshRef.Object)
@@ -185,7 +185,7 @@ void AABCharacterBase::AttackHitCheck()
 	FCollisionQueryParams Params(SCENE_QUERY_STAT(Attak), false, this);
 
 	const float AttackRange = Stat->GetTotalStat().AttackRange;
-	const float AttackRadius = 50.0f;
+	const float AttackRadius = Stat->GetAttackRadius();;
 	const float AttackDamage = Stat->GetTotalStat().Attack;
 	const FVector Start = GetActorLocation() + GetActorForwardVector() * GetCapsuleComponent()->GetScaledCapsuleRadius();
 	const FVector End = Start + GetActorForwardVector() * AttackRange;

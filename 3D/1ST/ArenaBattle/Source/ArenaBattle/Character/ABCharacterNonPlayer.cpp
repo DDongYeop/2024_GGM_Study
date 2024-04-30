@@ -6,6 +6,7 @@
 #include "Physics/ABCollision.h"
 #include <Engine/AssetManager.h>
 #include "AI/ABAIController.h"
+#include "CharacterStat/ABCharacterStatComponent.h"
 
 AABCharacterNonPlayer::AABCharacterNonPlayer()
 {
@@ -42,7 +43,7 @@ float AABCharacterNonPlayer::GetAIDetectRange()
 
 float AABCharacterNonPlayer::GetAIAttackRange()
 {
-	return 0.0f;
+	return Stat->GetTotalStat().AttackRange + (Stat->GetAttackRadius() * 2);
 }
 
 float AABCharacterNonPlayer::GetAITurnSpeed()

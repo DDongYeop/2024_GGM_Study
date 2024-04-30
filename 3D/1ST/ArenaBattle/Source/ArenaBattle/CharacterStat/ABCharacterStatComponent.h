@@ -26,6 +26,7 @@ protected:
 public:
 	FORCEINLINE float GetCurrentHp() { return CurrentHp; }
 	FORCEINLINE float GetCurrentLevel() { return CurrentLevel; }
+	FORCEINLINE float GetAttackRadius() { return AttackRadius; }
 	FORCEINLINE void SetMoidifierStat(const FABCharacterStat& InModifierStat) { ModifierStat = InModifierStat; }
 	FORCEINLINE FABCharacterStat GetTotalStat() const { return BaseStat + ModifierStat; }
 
@@ -45,6 +46,9 @@ protected:
 
 	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat)
 	float CurrentLevel;
+
+	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat)
+	float AttackRadius;
 
 	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat, Meta=(AllowPrivateAccess="true"))
 	FABCharacterStat BaseStat;
