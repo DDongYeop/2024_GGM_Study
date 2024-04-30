@@ -23,10 +23,17 @@ protected:
 	virtual void PostInitializeComponents() override;
 
 public:
+	virtual void NotifyComboActionEnd() override;
+
 	virtual float GetAIPatrolRadius() override;
 	virtual float GetAIDetectRange() override;
 	virtual float GetAIAttackRange() override;
 	virtual float GetAITurnSpeed() override;
+
+	virtual void AttackByAI() override;
+	virtual void SetAIAttackDelegate(const FAICharacterAttackFinished& InOnAttackFinished) override;
+
+	FAICharacterAttackFinished OnAttackFinished;
 
 protected:
 	virtual void SetDead() override;

@@ -8,6 +8,7 @@
 #include "Interface/ABCharacterWidgetInterface.h"
 #include "Interface/ABCharacterItemInterface.h"
 #include "ABCharacterBase.generated.h"
+//#include <Navmesh/Public/DetourCrowd/DetourCrowd.h>
 
 UENUM()
 enum class ECharacterControlType : uint8
@@ -106,6 +107,8 @@ protected:
 
 	void ComboActionBegin();
 	void ComboActionEnd(class UAnimMontage* TargetMontage, bool IsPropertyEnded);
+
+	virtual void NotifyComboActionEnd();
 
 	void SetComboCheckTimer();
 	void ComboCheck();

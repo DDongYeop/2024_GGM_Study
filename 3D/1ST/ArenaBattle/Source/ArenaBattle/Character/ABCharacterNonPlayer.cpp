@@ -31,6 +31,12 @@ void AABCharacterNonPlayer::PostInitializeComponents()
 	NPCMeshHandle = UAssetManager::Get().GetStreamableManager().RequestAsyncLoad(NPCMeshes[RandIndex], FStreamableDelegate::CreateUObject(this, &AABCharacterNonPlayer::NPCMeshLoadCompleted));
 }
 
+void AABCharacterNonPlayer::NotifyComboActionEnd()
+{
+	Super::NotifyComboActionEnd();
+	OnAttackFinished.ExecuteIfBound();
+}
+
 float AABCharacterNonPlayer::GetAIPatrolRadius()
 {
 	return 800.0f;
@@ -48,7 +54,17 @@ float AABCharacterNonPlayer::GetAIAttackRange()
 
 float AABCharacterNonPlayer::GetAITurnSpeed()
 {
-	return 0.0f;
+	return 2.0f;
+}
+
+void AABCharacterNonPlayer::AttackByAI()
+{
+	ProcessComboCommand();
+}
+
+void AABCharacterNonPlayer::SetAIAttackDelegate(const FAICharacterAttackFinished& InOnAttackFinished)
+{
+	OnAttackFinished = InOnAttackFinished;
 }
 
 void AABCharacterNonPlayer::SetDead()
