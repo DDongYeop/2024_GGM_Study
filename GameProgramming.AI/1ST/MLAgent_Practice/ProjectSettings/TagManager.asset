@@ -10,6 +10,8 @@ TagManager:
   - BadItem
   - Baby
   - Fish
+  - Obstacle
+  - Scoring
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - RaySensolException
   - 
   - 
   - 
