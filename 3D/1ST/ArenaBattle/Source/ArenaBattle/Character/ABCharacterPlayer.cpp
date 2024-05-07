@@ -84,6 +84,10 @@ void AABCharacterPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &AABCharacterPlayer::Attack);
 }
 
+void AABCharacterPlayer::SetupHUDWidget(UABHUDWidget* InHUDWidget)
+{
+}
+
 void AABCharacterPlayer::SetCharacterControlData(const UABCharacterControlData* CharacterControlData)
 {
 	Super::SetCharacterControlData(CharacterControlData);
