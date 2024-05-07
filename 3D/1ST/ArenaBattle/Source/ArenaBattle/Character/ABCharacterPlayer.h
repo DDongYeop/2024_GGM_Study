@@ -28,6 +28,8 @@ protected:
 protected:
 	virtual void SetupHUDWidget(class UABHUDWidget* InHUDWidget) override;
 
+	virtual void SetDead() override;
+
 // Character Control Section
 protected:
 	virtual void SetCharacterControlData(const class UABCharacterControlData* CharacterControlData) override;

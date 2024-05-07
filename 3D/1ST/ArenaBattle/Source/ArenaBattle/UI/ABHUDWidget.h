@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "GameData/ABCharacterStat.h"
 #include "ABHUDWidget.generated.h"
 
 /**
@@ -16,6 +17,10 @@ class ARENABATTLE_API UABHUDWidget : public UUserWidget
 	
 public:
 	UABHUDWidget(const FObjectInitializer& ObjectInitializer);
+
+public:
+	void UpdateStat(const FABCharacterStat& BaseStat, const FABCharacterStat& ModifierStat);
+	void UpdateHp(float NewCurrentHp);
 
 protected:
 	virtual void NativeConstruct() override;

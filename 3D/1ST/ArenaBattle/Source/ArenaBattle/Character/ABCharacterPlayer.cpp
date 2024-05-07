@@ -8,6 +8,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "ABCharacterControlData.h"
+#include "UI/ABHUDWidget.h"
+#include "CharacterStat/ABCharacterStatComponent.h"
 
 AABCharacterPlayer::AABCharacterPlayer()
 {
@@ -66,6 +68,10 @@ void AABCharacterPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	if (PlayerController)
+		EnableInput(PlayerController);
+
 	SetCharacterControl(CurrentCharacterControlType);
 }
 
@@ -86,6 +92,23 @@ void AABCharacterPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 
 void AABCharacterPlayer::SetupHUDWidget(UABHUDWidget* InHUDWidget)
 {
+	if (InHUDWidget)
+	{
+		InHUDWidget->UpdateStat(Stat->GetBaseStat(), Stat->GetModifierStat());
+		InHUDWidget->UpdateHp(Stat->GetCurrentHp());
+
+		Stat->OnStatChanged.AddUObject(InHUDWidget, &UABHUDWidget::UpdateStat);
+		Stat->OnHpChanged.AddUObject(InHUDWidget, &UABHUDWidget::UpdateHp);
+	}
+}
+
+void AABCharacterPlayer::SetDead()
+{
+	Super::SetDead();
+
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	if (PlayerController)
+		DisableInput(PlayerController);
 }
 
 void AABCharacterPlayer::SetCharacterControlData(const UABCharacterControlData* CharacterControlData)
