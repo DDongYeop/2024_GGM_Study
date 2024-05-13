@@ -11,6 +11,21 @@ AABPlayerController::AABPlayerController()
 		ABHUDWidgetClass = ABHUDWidgetRef.Class;
 }
 
+void AABPlayerController::GameScoreChanged(int32 NewScore)
+{
+	BP_OnScoreChanged(NewScore);
+}
+
+void AABPlayerController::GameClear()
+{
+	BP_OnGameClear();
+}
+
+void AABPlayerController::GameOver()
+{
+	BP_OnGameOver();
+}
+
 void AABPlayerController::BeginPlay()
 {
 	Super::BeginPlay();

@@ -10,6 +10,7 @@
 #include "ABCharacterControlData.h"
 #include "UI/ABHUDWidget.h"
 #include "CharacterStat/ABCharacterStatComponent.h"
+#include "Interface/ABGameModeInterface.h"
 
 AABCharacterPlayer::AABCharacterPlayer()
 {
@@ -109,6 +110,10 @@ void AABCharacterPlayer::SetDead()
 	APlayerController* PlayerController = Cast<APlayerController>(GetController());
 	if (PlayerController)
 		DisableInput(PlayerController);
+
+	IABGameModeInterface* ABGameMode = Cast<IABGameModeInterface>(GetWorld()->GetAuthGameMode());
+	if (ABGameMode)
+		ABGameMode->OnPlayerDead();
 }
 
 void AABCharacterPlayer::SetCharacterControlData(const UABCharacterControlData* CharacterControlData)
