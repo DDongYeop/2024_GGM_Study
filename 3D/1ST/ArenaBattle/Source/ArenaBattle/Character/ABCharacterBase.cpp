@@ -15,6 +15,8 @@
 #include "UI/ABHpBarWidget.h"
 #include "Item/ABItemData.h"
 #include "Item/ABWeaponItemData.h"
+#include "Item/ABPotionItemData.h"
+#include "Item/ABScrollItemData.h"
 
 // Sets default values
 AABCharacterBase::AABCharacterBase()
@@ -150,11 +152,19 @@ void AABCharacterBase::EquipWeapon(UABItemData* InItemData)
 void AABCharacterBase::DrinkPotion(UABItemData* InItemData)
 {
 	UE_LOG(LogTemp, Log, TEXT("Drink Potion"));
+
+	UABPotionItemData* PotionItemData = Cast<UABPotionItemData>(InItemData);
+	if (PotionItemData)
+		Stat->Healhp(PotionItemData->HealAmount);
 }
 
 void AABCharacterBase::ReadScroll(UABItemData* InItemData)
 {
 	UE_LOG(LogTemp, Log, TEXT("Read Scroll"));
+
+	UABScrollItemData* ScrollItemData = Cast<UABScrollItemData>(InItemData);
+	if (ScrollItemData)
+		Stat->AddBaseStat(ScrollItemData->BaseStat);
 }
 
 void AABCharacterBase::SetupCharacterWidget(UABUserWidget* InUserWidget)
@@ -163,10 +173,11 @@ void AABCharacterBase::SetupCharacterWidget(UABUserWidget* InUserWidget)
 
 	if (HpBarWidget)
 	{
-		HpBarWidget->SetMaxHp(Stat->GetTotalStat().MaxHp);
+		HpBarWidget->UpdateStat(Stat->GetBaseStat(), Stat->GetModifierStat());
 		HpBarWidget->UpdateHpBar(Stat->GetCurrentHp());
 
 		Stat->OnHpChanged.AddUObject(HpBarWidget, &UABHpBarWidget::UpdateHpBar);
+		Stat->OnStatChanged.AddUObject(HpBarWidget, &UABHpBarWidget::UpdateStat);
 	}
 }
 

@@ -45,6 +45,17 @@ public:
 		OnStatChanged.Broadcast(GetBaseStat(), GetModifierStat());
 	}
 
+	FORCEINLINE void Healhp(float InHealAmount)
+	{
+		CurrentHp += FMath::Clamp(CurrentHp + InHealAmount, 0, GetTotalStat().MaxHp);
+		OnHpChanged.Broadcast(CurrentHp);
+	}
+
+	FORCEINLINE void AddBaseStat(const FABCharacterStat InAddBaseStat)
+	{
+		SetBaseStat(BaseStat + InAddBaseStat);
+		OnStatChanged.Broadcast(GetBaseStat(), GetModifierStat());
+	}
 
 	void SetHp(float NewHp);
 	float ApplyDamage(float InDamage);
