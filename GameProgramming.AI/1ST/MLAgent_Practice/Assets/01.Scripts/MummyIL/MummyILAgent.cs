@@ -77,13 +77,13 @@ public class MummyILAgent : Agent
     {
         var discreteActions = actionsOut.DiscreteActions;
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
             discreteActions[0] = 1;
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
             discreteActions[0] = 2;
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
             discreteActions[1] = 1;
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
             discreteActions[1] = 2;
     }
 

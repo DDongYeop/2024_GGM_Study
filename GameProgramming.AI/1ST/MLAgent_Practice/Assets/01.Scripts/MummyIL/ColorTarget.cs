@@ -5,10 +5,10 @@ public class ColorTarget : MonoBehaviour
 {
     public enum TARGET_COLOR
     {
-        BLACK = 0,
-        BLUE = 1,
-        GREEN = 2,
-        RED = 3 
+        Black = 0,
+        Blue = 1,
+        Green = 2,
+        Red = 3 
     }
 
     public TARGET_COLOR TargetColor;
