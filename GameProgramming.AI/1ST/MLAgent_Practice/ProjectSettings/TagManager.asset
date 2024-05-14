@@ -12,6 +12,11 @@ TagManager:
   - Fish
   - Obstacle
   - Scoring
+  - Hint
+  - Black
+  - Blue
+  - Green
+  - Red
   layers:
   - Default
   - TransparentFX
