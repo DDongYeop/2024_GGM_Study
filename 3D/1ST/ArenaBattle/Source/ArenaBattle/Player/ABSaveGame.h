@@ -17,6 +17,6 @@ class ARENABATTLE_API UABSaveGame : public USaveGame
 public:
 	UABSaveGame();
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Game)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category=Game)
 	int32 RetryCount;
 };

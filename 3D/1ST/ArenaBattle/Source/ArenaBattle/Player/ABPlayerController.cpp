@@ -13,6 +13,18 @@ AABPlayerController::AABPlayerController()
 	{
 		ABHUDWidgetClass = ABHUDWidgetRef.Class;
 	}
+
+	SaveGameInstance = Cast<UABSaveGame>(UGameplayStatics::LoadGameFromSlot(TEXT("Player0"), 0));
+	if (!SaveGameInstance)
+	{
+		SaveGameInstance = NewObject<UABSaveGame>();
+		SaveGameInstance->RetryCount = 0;
+
+		if (!UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("Player0"), 0))
+		{
+			UE_LOG(LogTemp, Error, TEXT("Save Game Error!"));
+		}
+	}
 }
 
 void AABPlayerController::GameScoreChanged(int32 NewScore)
@@ -30,7 +42,9 @@ void AABPlayerController::GameOver()
 	BP_OnGameOver();
 
 	if (!UGameplayStatics::SaveGameToSlot(SaveGameInstance, TEXT("Player0"), 0))
+	{
 		UE_LOG(LogTemp, Error, TEXT("Save Game Error!"));
+	}
 
 	BP_OnGameRetryCount(SaveGameInstance->RetryCount);
 }

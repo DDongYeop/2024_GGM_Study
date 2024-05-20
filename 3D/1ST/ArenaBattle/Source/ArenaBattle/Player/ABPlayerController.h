@@ -42,8 +42,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = HUD)
 	TObjectPtr<class UABHUDWidget> ABHUDWidget;
 
-//SaveGame
+// Save Game Section
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=SaveGame)
-	TObjectPtr<class UABSaveGame> SaveGameInstance; 
+	TObjectPtr<class UABSaveGame> SaveGameInstance;
 };

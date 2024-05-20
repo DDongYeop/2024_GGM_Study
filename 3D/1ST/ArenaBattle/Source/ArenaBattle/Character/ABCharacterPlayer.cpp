@@ -10,6 +10,7 @@
 #include "ABCharacterControlData.h"
 #include "UI/ABHUDWidget.h"
 #include "CharacterStat/ABCharacterStatComponent.h"
+#include "GameFramework/GameModeBase.h"
 #include "Interface/ABGameModeInterface.h"
 
 AABCharacterPlayer::AABCharacterPlayer()
