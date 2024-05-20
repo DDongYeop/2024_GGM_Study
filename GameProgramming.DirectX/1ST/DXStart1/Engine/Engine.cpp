@@ -23,7 +23,7 @@ void Engine::Init(const WindowInfo& wInfo)
     _cmdQueue->Init(_device->GetDevice(),_swapChain,_descHeap);
     _swapChain->Init(wInfo, _device->GetDXGI(), _cmdQueue->GetCmdQueue());
     _descHeap->Init(_device->GetDevice(), _swapChain);
-    _rootSignature->Init(_device->GetDevice());
+    _rootSignature->Init();
     _cb->Init(sizeof(Transform), 256);
     _tableDescHeap->Init(256);
 }
