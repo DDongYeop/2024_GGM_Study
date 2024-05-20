@@ -4,7 +4,7 @@
 #include "UI/ABHUDWidget.h"
 #include "ABHpBarWidget.h"
 #include "ABCharacterStatWidget.h"
-#include "Interface/ABCharactereHUDInterface.h"
+#include "Interface/ABCharacterHUDInterface.h"
 
 UABHUDWidget::UABHUDWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -13,8 +13,7 @@ UABHUDWidget::UABHUDWidget(const FObjectInitializer& ObjectInitializer) : Super(
 void UABHUDWidget::UpdateStat(const FABCharacterStat& BaseStat, const FABCharacterStat& ModifierStat)
 {
 	FABCharacterStat TotalStat = BaseStat + ModifierStat;
-
-	HpBar->UpdateStat(BaseStat, ModifierStat);
+	HpBar->SetMaxHp(TotalStat.MaxHp);
 
 	CharacterStat->UpdateStat(BaseStat, ModifierStat);
 }
@@ -30,10 +29,13 @@ void UABHUDWidget::NativeConstruct()
 
 	HpBar = Cast<UABHpBarWidget>(GetWidgetFromName(TEXT("WidgetHpBar")));
 	ensure(HpBar);
+
 	CharacterStat = Cast<UABCharacterStatWidget>(GetWidgetFromName(TEXT("WidgetCharacterStat")));
 	ensure(CharacterStat);
 
-	IABCharactereHUDInterface* HUDPawn = Cast<IABCharactereHUDInterface>(GetOwningPlayerPawn());
+	IABCharacterHUDInterface* HUDPawn = Cast<IABCharacterHUDInterface>(GetOwningPlayerPawn());
 	if (HUDPawn)
+	{
 		HUDPawn->SetupHUDWidget(this);
+	}
 }

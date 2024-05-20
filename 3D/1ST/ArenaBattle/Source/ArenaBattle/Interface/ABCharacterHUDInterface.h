@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "ABGameModeInterface.generated.h"
+#include "ABCharacterHUDInterface.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UABGameModeInterface : public UInterface
+class UABCharacterHUDInterface : public UInterface
 {
 	GENERATED_BODY()
 };
@@ -16,13 +16,11 @@ class UABGameModeInterface : public UInterface
 /**
  * 
  */
-class ARENABATTLE_API IABGameModeInterface
+class ARENABATTLE_API IABCharacterHUDInterface
 {
 	GENERATED_BODY()
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual void OnPlayerScore(int32 NewPlayerScore) = 0;
-	virtual void OnPlayerDead() = 0;
-	virtual bool IsGameCleared() = 0;
+	virtual void SetupHUDWidget(class UABHUDWidget* InHUDWidget) = 0;
 };

@@ -8,7 +8,7 @@
 UABCharacterStatComponent::UABCharacterStatComponent()
 {
 	CurrentLevel = 1;
-	AttackRadius = 50.f;
+	AttackRadius = 50.0f;
 
 	bWantsInitializeComponent = true;
 }
@@ -20,6 +20,7 @@ void UABCharacterStatComponent::InitializeComponent()
 	SetLevelStat(CurrentLevel);
 	SetHp(BaseStat.MaxHp);
 }
+
 
 // Called when the game starts
 void UABCharacterStatComponent::BeginPlay()

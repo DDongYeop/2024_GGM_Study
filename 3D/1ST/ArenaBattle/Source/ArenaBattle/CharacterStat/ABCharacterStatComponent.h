@@ -22,6 +22,7 @@ public:
 
 protected:
 	virtual void InitializeComponent() override;
+
 	// Called when the game starts
 	virtual void BeginPlay() override;
 		
@@ -35,25 +36,13 @@ public:
 
 	void SetLevelStat(int32 InNewLevel);
 	FORCEINLINE void SetBaseStat(const FABCharacterStat& InBaseStat) 
-	{ 
-		BaseStat = InBaseStat; 
+	{
+		BaseStat = InBaseStat;
 		OnStatChanged.Broadcast(GetBaseStat(), GetModifierStat());
 	}
-	FORCEINLINE void SetMoidifierStat(const FABCharacterStat& InModifierStat) 
-	{ 
+	FORCEINLINE void SetModifierStat(const FABCharacterStat& InModifierStat)
+	{
 		ModifierStat = InModifierStat;
-		OnStatChanged.Broadcast(GetBaseStat(), GetModifierStat());
-	}
-
-	FORCEINLINE void Healhp(float InHealAmount)
-	{
-		CurrentHp += FMath::Clamp(CurrentHp + InHealAmount, 0, GetTotalStat().MaxHp);
-		OnHpChanged.Broadcast(CurrentHp);
-	}
-
-	FORCEINLINE void AddBaseStat(const FABCharacterStat InAddBaseStat)
-	{
-		SetBaseStat(BaseStat + InAddBaseStat);
 		OnStatChanged.Broadcast(GetBaseStat(), GetModifierStat());
 	}
 

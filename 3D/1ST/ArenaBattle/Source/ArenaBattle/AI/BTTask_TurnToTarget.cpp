@@ -17,22 +17,28 @@ EBTNodeResult::Type UBTTask_TurnToTarget::ExecuteTask(UBehaviorTreeComponent& Ow
 	EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
 
 	APawn* ControllingPawn = Cast<APawn>(OwnerComp.GetAIOwner()->GetPawn());
-	if (ControllingPawn == nullptr)
+	if (nullptr == ControllingPawn)
+	{
 		return EBTNodeResult::Failed;
+	}
 
 	APawn* TargetPawn = Cast<APawn>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(BBKEY_TARGET));
-	if (TargetPawn == nullptr)
+	if (nullptr == TargetPawn)
+	{
 		return EBTNodeResult::Failed;
+	}
 
 	IABCharacterAIInterface* AIPawn = Cast<IABCharacterAIInterface>(ControllingPawn);
-	if (AIPawn == nullptr)
+	if (nullptr == AIPawn)
+	{
 		return EBTNodeResult::Failed;
+	}
 
 	float TurnSpeed = AIPawn->GetAITurnSpeed();
 	FVector LookVector = TargetPawn->GetActorLocation() - ControllingPawn->GetActorLocation();
 	LookVector.Z = 0.0f;
 	FRotator TargetRot = FRotationMatrix::MakeFromX(LookVector).Rotator();
 	ControllingPawn->SetActorRotation(FMath::RInterpTo(ControllingPawn->GetActorRotation(), TargetRot, GetWorld()->GetDeltaSeconds(), TurnSpeed));
-	
+
 	return EBTNodeResult::Succeeded;
 }

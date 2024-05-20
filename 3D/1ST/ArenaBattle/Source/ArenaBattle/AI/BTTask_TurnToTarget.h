@@ -17,6 +17,5 @@ class ARENABATTLE_API UBTTask_TurnToTarget : public UBTTaskNode
 public:
 	UBTTask_TurnToTarget();
 
-protected:
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 };

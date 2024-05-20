@@ -4,12 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "GameData/ABCharacterStat.h"
 #include "Interface/ABAnimationAttackInterface.h"
 #include "Interface/ABCharacterWidgetInterface.h"
 #include "Interface/ABCharacterItemInterface.h"
 #include "ABCharacterBase.generated.h"
-//#include <Navmesh/Public/DetourCrowd/DetourCrowd.h>
 
 UENUM()
 enum class ECharacterControlType : uint8
@@ -68,8 +66,6 @@ protected:
 public:
 	int32 GetLevel();
 	void SetLevel(int32 InNewLevel);
-
-	void ApplyStat(const FABCharacterStat& BaseStat, const FABCharacterStat& ModifierStat);
 
 // Attack Hit Section
 protected:

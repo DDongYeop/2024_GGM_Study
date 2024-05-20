@@ -15,8 +15,6 @@
 #include "UI/ABHpBarWidget.h"
 #include "Item/ABItemData.h"
 #include "Item/ABWeaponItemData.h"
-#include "Item/ABPotionItemData.h"
-#include "Item/ABScrollItemData.h"
 
 // Sets default values
 AABCharacterBase::AABCharacterBase()
@@ -121,7 +119,6 @@ void AABCharacterBase::PostInitializeComponents()
 	Super::PostInitializeComponents();
 
 	Stat->OnHpZero.AddUObject(this, &AABCharacterBase::SetDead);
-	Stat->OnStatChanged.AddUObject(this, &AABCharacterBase::ApplyStat);
 }
 
 void AABCharacterBase::TakeItem(UABItemData* InItemData)
@@ -145,26 +142,18 @@ void AABCharacterBase::EquipWeapon(UABItemData* InItemData)
 		}
 
 		Weapon->SetSkeletalMesh(WeaponItemData->WeaponMesh.Get());
-		Stat->SetMoidifierStat(WeaponItemData->ModifierStat);
+		Stat->SetModifierStat(WeaponItemData->ModifierStat);
 	}
 }
 
 void AABCharacterBase::DrinkPotion(UABItemData* InItemData)
 {
 	UE_LOG(LogTemp, Log, TEXT("Drink Potion"));
-
-	UABPotionItemData* PotionItemData = Cast<UABPotionItemData>(InItemData);
-	if (PotionItemData)
-		Stat->Healhp(PotionItemData->HealAmount);
 }
 
 void AABCharacterBase::ReadScroll(UABItemData* InItemData)
 {
 	UE_LOG(LogTemp, Log, TEXT("Read Scroll"));
-
-	UABScrollItemData* ScrollItemData = Cast<UABScrollItemData>(InItemData);
-	if (ScrollItemData)
-		Stat->AddBaseStat(ScrollItemData->BaseStat);
 }
 
 void AABCharacterBase::SetupCharacterWidget(UABUserWidget* InUserWidget)
@@ -173,11 +162,10 @@ void AABCharacterBase::SetupCharacterWidget(UABUserWidget* InUserWidget)
 
 	if (HpBarWidget)
 	{
-		HpBarWidget->UpdateStat(Stat->GetBaseStat(), Stat->GetModifierStat());
+		HpBarWidget->SetMaxHp(Stat->GetTotalStat().MaxHp);
 		HpBarWidget->UpdateHpBar(Stat->GetCurrentHp());
 
 		Stat->OnHpChanged.AddUObject(HpBarWidget, &UABHpBarWidget::UpdateHpBar);
-		Stat->OnStatChanged.AddUObject(HpBarWidget, &UABHpBarWidget::UpdateStat);
 	}
 }
 
@@ -191,19 +179,13 @@ void AABCharacterBase::SetLevel(int32 InNewLevel)
 	Stat->SetLevelStat(InNewLevel);
 }
 
-void AABCharacterBase::ApplyStat(const FABCharacterStat& BaseStat, const FABCharacterStat& ModifierStat)
-{
-	float MovementSpeed = (BaseStat + ModifierStat).MovementSpeed;
-	GetCharacterMovement()->MaxWalkSpeed = MovementSpeed;
-}
-
 void AABCharacterBase::AttackHitCheck()
 {
 	FHitResult OutHitResult;
 	FCollisionQueryParams Params(SCENE_QUERY_STAT(Attak), false, this);
 
 	const float AttackRange = Stat->GetTotalStat().AttackRange;
-	const float AttackRadius = Stat->GetAttackRadius();;
+	const float AttackRadius = Stat->GetAttackRadius();
 	const float AttackDamage = Stat->GetTotalStat().Attack;
 	const FVector Start = GetActorLocation() + GetActorForwardVector() * GetCapsuleComponent()->GetScaledCapsuleRadius();
 	const FVector End = Start + GetActorForwardVector() * AttackRange;

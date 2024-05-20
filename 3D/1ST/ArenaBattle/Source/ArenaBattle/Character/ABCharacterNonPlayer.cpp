@@ -49,7 +49,7 @@ float AABCharacterNonPlayer::GetAIDetectRange()
 
 float AABCharacterNonPlayer::GetAIAttackRange()
 {
-	return Stat->GetTotalStat().AttackRange + (Stat->GetAttackRadius() * 2);
+	return Stat->GetTotalStat().AttackRange + Stat->GetAttackRadius() * 2;
 }
 
 float AABCharacterNonPlayer::GetAITurnSpeed()
@@ -73,7 +73,9 @@ void AABCharacterNonPlayer::SetDead()
 
 	AABAIController* ABAIController = Cast<AABAIController>(GetController());
 	if (ABAIController)
+	{
 		ABAIController->StopAI();
+	}
 
 	FTimerHandle DeadTimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(DeadTimerHandle, FTimerDelegate::CreateLambda(

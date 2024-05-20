@@ -10,7 +10,6 @@
 #include "ABCharacterControlData.h"
 #include "UI/ABHUDWidget.h"
 #include "CharacterStat/ABCharacterStatComponent.h"
-#include "Interface/ABGameModeInterface.h"
 
 AABCharacterPlayer::AABCharacterPlayer()
 {
@@ -71,7 +70,9 @@ void AABCharacterPlayer::BeginPlay()
 
 	APlayerController* PlayerController = Cast<APlayerController>(GetController());
 	if (PlayerController)
+	{
 		EnableInput(PlayerController);
+	}
 
 	SetCharacterControl(CurrentCharacterControlType);
 }
@@ -91,6 +92,17 @@ void AABCharacterPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &AABCharacterPlayer::Attack);
 }
 
+void AABCharacterPlayer::SetDead()
+{
+	Super::SetDead();
+
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	if (PlayerController)
+	{
+		DisableInput(PlayerController);
+	}
+}
+
 void AABCharacterPlayer::SetupHUDWidget(UABHUDWidget* InHUDWidget)
 {
 	if (InHUDWidget)
@@ -101,19 +113,6 @@ void AABCharacterPlayer::SetupHUDWidget(UABHUDWidget* InHUDWidget)
 		Stat->OnStatChanged.AddUObject(InHUDWidget, &UABHUDWidget::UpdateStat);
 		Stat->OnHpChanged.AddUObject(InHUDWidget, &UABHUDWidget::UpdateHp);
 	}
-}
-
-void AABCharacterPlayer::SetDead()
-{
-	Super::SetDead();
-
-	APlayerController* PlayerController = Cast<APlayerController>(GetController());
-	if (PlayerController)
-		DisableInput(PlayerController);
-
-	IABGameModeInterface* ABGameMode = Cast<IABGameModeInterface>(GetWorld()->GetAuthGameMode());
-	if (ABGameMode)
-		ABGameMode->OnPlayerDead();
 }
 
 void AABCharacterPlayer::SetCharacterControlData(const UABCharacterControlData* CharacterControlData)
