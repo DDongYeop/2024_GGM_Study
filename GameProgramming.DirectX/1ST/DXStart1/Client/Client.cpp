@@ -45,8 +45,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 
-    MSG msg;
-
     GWindowInfo.width = 800;
     GWindowInfo.height = 600;
     GWindowInfo.windowed = true;
@@ -56,31 +54,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     game->Init(GWindowInfo);
 
     //게임 메세지 루프
-    while (true)
+    MSG msg = {};
+    while (msg.message != WM_QUIT)
     {
-        if(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
-        {
-            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-            {
-                TranslateMessage(&msg);
-                DispatchMessage(&msg);
-            }
-        }
-
-        //엔진쪽 업데이트
-        game->Update();
-    }
-
-
-    // 기본 메시지 루프입니다:
-    /*while (GetMessage(&msg, nullptr, 0, 0))
-    {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
-    }*/
+
+        game->Update();
+    }
 
     return (int) msg.wParam;
 }
