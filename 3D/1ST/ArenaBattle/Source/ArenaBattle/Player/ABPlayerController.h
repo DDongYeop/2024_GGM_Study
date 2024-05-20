@@ -17,6 +17,20 @@ class ARENABATTLE_API AABPlayerController : public APlayerController
 public:
 	AABPlayerController();
 
+public:
+	UFUNCTION(BlueprintImplementableEvent, Category = Game, Meta=(DisplayName="OnScoreChangedCpp"))
+	void BP_OnScoreChanged(int32 NewScore);
+	UFUNCTION(BlueprintImplementableEvent, Category = Game, Meta = (DisplayName = "OnGameClearCpp"))
+	void BP_OnGameClear();
+	UFUNCTION(BlueprintImplementableEvent, Category = Game, Meta = (DisplayName = "OnGameOverCpp"))
+	void BP_OnGameOver();
+	UFUNCTION(BlueprintImplementableEvent, Category = Game, Meta = (DisplayName = "OnGameRetryCountCpp"))
+	void BP_OnGameRetryCount(int32 NewRetryCount);
+
+	void GameScoreChanged(int32 NewScore);
+	void GameClear();
+	void GameOver();
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -27,4 +41,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = HUD)
 	TObjectPtr<class UABHUDWidget> ABHUDWidget;
+
+//SaveGame
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=SaveGame)
+	TObjectPtr<class UABSaveGame> SaveGameInstance; 
 };

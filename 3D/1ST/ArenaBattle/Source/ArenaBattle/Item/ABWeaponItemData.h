@@ -16,10 +16,7 @@ class ARENABATTLE_API UABWeaponItemData : public UABItemData
 	GENERATED_BODY()
 
 public:
-	FPrimaryAssetId GetPrimaryAssetId() const override
-	{
-		return FPrimaryAssetId("ABItemData", GetFName());
-	}
+	UABWeaponItemData();
 
 public:
 	UPROPERTY(EditAnywhere, Category = Weapon)
