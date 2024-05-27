@@ -44,9 +44,9 @@ using namespace Microsoft::WRL;
 
 // DirectXTex
 #ifdef _DEBUG
-#pragma comment(lib, "DirectXTex\DirectXTex_debug.lib")
+#pragma comment(lib, "DirectXTex\\DirectXTex_debug.lib")
 #else
-#pragma comment(lib, "DirectXTex\DirectXTex.lib")
+#pragma comment(lib, "DirectXTex\\DirectXTex.lib")
 #endif
 
 // 각종 typedef
