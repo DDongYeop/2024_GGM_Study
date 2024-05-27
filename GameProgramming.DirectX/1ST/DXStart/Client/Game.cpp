@@ -88,26 +88,10 @@ void Game::Update()
 
 	/*mesh->Render();*/
 
-	//// 삼각형 1
-	//{
-	//	Transform t;
-	//	t.offset = Vec4(0.75f, 0.f, 0.f, 0.f);
-	//	mesh->SetTransform(t);
-	//	mesh->Render();
-	//}
-
-	//// 삼각형 2
-	//{
-	//	Transform t;
-	//	t.offset = Vec4(0.f, 0.75f, 0.f, 0.f);
-	//	mesh->SetTransform(t);
-	//	mesh->Render();
-	//}
-
-	// VBV만 사용한 사각형
+	// UV 사각형1
 	{
 		Transform t;
-		t.offset = Vec4(0.f, 0.f, 0.f, 0.f);
+		t.offset = Vec4(0.f, 0.f, 0.2f, 0.f);
 		mesh->SetTransform(t);
 
 		mesh->SetTexture(texture);
@@ -115,6 +99,16 @@ void Game::Update()
 		mesh->Render();
 	}
 
+	// UV 사각형2
+	{
+		Transform t;
+		t.offset = Vec4(0.25f, 0.25f, 0.f, 0.f);
+		mesh->SetTransform(t);
+
+		mesh->SetTexture(texture);
+
+		mesh->Render();
+	}
 
 	GEngine->RenderEnd();
 }
