@@ -19,9 +19,14 @@ void Input::Update()
 		return;
 	}
 
+	//키 입력 최적화 코드
+	BYTE asciiKeys[KEY_TYPE_COUNT] = {};
+	if (::GetKeyboardState(asciiKeys) == false)
+		return;
+
 	for (uint32 key = 0; key < KEY_TYPE_COUNT; key++)
 	{
-		if (::GetAsyncKeyState(key) & 0x8000)
+		if ((key) & 0x80)
 		{
 			KEY_STATE& state = _states[key];
 

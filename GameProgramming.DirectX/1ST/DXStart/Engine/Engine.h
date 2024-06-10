@@ -13,6 +13,7 @@
 #include "DepthStencilBuffer.h"
 
 #include "Input.h"
+#include "Timer.h"
 
 class Engine
 {
@@ -26,6 +27,12 @@ public:
 	void ResizeWindow(int32 width, int32 height);
 
 public:
+	void Update();
+
+private:
+	void ShowFPS();
+
+public:
 	shared_ptr<Device> GetDevice() { return _device; }
 	shared_ptr<CommandQueue> GetCmdQueue() { return _cmdQueue; }
 	shared_ptr<SwapChain> GetSwapChain() { return _swapChain; }
@@ -36,6 +43,7 @@ public:
 	shared_ptr<DepthStencilBuffer> GetDepthStencilBuffer() { return _depthStencilBuffer; }
 	
 	shared_ptr<Input> GetInput() { return _input; }
+	shared_ptr<Timer> GetTimer() { return _timer; }
 
 private:
 	// 그려질 화면 크기 관련
@@ -53,5 +61,6 @@ private:
 	shared_ptr<DepthStencilBuffer> _depthStencilBuffer = make_shared<DepthStencilBuffer>();
 
 	shared_ptr<Input> _input = make_shared<Input>();
+	shared_ptr<Timer> _timer = make_shared<Timer>();
 };
 

@@ -6,6 +6,7 @@ enum class KEY_TYPE
     DOWN = VK_DOWN,
     LEFT = VK_LEFT,
     RIGHT = VK_RIGHT,
+    SPACE = VK_SPACE,
 
     W = 'W',
     A = 'A',
@@ -24,7 +25,7 @@ enum class KEY_STATE
 
 enum
 {
-    KEY_TYPE_COUNT = static_cast<int32>(UINT8_MAX),
+    KEY_TYPE_COUNT = static_cast<int32>(UINT8_MAX + 1),
     KEY_STATE_COUNT = static_cast<int32>(KEY_STATE::END),
 };
 

@@ -81,6 +81,7 @@ void Game::Update()
 {
 	// GEngine->Render();
 
+	GEngine->Update();
 	
 	GEngine->RenderBegin();
 
@@ -99,14 +100,34 @@ void Game::Update()
 		mesh->Render();
 	}
 
-	// UV 사각형2
+	//키보드 입력 테스트
+	//{
+	//	static Transform t;
+	//
+	//	if (INPUT->GetButton(KEY_TYPE::W))
+	//		t.offset.y += 1.f * DELTA_TIME;
+	//	if (INPUT->GetButton(KEY_TYPE::S))
+	//		t.offset.y -= 1.f * DELTA_TIME;
+	//	if (INPUT->GetButton(KEY_TYPE::A))
+	//		t.offset.x -= 1.f * DELTA_TIME;
+	//	if (INPUT->GetButton(KEY_TYPE::D))
+	//		t.offset.x += 1.f * DELTA_TIME;
+	//
+	//	mesh->SetTransform(t);
+	//	mesh->SetTexture(texture);
+	//	mesh->Render();
+	//}
+
+	//스페이스 테스트
 	{
+		float value = 0.0f;
+		if (INPUT->GetButton(KEY_TYPE::SPACE))
+			value = .5f;
+	
 		Transform t;
-		t.offset = Vec4(0.25f, 0.25f, 0.f, 0.f);
+		t.offset = Vec4(0.25f, 0.25f, value, 0.f);
 		mesh->SetTransform(t);
-
 		mesh->SetTexture(texture);
-
 		mesh->Render();
 	}
 

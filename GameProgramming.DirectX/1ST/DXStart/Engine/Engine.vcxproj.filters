@@ -64,6 +64,9 @@
     <ClInclude Include="Input.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -109,6 +112,9 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
