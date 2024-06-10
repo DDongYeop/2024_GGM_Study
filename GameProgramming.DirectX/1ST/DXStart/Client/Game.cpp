@@ -122,7 +122,7 @@ void Game::Update()
 	{
 		float value = 0.0f;
 		if (INPUT->GetButton(KEY_TYPE::SPACE))
-			value = .5f;
+ 			value = .3f;
 	
 		Transform t;
 		t.offset = Vec4(0.25f, 0.25f, value, 0.f);
