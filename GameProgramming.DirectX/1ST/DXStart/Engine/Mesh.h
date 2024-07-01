@@ -1,6 +1,6 @@
 #pragma once
 
-class Texture;
+class Material;
 
 class Mesh
 {
@@ -9,7 +9,7 @@ public:
 	void Render();
 
 	void SetTransform(const Transform& t) { _transform = t; }
-	void SetTexture(shared_ptr<Texture> tex) { _tex = tex; }
+	void SetMaterial(shared_ptr<Material> mat) { _mat = mat; }
 
 private:
 	void CreateVertexBuffer(const vector<Vertex>& buffer);
@@ -27,7 +27,7 @@ private:
 	uint32 _indexCount = 0;
 
 	Transform _transform = {};
-	shared_ptr<Texture> _tex = {};
+	shared_ptr<Material> _mat = {};
 };
 
 
