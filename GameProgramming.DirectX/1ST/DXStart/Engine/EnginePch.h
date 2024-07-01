@@ -130,5 +130,6 @@ struct Transform
 
 extern unique_ptr<class Engine> GEngine;
 
+#define CONST_BUFFER(type)    GEngine->GetConstantBuffer(type)
 
 //void HelloEngine();
