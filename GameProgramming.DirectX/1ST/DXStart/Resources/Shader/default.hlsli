@@ -54,7 +54,12 @@ VS_OUT VS_Main(VS_IN input)
     
     // UV적용 테스트
     output.pos = float4(input.pos, 1.f);
-    output.pos += offset0;
+    //output.pos += offset0;
+    
+    output.pos.x += float_0;
+    output.pos.y += float_1;
+    output.pos.z += float_2;
+    
     output.color = input.color;
     output.uv = input.uv;
 
