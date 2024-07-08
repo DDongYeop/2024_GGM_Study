@@ -10,16 +10,6 @@ void Engine::Init(const WindowInfo& wInfo)
 	_viewport = { 0, 0, static_cast<FLOAT>(wInfo.width), static_cast<FLOAT>(wInfo.height), 0.0f, 1.0f };
 	_scissorRect = CD3DX12_RECT(0, 0, wInfo.width, wInfo.height);
 
-	// 각종 장치초기화 변수들의 메모리를 할당한다
-	/*_device = make_shared<Device>();
-	_cmdQueue = make_shared<CommandQueue>();
-	_swapChain = make_shared<SwapChain>();
-	_descHeap = make_shared<DescriptorHeap>();
-	_rootSignature = make_shared<RootSignature>();
-	_cb = make_shared<ConstantBuffer>();
-	_tableDescHeap = make_shared<TableDescriptorHeap>();
-	_depthStencilBuffer = make_shared<DepthStencilBuffer>();*/
-
 	// 초기화 함수 호출
 	_device->Init();
 	_cmdQueue->Init(_device->GetDevice(), _swapChain, _descHeap);
@@ -28,7 +18,7 @@ void Engine::Init(const WindowInfo& wInfo)
 	_rootSignature->Init();
 	_tableDescHeap->Init(256);
 
-	// Input & Timer 
+	// 인풋 & 타이머
 	_input->Init(wInfo.hwnd);
 	_timer->Init();
 
@@ -56,7 +46,7 @@ void Engine::RenderEnd()
 {
 	_cmdQueue->RenderEnd();
 }
-	
+
 void Engine::ResizeWindow(int32 width, int32 height)
 {
 	_window.width = width;
@@ -73,15 +63,18 @@ void Engine::Update()
 {
 	_input->Update();
 	_timer->Update();
+
 	ShowFPS();
 }
 
 void Engine::ShowFPS()
 {
 	uint32 fps = _timer->GetFps();
-	WCHAR text[100] = L"";
+
+	WCHAR text[100] = L"";	
 	::wsprintf(text, L"FPS : %d", fps);
-	::SetWindowText(_window.hwnd, text);
+
+	::SetWindowText(_window.hwnd,  text);
 }
 
 void Engine::CreateConstantBuffer(CBV_REGISTER reg, uint32 bufferSize, uint32 count)
@@ -93,4 +86,3 @@ void Engine::CreateConstantBuffer(CBV_REGISTER reg, uint32 bufferSize, uint32 co
 	buffer->Init(reg, bufferSize, count);
 	_constantBuffers.push_back(buffer);
 }
-

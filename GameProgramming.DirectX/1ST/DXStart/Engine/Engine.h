@@ -12,6 +12,7 @@
 #include "Texture.h"
 #include "DepthStencilBuffer.h"
 
+
 #include "Input.h"
 #include "Timer.h"
 
@@ -29,6 +30,7 @@ public:
 public:
 	void Update();
 
+
 private:
 	void ShowFPS();
 	void CreateConstantBuffer(CBV_REGISTER reg, uint32 bufferSize, uint32 count);
@@ -42,7 +44,8 @@ public:
 	//shared_ptr<ConstantBuffer> GetCB() { return _cb; }
 	shared_ptr<TableDescriptorHeap> GetTableDescHeap() { return _tableDescHeap; }
 	shared_ptr<DepthStencilBuffer> GetDepthStencilBuffer() { return _depthStencilBuffer; }
-	
+
+
 	shared_ptr<Input> GetInput() { return _input; }
 	shared_ptr<Timer> GetTimer() { return _timer; }
 
@@ -67,5 +70,6 @@ private:
 	shared_ptr<Timer> _timer = make_shared<Timer>();
 
 	vector<shared_ptr<ConstantBuffer>> _constantBuffers;
+
 };
 

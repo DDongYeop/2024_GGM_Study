@@ -4,10 +4,10 @@
 
 void Material::Update()
 {
-    //CBV 업로드
+    // CBV 업로드
     CONST_BUFFER(CONSTANT_BUFFER_TYPE::MATERIAL)->PushData(&_params, sizeof(_params));
 
-    //SRV 업로드
+    // SRV 업로드
     for (size_t i = 0; i < _textures.size(); i++)
     {
         if (_textures[i] == nullptr)
@@ -17,6 +17,6 @@ void Material::Update()
         GEngine->GetTableDescHeap()->SetSRV(_textures[i]->GetCpuHandle(), reg);
     }
 
-    //파이프라인 세팅
+    // 파이프라인 세팅
     _shader->Update();
 }

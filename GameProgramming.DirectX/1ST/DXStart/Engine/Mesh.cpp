@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Mesh.h"
 #include "Engine.h"
+#include "Material.h"
 
 // 벡터에 버텍스 3개를 받아서 전달해줄것이다(=정점 목록를 받는다)
 
@@ -18,33 +19,20 @@ void Mesh::Render()
 	// 커맨드큐에 인덱스버퍼를 사용하겠다고 추가
 	CMD_LIST->IASetIndexBuffer(&_indexBufferView);
 
-	// 루트 커스터마이징 서명
-	//CMD_LIST->SetGraphicsRootConstantBufferView(0, ? ? );
-	// 1. 버퍼에다가 데이터 세팅
-	// 2. 버퍼의 주소를 레지스터에 전송
-	// CBV방식
-	//GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
-	//GEngine->GetCB()->PushData(1, &_transform, sizeof(_transform));
-
 	// 루트 테이블 방식
 	// 위치이동 레지스터
-	{
-		D3D12_CPU_DESCRIPTOR_HANDLE handle = GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
-		//GEngine->GetTableDescHeap()->SetCBV(handle, CBV_REGISTER::b0);
-
-		GEngine->GetTableDescHeap()->SetSRV(_tex->GetCpuHandle(), SRV_REGISTER::t0);
-	}
-	// 색상변환 레지스터
 	//{
 	//	D3D12_CPU_DESCRIPTOR_HANDLE handle = GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
-	//	GEngine->GetTableDescHeap()->SetCBV(handle, CBV_REGISTER::b1);
+	//	/*GEngine->GetTableDescHeap()->SetCBV(handle, CBV_REGISTER::b0);*/
+
+	//	GEngine->GetTableDescHeap()->SetSRV(_tex->GetCpuHandle(), SRV_REGISTER::t0);
 	//}
+	CONST_BUFFER(CONSTANT_BUFFER_TYPE::TRANSFORM)->PushData(&_transform, sizeof(_transform));
+
+	_mat->Update();
 
 	GEngine->GetTableDescHeap()->CommitTable();
 
-
-	// VBV만 사용해서 드로잉 하겠다
-	/*CMD_LIST->DrawInstanced(_vertexCount, 1, 0, 0);*/
 
 	// 인덱스 버퍼를 사용하여 드로잉
 	CMD_LIST->DrawIndexedInstanced(_indexCount, 1, 0, 0, 0);

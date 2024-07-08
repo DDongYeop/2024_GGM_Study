@@ -1,9 +1,9 @@
-cbuffer TEST_B0 : register(b0)
+cbuffer TEST_B0 : register(b0) // 트랜스폼 관련 처리
 {
-    float4 offset0;
+    float4 offset0;    
 };
 
-cbuffer MATERIAL_PARAMS : register(b1)
+cbuffer MATERIAL_PARAMS : register(b1) // 머티리얼 관련 처리
 {
     int int_0;
     int int_1;
