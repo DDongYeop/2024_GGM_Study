@@ -115,11 +115,6 @@ struct Vertex
 	Vec2 uv;
 };
 
-struct Transform
-{
-	Vec4 offset;
-};
-
 #define DEVICE			GEngine->GetDevice()->GetDevice()
 #define CMD_LIST		GEngine->GetCmdQueue()->GetCmdList()
 #define ROOT_SIGNATURE	GEngine->GetRootSignature()->GetSignature()
