@@ -14,6 +14,7 @@ void SceneManager::Update()
 
     _activeScene->Update();
     _activeScene->LateUpdate();
+	_activeScene->FinalUpdate();
 }
 
 void SceneManager::LoadScene(wstring sceneName)

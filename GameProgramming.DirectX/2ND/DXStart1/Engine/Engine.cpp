@@ -25,7 +25,7 @@ void Engine::Init(const WindowInfo& wInfo)
 	_input->Init(wInfo.hwnd);
 	_timer->Init();
 
-	CreateConstantBuffer(CBV_REGISTER::b0, sizeof(TransformMatrix), 256);
+	CreateConstantBuffer(CBV_REGISTER::b0, sizeof(TransformParams), 256);
 	CreateConstantBuffer(CBV_REGISTER::b1, sizeof(MaterialParams), 256);
 
 	ResizeWindow(wInfo.width, wInfo.height);

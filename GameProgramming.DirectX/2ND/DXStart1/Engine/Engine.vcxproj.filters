@@ -97,6 +97,9 @@
     <ClInclude Include="SceneManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="SimpleMath.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -171,10 +174,16 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
+    <ClCompile Include="SimpleMath.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Shader\default.hlsli">
       <Filter>Shader</Filter>
+    </None>
+    <None Include="SimpleMath.inl">
+      <Filter>Utils</Filter>
     </None>
   </ItemGroup>
 </Project>

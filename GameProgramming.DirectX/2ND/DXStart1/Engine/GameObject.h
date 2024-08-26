@@ -19,6 +19,7 @@ public:
     void Start();
     void Update();
     void LateUpdate();
+    void FinalUpdate() { }
 
     shared_ptr<Transform> GetTransform();
 
