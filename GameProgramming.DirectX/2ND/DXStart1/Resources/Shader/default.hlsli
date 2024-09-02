@@ -1,4 +1,4 @@
-cbuffer TRANSFORM_PARAMS : register(b0) // 트랜스폼 관련 처리
+cbuffer TRANSFORM_PARAMS : register(b0) // 행렬 관련 처리
 {
     row_major matrix matWVP;
 };
@@ -44,9 +44,9 @@ VS_OUT VS_Main(VS_IN input)
 {
     VS_OUT output = (VS_OUT)0;
     
-    // 받은 값에 WVP행렬을 곱해준다. 
-    // float4의 마지막 값이 1인 이유는 좌표이기 때문이다. 즉 점이기 때문
-    // 방향성이 있는 벡터로 추출하고 싶다면 0으로 세팅하면 된다.
+    // 받은값에 WVP행렬을 곱해준다
+    // float4의 마지막값이 1인 이유는 좌표이기 때문이다. 즉 점이기 때문
+    // 방향성이 있는 벡터로 추출하고 싶다면 0으로 세팅하면 된다
     output.pos = mul(float4(input.pos, 1.f), matWVP);
     output.color = input.color;
     output.uv = input.uv;
