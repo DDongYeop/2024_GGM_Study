@@ -35,8 +35,7 @@ void Engine::Render()
 {
 	RenderBegin();
 
-	// TODO : 나머지 물체들을 그려준다
-	GET_SINGLE(SceneManager)->Update();
+	GET_SINGLE(SceneManager)->Render();
 
 	RenderEnd();
 }
@@ -67,6 +66,8 @@ void Engine::Update()
 {
 	_input->Update();
 	_timer->Update();
+
+	GET_SINGLE(SceneManager)->Update();
 
 	Render();
 

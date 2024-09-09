@@ -14,6 +14,8 @@ public:
     void AddGameObject(shared_ptr<GameObject> gameObject);
     void RemoveGameObject(shared_ptr<GameObject> gameObject);
 
+    const vector<shared_ptr<GameObject>>& GetGameObjects() { return _gameObjects; }
+
 private:
     vector<shared_ptr<GameObject>> _gameObjects;
     // 추가적으로는 유니티에서 존재하는 레이어 개념이 존재함(32)
