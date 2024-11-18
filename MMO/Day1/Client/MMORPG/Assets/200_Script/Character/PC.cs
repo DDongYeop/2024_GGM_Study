@@ -67,9 +67,9 @@ public class PC : MonoBehaviour
         }
 
         // 대각선 이동 시 속도가 빨라지는 것을 방지하기 위해 정규화
-        return moveVector;
+        //return moveVector;
         //TODO: 1
-        //return moveVector.normalized;
+        return moveVector.normalized;
     }
 
     #endregion
@@ -85,7 +85,7 @@ public class PC : MonoBehaviour
         
         // 서버로 위치 전송을 시작하는 코루틴 실행
         //TODO: 3
-        //mSendPositionCoroutine = StartCoroutine(CoSendPosition());
+        mSendPositionCoroutine = StartCoroutine(CoSendPosition());
     }
 
     /// <summary>
