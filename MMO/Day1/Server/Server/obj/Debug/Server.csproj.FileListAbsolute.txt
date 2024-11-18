@@ -1,0 +1,11 @@
+C:\Unity\GGM\Day1\Server\Server\obj\Debug\Server.csproj.AssemblyReference.cache
+C:\Unity\GGM\Day1\Server\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Unity\GGM\Day1\Server\Server\bin\Debug\Server.exe.config
+C:\Unity\GGM\Day1\Server\Server\bin\Debug\Server.exe
+C:\Unity\GGM\Day1\Server\Server\bin\Debug\Server.pdb
+C:\Unity\GGM\Day1\Server\Server\bin\Debug\CodeGenCShap.dll
+C:\Unity\GGM\Day1\Server\Server\bin\Debug\CodeGenCShap.pdb
+C:\Unity\GGM\Day1\Server\Server\bin\Debug\CodeGenCShap.dll.config
+C:\Unity\GGM\Day1\Server\Server\obj\Debug\Server.csproj.Up2Date
+C:\Unity\GGM\Day1\Server\Server\obj\Debug\Server.exe
+C:\Unity\GGM\Day1\Server\Server\obj\Debug\Server.pdb

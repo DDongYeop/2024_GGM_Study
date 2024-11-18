@@ -1,0 +1,7 @@
+C:\Unity\GGM\Day1\Server\Lib\CodeGenCShap.dll.config
+C:\Unity\GGM\Day1\Server\Lib\CodeGenCShap.dll
+C:\Unity\GGM\Day1\Server\Lib\CodeGenCShap.pdb
+C:\Unity\GGM\Day1\Server\CodeGenCShap\obj\Debug\CodeGenCShap.csproj.AssemblyReference.cache
+C:\Unity\GGM\Day1\Server\CodeGenCShap\obj\Debug\CodeGenCShap.csproj.CoreCompileInputs.cache
+C:\Unity\GGM\Day1\Server\CodeGenCShap\obj\Debug\CodeGenCShap.dll
+C:\Unity\GGM\Day1\Server\CodeGenCShap\obj\Debug\CodeGenCShap.pdb

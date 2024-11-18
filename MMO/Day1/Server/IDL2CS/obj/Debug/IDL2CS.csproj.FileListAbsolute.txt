@@ -1,0 +1,7 @@
+C:\Unity\GGM\Day1\Server\IDL2CS\bin\Debug\IDL2CS.exe.config
+C:\Unity\GGM\Day1\Server\IDL2CS\bin\Debug\IDL2CS.exe
+C:\Unity\GGM\Day1\Server\IDL2CS\bin\Debug\IDL2CS.pdb
+C:\Unity\GGM\Day1\Server\IDL2CS\obj\Debug\IDL2CS.csproj.AssemblyReference.cache
+C:\Unity\GGM\Day1\Server\IDL2CS\obj\Debug\IDL2CS.csproj.CoreCompileInputs.cache
+C:\Unity\GGM\Day1\Server\IDL2CS\obj\Debug\IDL2CS.exe
+C:\Unity\GGM\Day1\Server\IDL2CS\obj\Debug\IDL2CS.pdb
