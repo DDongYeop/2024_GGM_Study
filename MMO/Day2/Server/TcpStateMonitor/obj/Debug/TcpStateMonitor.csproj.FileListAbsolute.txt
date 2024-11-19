@@ -1,0 +1,14 @@
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day1\Server\TcpStateMonitor\obj\Debug\TcpStateMonitor.csproj.AssemblyReference.cache
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day1\Server\TcpStateMonitor\obj\Debug\TcpStateMonitor.csproj.CoreCompileInputs.cache
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day1\Server\TcpStateMonitor\bin\Debug\TcpStateMonitor.exe.config
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day1\Server\TcpStateMonitor\bin\Debug\TcpStateMonitor.exe
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day1\Server\TcpStateMonitor\bin\Debug\TcpStateMonitor.pdb
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day1\Server\TcpStateMonitor\obj\Debug\TcpStateMonitor.exe
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day1\Server\TcpStateMonitor\obj\Debug\TcpStateMonitor.pdb
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day2\Server\TcpStateMonitor\bin\Debug\TcpStateMonitor.exe.config
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day2\Server\TcpStateMonitor\bin\Debug\TcpStateMonitor.exe
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day2\Server\TcpStateMonitor\bin\Debug\TcpStateMonitor.pdb
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day2\Server\TcpStateMonitor\obj\Debug\TcpStateMonitor.csproj.AssemblyReference.cache
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day2\Server\TcpStateMonitor\obj\Debug\TcpStateMonitor.csproj.CoreCompileInputs.cache
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day2\Server\TcpStateMonitor\obj\Debug\TcpStateMonitor.exe
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day2\Server\TcpStateMonitor\obj\Debug\TcpStateMonitor.pdb

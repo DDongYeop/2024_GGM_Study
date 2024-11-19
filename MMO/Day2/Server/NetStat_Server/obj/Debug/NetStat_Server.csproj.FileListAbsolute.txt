@@ -1,0 +1,14 @@
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day1\Server\NetStat_Server\bin\Debug\NetStat_Server.exe.config
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day1\Server\NetStat_Server\bin\Debug\NetStat_Server.exe
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day1\Server\NetStat_Server\bin\Debug\NetStat_Server.pdb
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day1\Server\NetStat_Server\obj\Debug\NetStat_Server.csproj.AssemblyReference.cache
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day1\Server\NetStat_Server\obj\Debug\NetStat_Server.csproj.CoreCompileInputs.cache
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day1\Server\NetStat_Server\obj\Debug\NetStat_Server.exe
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day1\Server\NetStat_Server\obj\Debug\NetStat_Server.pdb
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day2\Server\NetStat_Server\bin\Debug\NetStat_Server.exe.config
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day2\Server\NetStat_Server\bin\Debug\NetStat_Server.exe
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day2\Server\NetStat_Server\bin\Debug\NetStat_Server.pdb
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day2\Server\NetStat_Server\obj\Debug\NetStat_Server.csproj.AssemblyReference.cache
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day2\Server\NetStat_Server\obj\Debug\NetStat_Server.csproj.CoreCompileInputs.cache
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day2\Server\NetStat_Server\obj\Debug\NetStat_Server.exe
+C:\Project\GyeonggiGameMeisterMMORPG2D\Day2\Server\NetStat_Server\obj\Debug\NetStat_Server.pdb

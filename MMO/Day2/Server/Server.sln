@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDL2CS", "IDL2CS\IDL2CS.csproj", "{FD7D14F7-C89F-4160-A779-8BC3E783570C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenCShap", "CodeGenCShap\CodeGenCShap.csproj", "{07F3CFBF-2517-4097-AD55-E354405E19CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotClient", "BotClient\BotClient.csproj", "{08A08F62-DC0F-4C4A-A949-733D5D91D14E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{90419F73-5A03-4436-A5E9-D23198DFC3E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStat_Server", "NetStat_Server\NetStat_Server.csproj", "{CFAB593A-3480-4DBC-B0F3-DBA6D96D6471}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStat_Client", "NetStat_Client\NetStat_Client.csproj", "{70A88A28-F7A9-4CA2-9085-54708DE8732E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpStateMonitor", "TcpStateMonitor\TcpStateMonitor.csproj", "{A6F5512A-1150-4ED1-8BF2-F1F61ACC1063}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD7D14F7-C89F-4160-A779-8BC3E783570C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD7D14F7-C89F-4160-A779-8BC3E783570C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD7D14F7-C89F-4160-A779-8BC3E783570C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD7D14F7-C89F-4160-A779-8BC3E783570C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07F3CFBF-2517-4097-AD55-E354405E19CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07F3CFBF-2517-4097-AD55-E354405E19CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07F3CFBF-2517-4097-AD55-E354405E19CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07F3CFBF-2517-4097-AD55-E354405E19CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08A08F62-DC0F-4C4A-A949-733D5D91D14E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08A08F62-DC0F-4C4A-A949-733D5D91D14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08A08F62-DC0F-4C4A-A949-733D5D91D14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08A08F62-DC0F-4C4A-A949-733D5D91D14E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90419F73-5A03-4436-A5E9-D23198DFC3E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90419F73-5A03-4436-A5E9-D23198DFC3E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90419F73-5A03-4436-A5E9-D23198DFC3E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90419F73-5A03-4436-A5E9-D23198DFC3E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFAB593A-3480-4DBC-B0F3-DBA6D96D6471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFAB593A-3480-4DBC-B0F3-DBA6D96D6471}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFAB593A-3480-4DBC-B0F3-DBA6D96D6471}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFAB593A-3480-4DBC-B0F3-DBA6D96D6471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70A88A28-F7A9-4CA2-9085-54708DE8732E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70A88A28-F7A9-4CA2-9085-54708DE8732E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70A88A28-F7A9-4CA2-9085-54708DE8732E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70A88A28-F7A9-4CA2-9085-54708DE8732E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6F5512A-1150-4ED1-8BF2-F1F61ACC1063}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6F5512A-1150-4ED1-8BF2-F1F61ACC1063}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6F5512A-1150-4ED1-8BF2-F1F61ACC1063}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6F5512A-1150-4ED1-8BF2-F1F61ACC1063}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {580BE923-6D8E-4F8D-A426-2B86D4BA00B0}
+	EndGlobalSection
+EndGlobal

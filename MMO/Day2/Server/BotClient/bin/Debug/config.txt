@@ -1,0 +1,2 @@
+ServerIP=192.168.0.29
+ServerPort=11000

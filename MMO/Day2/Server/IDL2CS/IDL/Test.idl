@@ -1,0 +1,195 @@
+﻿
+
+enum EObjectType
+{
+	None,
+	Pc,
+	Npc,
+	Item,
+	Prop,
+	Max,
+};
+
+struct FLocation
+{
+	float			X;
+	float			Y;
+	float			Z;
+};
+#define Name_Length	64
+
+struct PcInfoBr
+{
+    int Index;
+    char Name[Name_Length];
+    FLocation	Pos;
+    FLocation	Dest;
+    float	    Direction;
+    float       AttackSpeed;
+    float		MoveSpeed;
+    float		CastingSpeed;
+    int         Hp;
+    int         Mp;
+    int        StatusEffect;
+};
+
+struct RemoveBr
+{
+    int Index;
+    EObjectType ObjectType;
+};
+
+struct MoveBr
+{
+    int Index;
+    EObjectType ObjectType;
+    FLocation	Pos;
+    FLocation	Dest;
+    //    Direction은 클라이언트에서 연출
+};
+
+enum EAttackResult
+{
+    None = 0,
+    Miss,           // 공격이 빗나감
+    Hit,            // 일반 타격
+    Critical_hit,   // 치명타
+    Blocked,        // 방어됨
+    Evaded,         // 회피됨
+    Dodged,         // 피함
+    Reflected,      // 반사됨
+    Absorbed,       // 흡수됨
+    Immune,         // 면역
+    Glancing_blow,   // 스치는 타격
+    Interrupted,    // 중단됨
+    Kill,
+    Max
+};
+
+struct AttackResult
+{
+    EAttackResult Result;
+    EObjectType TarObjectType;
+    int TarObjectIndex;
+    int TarDamage;
+};
+
+struct AttackInfo
+{
+    int TargetIndex;
+    int SkillId;
+    float Direction;
+    FLocation Pos;
+    FLocation Dest;
+    int AttackDamage;
+    float TimeOffset;
+
+    // 추가된 변수들
+    FLocation PostHitPosition;  // 타격 후 이동 위치
+    float PostHitDirection;     // 타격 방향
+};
+
+enum EKillType
+{
+    False = 0,
+    True,
+    Max
+};
+
+struct AttackBr
+{
+    EObjectType SrcObjectType;
+    int SrcObjectIndex;
+    EObjectType TarObjectType;
+    int TarObjectIndex;
+    int SkillId;
+    float Direction;
+    FLocation Pos;
+    FLocation Dest;
+
+    // 추가된 변수들
+    FLocation PostHitPosition;  // 타격 후 이동 위치
+    float PostHitDirection;     // 타격 방향
+
+    int Damage;
+    float TimeOffset;
+    EAttackResult Result;
+    EKillType IsKillType;
+};
+
+enum EMoveResult
+{
+    None = 0,
+
+    // 성공
+    Success,                // 이동 성공
+
+    // 실패 원인들
+    Failed_Obstacle,        // 장애물로 인한 실패
+    Failed_OutOfBounds,     // 경계를 벗어남
+    Failed_NoPath,          // 경로가 없음
+    Failed_Blocked,         // 다른 유닛에 의해 막힘
+    Failed_Terrain,         // 지형으로 인한 실패 (예: 물/용암)
+    Failed_Exhausted,       // 스태미나/행동력 부족
+    Failed_Stunned,         // 기절 상태
+    Failed_Rooted,          // 속박 상태
+    Failed_Frozen,          // 빙결 상태
+    Failed_Feared,          // 공포 상태
+    Failed_Charmed,         // 매혹 상태
+    Failed_Overencumbered,  // 과도한 무게로 인한 실패
+    Failed_NoFlyingAbility, // 비행 능력 부족 (공중 이동 시)
+    Failed_NoSwimmingAbility, // 수영 능력 부족 (수중 이동 시)
+    Failed_Cooldown,        // 이동 능력 쿨다운 중
+    Failed_InsufficientResource, // 자원 부족 (마나 등)
+    Failed_TargetUnreachable, // 목표 지점에 도달 불가능
+    Failed_InvalidMove,     // 유효하지 않은 이동
+
+    // 특수 상황
+    Partial_Success,        // 부분적 성공 (일부 거리만 이동)
+    Teleported,             // 텔레포트로 이동 (일반 이동과 다른 경우)
+    Pushed,                 // 밀려남 (강제 이동)
+    Pulled,                 // 끌려감 (강제 이동)
+
+    Max
+};
+
+
+interface C2SInGame
+{
+    void Heartbeat
+    (
+        in void
+    );
+	// 클라이언트에서 서버에게 리소스 로드가 모두 완료 되었다고 전달
+    // 맵 로딩과 그리기가 완료된 후에 서버에 전송
+    // 이 패킷을 전달하면 ZoneUpdate 패킷이 서버에서 전송되기 시작함
+	void ResourceLoadComplete
+	(
+		in void,
+        out int PcIndex
+	);
+
+    // 존에 시야 범위에 들어오거나 스폰, 이동된 객체들의 정보를 받는 패킷
+    void ZoneUpdate
+    (
+        out List<PcInfoBr> PcEnters,
+        out List<MoveBr> Moves,
+        out List<RemoveBr> Removes,
+        out List<AttackBr> Attacks
+	);
+
+    // 이동 요청, 실제 이동 반영은 ZoneUpdate으로 클라이언트가 받게 됨
+    void Move
+    (
+        in float Direction,
+        in FLocation Dest,
+        in bool DashFlag,
+        out EMoveResult Result
+    );
+
+    void Attack
+    (
+        in List<AttackInfo> AttackInfos,
+        out List<AttackResult> Results
+    );
+};

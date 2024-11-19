@@ -1,0 +1,172 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{90419F73-5A03-4436-A5E9-D23198DFC3E4}|Server\\Server.csproj|c:\\project\\gyeonggigamemeistermmorpg2d\\day2\\server\\server\\packethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{90419F73-5A03-4436-A5E9-D23198DFC3E4}|Server\\Server.csproj|solutionrelative:server\\packethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{90419F73-5A03-4436-A5E9-D23198DFC3E4}|Server\\Server.csproj|C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\server\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{90419F73-5A03-4436-A5E9-D23198DFC3E4}|Server\\Server.csproj|solutionrelative:server\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07F3CFBF-2517-4097-AD55-E354405E19CE}|CodeGenCShap\\CodeGenCShap.csproj|C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\codegencshap\\test.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07F3CFBF-2517-4097-AD55-E354405E19CE}|CodeGenCShap\\CodeGenCShap.csproj|solutionrelative:codegencshap\\test.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{90419F73-5A03-4436-A5E9-D23198DFC3E4}|Server\\Server.csproj|c:\\project\\gyeonggigamemeistermmorpg2d\\day2\\server\\server\\pc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{90419F73-5A03-4436-A5E9-D23198DFC3E4}|Server\\Server.csproj|solutionrelative:server\\pc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{90419F73-5A03-4436-A5E9-D23198DFC3E4}|Server\\Server.csproj|c:\\project\\gyeonggigamemeistermmorpg2d\\day2\\server\\server\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{90419F73-5A03-4436-A5E9-D23198DFC3E4}|Server\\Server.csproj|solutionrelative:server\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD7D14F7-C89F-4160-A779-8BC3E783570C}|IDL2CS\\IDL2CS.csproj|C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\idl2cs\\idl\\test.idl||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FD7D14F7-C89F-4160-A779-8BC3E783570C}|IDL2CS\\IDL2CS.csproj|solutionrelative:idl2cs\\idl\\test.idl||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08A08F62-DC0F-4C4A-A949-733D5D91D14E}|BotClient\\BotClient.csproj|c:\\project\\gyeonggigamemeistermmorpg2d\\day2\\server\\botclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08A08F62-DC0F-4C4A-A949-733D5D91D14E}|BotClient\\BotClient.csproj|solutionrelative:botclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08A08F62-DC0F-4C4A-A949-733D5D91D14E}|BotClient\\BotClient.csproj|c:\\project\\gyeonggigamemeistermmorpg2d\\day2\\server\\botclient\\packethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08A08F62-DC0F-4C4A-A949-733D5D91D14E}|BotClient\\BotClient.csproj|solutionrelative:botclient\\packethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07F3CFBF-2517-4097-AD55-E354405E19CE}|CodeGenCShap\\CodeGenCShap.csproj|C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\codegencshap\\netbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{07F3CFBF-2517-4097-AD55-E354405E19CE}|CodeGenCShap\\CodeGenCShap.csproj|solutionrelative:codegencshap\\netbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\BotClient\\Program.cs",
+              "RelativeDocumentMoniker": "BotClient\\Program.cs",
+              "ToolTip": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\BotClient\\Program.cs",
+              "RelativeToolTip": "BotClient\\Program.cs",
+              "ViewState": "AgIAAMwAAAAAAAAAAAAtwNMAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T06:17:08.765Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Pc.cs",
+              "DocumentMoniker": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\Server\\Pc.cs",
+              "RelativeDocumentMoniker": "Server\\Pc.cs",
+              "ToolTip": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\Server\\Pc.cs",
+              "RelativeToolTip": "Server\\Pc.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAawCsAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T06:14:48.128Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Character.cs",
+              "DocumentMoniker": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\Server\\Character.cs",
+              "RelativeDocumentMoniker": "Server\\Character.cs",
+              "ToolTip": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\Server\\Character.cs",
+              "RelativeToolTip": "Server\\Character.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAmwE8AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T06:09:21.435Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PacketHandler.cs",
+              "DocumentMoniker": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\BotClient\\PacketHandler.cs",
+              "RelativeDocumentMoniker": "BotClient\\PacketHandler.cs",
+              "ToolTip": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\BotClient\\PacketHandler.cs",
+              "RelativeToolTip": "BotClient\\PacketHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T05:45:05.57Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GameManager.cs",
+              "DocumentMoniker": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\Server\\GameManager.cs",
+              "RelativeDocumentMoniker": "Server\\GameManager.cs",
+              "ToolTip": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\Server\\GameManager.cs",
+              "RelativeToolTip": "Server\\GameManager.cs",
+              "ViewState": "AgIAACUBAAAAAAAAAADwvycBAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T07:32:46.285Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PacketHandler.cs",
+              "DocumentMoniker": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\Server\\PacketHandler.cs",
+              "RelativeDocumentMoniker": "Server\\PacketHandler.cs",
+              "ToolTip": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\Server\\PacketHandler.cs",
+              "RelativeToolTip": "Server\\PacketHandler.cs",
+              "ViewState": "AgIAADsBAAAAAAAAAADwv0MBAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T07:32:41.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "NetBase.cs",
+              "DocumentMoniker": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\CodeGenCShap\\NetBase.cs",
+              "RelativeDocumentMoniker": "CodeGenCShap\\NetBase.cs",
+              "ToolTip": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\CodeGenCShap\\NetBase.cs",
+              "RelativeToolTip": "CodeGenCShap\\NetBase.cs",
+              "ViewState": "AgIAAHoAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T07:31:11.901Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Test.cs",
+              "DocumentMoniker": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\CodeGenCShap\\Test.cs",
+              "RelativeDocumentMoniker": "CodeGenCShap\\Test.cs",
+              "ToolTip": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\CodeGenCShap\\Test.cs",
+              "RelativeToolTip": "CodeGenCShap\\Test.cs",
+              "ViewState": "AgIAADcCAAAAAAAAAAAYwDwCAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T07:31:01.991Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Test.idl",
+              "DocumentMoniker": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\IDL2CS\\IDL\\Test.idl",
+              "RelativeDocumentMoniker": "IDL2CS\\IDL\\Test.idl",
+              "ToolTip": "C:\\Project\\GyeonggiGameMeisterMMORPG2D\\Day2\\Server\\IDL2CS\\IDL\\Test.idl",
+              "RelativeToolTip": "IDL2CS\\IDL\\Test.idl",
+              "ViewState": "AgIAAK4AAAAAAAAAAADwv7UAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000564|",
+              "WhenOpened": "2024-11-15T07:29:10.156Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
